@@ -1,0 +1,29 @@
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+Traceback (most recent call last):
+  File "C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py", line 615, in cli
+    result = transcribe(model, audio_path, temperature=temperature, **args)
+  File "C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py", line 482, in transcribe
+    print(make_safe(line))
+    ~~~~~^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'cp932' codec can't encode character '\ufffd' in position 36: illegal multibyte sequence
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")
+C:\Users\petit\AppData\Roaming\Python\Python313\site-packages\whisper\transcribe.py:132: UserWarning: FP16 is not supported on CPU; using FP32 instead
+  warnings.warn("FP16 is not supported on CPU; using FP32 instead")

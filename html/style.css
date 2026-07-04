@@ -1,0 +1,376 @@
+/* ============================================================
+   SC午後対策ダッシュボード  style.css
+   落ち着いた資格学習用配色 / レスポンシブ / 印刷対応
+   ============================================================ */
+
+:root {
+  --bg:            #eceef1;      /* 薄いグレー背景 */
+  --card:          #ffffff;      /* 白カード */
+  --ink:           #1f2733;      /* 本文 */
+  --ink-soft:      #55606f;      /* 補助テキスト */
+  --line:          #dfe3e8;      /* 罫線 */
+  --line-soft:     #eef1f4;
+
+  --brand:         #2f5d8a;      /* 基調(青) */
+  --brand-dark:    #24486b;
+
+  /* 意味カラー */
+  --info:          #2f6db0;      /* 通常情報・事実(青) */
+  --info-bg:       #eaf2fb;
+  --danger:        #c0392b;      /* 重要・高頻出(赤) */
+  --danger-bg:     #fbecea;
+  --warn:          #b7791f;      /* 注意(黄) */
+  --warn-bg:       #fdf6e3;
+  --study:         #2f7d55;      /* 学習計画(緑) */
+  --study-bg:      #e8f4ec;
+  --pred:          #7b4bb0;      /* 予想(紫) */
+  --pred-bg:       #f2ecfa;
+  --tmpl:          #1f7a80;      /* テンプレート(teal) */
+  --tmpl-bg:       #e5f3f4;
+
+  --radius: 12px;
+  --shadow: 0 1px 3px rgba(20,30,45,.08), 0 1px 2px rgba(20,30,45,.06);
+  --shadow-lg: 0 4px 16px rgba(20,30,45,.10);
+  --sidebar-w: 250px;
+  --font: "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.75;
+  font-size: 15px;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ---------- レイアウト ---------- */
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: var(--sidebar-w);
+  flex: 0 0 var(--sidebar-w);
+  background: #223247;
+  color: #cdd7e4;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 18px 14px 40px;
+}
+.sidebar h1 {
+  font-size: 16px;
+  color: #fff;
+  margin: 4px 6px 4px;
+  line-height: 1.4;
+}
+.sidebar .sub { font-size: 11.5px; color: #8fa3bd; margin: 0 6px 16px; }
+.sidebar nav a {
+  display: block;
+  color: #cdd7e4;
+  text-decoration: none;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  margin-bottom: 2px;
+  transition: background .15s, color .15s;
+}
+.sidebar nav a:hover { background: rgba(255,255,255,.08); color: #fff; }
+.sidebar nav a.active { background: var(--brand); color: #fff; }
+.sidebar nav a .num {
+  display: inline-block;
+  width: 22px; color: #7f95b3; font-variant-numeric: tabular-nums;
+}
+.sidebar .nav-group-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+  color: #6f86a5; margin: 16px 8px 6px;
+}
+
+.main {
+  flex: 1 1 auto;
+  min-width: 0;               /* テーブル横スクロールのため重要 */
+  padding: 0 clamp(14px, 3vw, 40px) 80px;
+  max-width: 1180px;
+}
+
+/* ---------- トップバー ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(236,238,241,.92);
+  backdrop-filter: blur(6px);
+  padding: 14px 0 10px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 22px;
+}
+.topbar .title-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.topbar h2 { margin: 0; font-size: 22px; color: var(--brand-dark); }
+.topbar .meta { font-size: 12px; color: var(--ink-soft); }
+.topbar .lead { margin: 6px 0 12px; color: var(--ink-soft); font-size: 13.5px; }
+
+.searchbox { position: relative; max-width: 520px; }
+.searchbox input {
+  width: 100%; padding: 10px 38px 10px 14px;
+  border: 1px solid var(--line); border-radius: 999px;
+  font-size: 14px; background: #fff; color: var(--ink);
+  box-shadow: var(--shadow);
+}
+.searchbox input:focus { outline: 2px solid var(--brand); border-color: var(--brand); }
+.searchbox .clear {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  border: none; background: #e3e8ee; color: #556; border-radius: 50%;
+  width: 24px; height: 24px; cursor: pointer; font-size: 14px; line-height: 1;
+}
+.search-status { font-size: 12px; color: var(--ink-soft); margin: 8px 2px 0; min-height: 16px; }
+
+/* ---------- カード共通 ---------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+  margin: 0 0 18px;
+}
+
+section.chapter { scroll-margin-top: 90px; margin-bottom: 34px; }
+section.chapter > h3.chapter-title {
+  font-size: 19px; color: var(--brand-dark);
+  border-left: 5px solid var(--brand);
+  padding-left: 12px; margin: 26px 0 14px;
+}
+
+/* 章の要点 */
+.keypoints {
+  background: var(--info-bg);
+  border: 1px solid #cfe0f2;
+  border-left: 4px solid var(--info);
+  border-radius: 10px;
+  padding: 12px 16px; margin: 0 0 18px;
+}
+.keypoints strong { color: var(--info); }
+.keypoints ul { margin: 6px 0 0; padding-left: 20px; }
+.keypoints li { margin: 2px 0; font-size: 13.5px; }
+
+/* ---------- 見出し(本文内) ---------- */
+.main h4 { font-size: 16px; color: var(--brand-dark); margin: 22px 0 8px; }
+.main h5 { font-size: 14px; color: var(--ink); margin: 16px 0 6px; }
+.main p { margin: 8px 0; }
+.main ul, .main ol { padding-left: 22px; }
+.main li { margin: 3px 0; }
+
+/* 重要語句・強調 */
+strong, b { color: var(--ink); }
+.main .imp { color: var(--danger); font-weight: 700; }
+code, .kw {
+  background: #eef1f4; border: 1px solid #e0e5ea; border-radius: 5px;
+  padding: 1px 6px; font-family: "Consolas","Courier New",monospace;
+  font-size: 12.5px; color: #34495e;
+}
+
+/* 注意ボックス */
+.note {
+  background: var(--warn-bg); border: 1px solid #f0e0b6;
+  border-left: 4px solid var(--warn); border-radius: 10px;
+  padding: 10px 14px; margin: 12px 0; font-size: 13.5px;
+}
+.note::before { content: "⚠ 注意  "; color: var(--warn); font-weight: 700; }
+
+.factbox {
+  background: var(--info-bg); border-left: 4px solid var(--info);
+  border-radius: 10px; padding: 10px 14px; margin: 12px 0; font-size: 13.5px;
+}
+
+/* ---------- ラベル/バッジ ---------- */
+.label {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 2px 9px; border-radius: 999px; line-height: 1.6;
+  vertical-align: middle; white-space: nowrap;
+}
+.label.fact   { background: var(--info-bg);   color: var(--info);   border: 1px solid #bcd6f0; }
+.label.pred   { background: var(--pred-bg);   color: var(--pred);   border: 1px solid #d9c7ef; }
+.label.hot    { background: var(--danger-bg); color: var(--danger); border: 1px solid #eac4bf; }
+.label.warn   { background: var(--warn-bg);   color: var(--warn);   border: 1px solid #ecd9a4; }
+.label.miss   { background: var(--danger-bg); color: var(--danger); border: 1px solid #eac4bf; }
+.label.tmpl   { background: var(--tmpl-bg);   color: var(--tmpl);   border: 1px solid #b9dcde; }
+.label.study  { background: var(--study-bg);  color: var(--study);  border: 1px solid #bfe0cb; }
+.label.pri {
+  background: var(--danger); color:#fff; border:none;
+}
+.stars { color: var(--danger); letter-spacing: 1px; font-size: 12px; }
+
+/* ---------- テーブル ---------- */
+.table-wrapper {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line); border-radius: 10px;
+  margin: 12px 0 18px; background: #fff;
+}
+table {
+  border-collapse: collapse; width: 100%; font-size: 12.8px; min-width: 560px;
+}
+table.wide { min-width: 900px; }
+thead th {
+  background: #f2f5f8; color: var(--brand-dark); text-align: left;
+  font-weight: 700; padding: 9px 11px; border-bottom: 2px solid var(--line);
+  position: sticky; top: 0; white-space: nowrap;
+}
+tbody td { padding: 8px 11px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+tbody tr:nth-child(even) { background: #fafbfc; }
+tbody tr:hover { background: var(--info-bg); }
+td .stars { white-space: nowrap; }
+
+/* ---------- ストーリーカード (02) ---------- */
+.story-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap: 16px; }
+.story-card {
+  background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--info);
+  border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px;
+}
+.story-card.hot { border-top-color: var(--danger); }
+.story-card .sid {
+  font-family: "Consolas",monospace; font-size: 11.5px; color: var(--info);
+  font-weight: 700; letter-spacing: .02em;
+}
+.story-card h4 { margin: 4px 0 8px; font-size: 15px; color: var(--brand-dark); }
+.story-card .row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.story-card dl { margin: 0; font-size: 12.7px; }
+.story-card dt { color: var(--ink-soft); font-weight: 700; margin-top: 7px; font-size: 11.5px; }
+.story-card dd { margin: 1px 0 0; }
+.story-card .kw-list { margin-top: 4px; }
+.story-card .kw-list .kw { margin: 2px 3px 0 0; display: inline-block; }
+
+/* ---------- 予想カード (04) ---------- */
+.pred-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 16px; }
+.pred-card {
+  background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--pred);
+  border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px; position: relative;
+}
+.pred-card .rank {
+  position: absolute; top: -10px; left: -10px; width: 34px; height: 34px;
+  background: var(--pred); color: #fff; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 700; font-size: 15px;
+  box-shadow: var(--shadow);
+}
+.pred-card h4 { margin: 2px 0 8px 26px; font-size: 14.5px; color: var(--brand-dark); }
+.pred-card dl { margin: 0; font-size: 12.7px; }
+.pred-card dt { color: var(--pred); font-weight: 700; margin-top: 7px; font-size: 11.5px; }
+.pred-card dd { margin: 1px 0 0; }
+
+/* ---------- ダッシュボード hero ---------- */
+.hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 16px; margin-bottom: 10px; }
+.hero-card { border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); border: 1px solid var(--line); background:#fff; }
+.hero-card h3 { margin: 0 0 10px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+.hero-card.pri   { border-top: 4px solid var(--danger); }
+.hero-card.today { border-top: 4px solid var(--study); }
+.hero-card.top5  { border-top: 4px solid var(--brand); }
+.hero-card.miss  { border-top: 4px solid var(--warn); }
+.hero-card ol, .hero-card ul { margin: 0; padding-left: 20px; font-size: 13px; }
+.hero-card li { margin: 5px 0; }
+.hero-card .tag { font-size: 11px; color: var(--ink-soft); }
+
+/* ---------- 学習計画 (05) ---------- */
+.rank-list { list-style: none; margin: 0; padding: 0; }
+.rank-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--study-bg); border: 1px solid #cfe6d7; border-radius: 10px;
+  padding: 10px 14px; margin-bottom: 8px;
+}
+.rank-item .no {
+  flex: 0 0 34px; height: 34px; background: var(--study); color: #fff;
+  border-radius: 8px; display: grid; place-items: center; font-weight: 700;
+}
+.rank-item .body { font-size: 13px; }
+.rank-item .body .t { font-weight: 700; color: var(--brand-dark); }
+.rank-item .body .goal { color: var(--ink-soft); font-size: 12.3px; }
+
+.week-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap: 14px; }
+.week-card { background:#fff; border:1px solid var(--line); border-top:4px solid var(--study); border-radius: var(--radius); box-shadow: var(--shadow); padding: 12px 14px; }
+.week-card .w { font-weight:700; color: var(--study); font-size: 13px; }
+.week-card .th { font-weight:700; margin: 2px 0 6px; font-size: 13.5px; }
+.week-card .kv { font-size:12.3px; margin:3px 0; }
+.week-card .kv b { color: var(--ink-soft); font-weight:700; }
+
+.checklist { list-style: none; margin: 0; padding: 0; }
+.checklist li { margin: 6px 0; font-size: 13.3px; display: flex; gap: 9px; align-items: flex-start; }
+.checklist input[type=checkbox] { margin-top: 4px; width: 16px; height: 16px; accent-color: var(--study); flex: 0 0 auto; }
+.checklist label { cursor: pointer; }
+.checklist input:checked + label { color: var(--ink-soft); text-decoration: line-through; }
+.menu-box { background: var(--study-bg); border:1px solid #cfe6d7; border-radius:10px; padding: 12px 16px; margin: 10px 0; }
+.menu-box h5 { color: var(--study); margin: 0 0 6px; }
+
+/* ---------- テンプレート アコーディオン (06) ---------- */
+.accordion { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-bottom: 10px; background:#fff; }
+.accordion > summary {
+  cursor: pointer; padding: 12px 16px; font-weight: 700; font-size: 14px;
+  color: var(--brand-dark); background: var(--tmpl-bg); list-style: none;
+  display: flex; align-items: center; gap: 8px;
+}
+.accordion > summary::-webkit-details-marker { display: none; }
+.accordion > summary::before { content: "▸"; color: var(--tmpl); transition: transform .15s; }
+.accordion[open] > summary::before { transform: rotate(90deg); }
+.accordion .acc-body { padding: 12px 18px; }
+.tmpl-line {
+  background: var(--tmpl-bg); border-left: 3px solid var(--tmpl);
+  border-radius: 6px; padding: 6px 12px; margin: 8px 0; font-size: 13px;
+}
+.tmpl-line .q { color: var(--tmpl); font-weight: 700; }
+
+/* ---------- back to top ---------- */
+#toTop {
+  position: fixed; right: 22px; bottom: 22px; z-index: 40;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--brand); color:#fff; border:none; cursor: pointer;
+  box-shadow: var(--shadow-lg); font-size: 20px; opacity: 0; pointer-events: none;
+  transition: opacity .2s;
+}
+#toTop.show { opacity: .92; pointer-events: auto; }
+#toTop:hover { background: var(--brand-dark); }
+
+/* ---------- ハンバーガー(モバイル) ---------- */
+.hamburger { display: none; }
+.search-hidden { display: none !important; }
+.dim { opacity: .35; }
+.hit { box-shadow: 0 0 0 2px var(--brand) inset; }
+
+/* ---------- レスポンシブ ---------- */
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  .sidebar {
+    position: fixed; z-index: 60; height: 100vh; left: 0; top: 0;
+    transform: translateX(-100%); transition: transform .25s; width: 260px;
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .main { max-width: 100%; padding-top: 4px; }
+  .hamburger {
+    display: inline-grid; place-items: center;
+    position: fixed; top: 10px; left: 10px; z-index: 61;
+    width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--line);
+    background: #fff; box-shadow: var(--shadow); cursor: pointer; font-size: 20px;
+  }
+  .topbar { padding-left: 52px; }
+  .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 55; display: none; }
+  .backdrop.show { display: block; }
+}
+
+/* ---------- 印刷 / PDF ---------- */
+@media print {
+  :root { --bg:#fff; }
+  body { background:#fff; font-size: 11px; line-height: 1.5; }
+  .sidebar, .topbar .searchbox, .search-status, #toTop, .hamburger, .backdrop { display: none !important; }
+  .layout { display: block; }
+  .main { max-width: 100%; padding: 0; }
+  .card, .story-card, .pred-card, .hero-card, .week-card, .accordion { box-shadow: none; break-inside: avoid; }
+  .accordion { border: 1px solid #ccc; }
+  .accordion .acc-body { display: block !important; }   /* 折りたたみを開いて印刷 */
+  .table-wrapper { overflow: visible; }
+  table { min-width: 0 !important; font-size: 10px; }
+  a { color: #000; text-decoration: none; }
+  section.chapter { break-before: auto; }
+  .search-hidden { display: revert !important; }         /* 検索状態に依らず全印刷 */
+  .dim { opacity: 1 !important; }
+}

@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SC午後対策ダッシュボード</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<button class="hamburger" aria-label="メニュー">☰</button>
+<div class="backdrop"></div>
+
+<div class="layout">
+
+  <!-- ============ サイドバー ============ -->
+  <aside class="sidebar">
+    <h1>SC午後対策<br>ダッシュボード</h1>
+    <p class="sub">情報処理安全確保支援士 / 午後問題 学習ノート</p>
+    <nav>
+      <a href="#top"><span class="num">◎</span>ダッシュボード</a>
+      <div class="nav-group-label">章</div>
+      <a href="#ch01"><span class="num">01</span>過去問ストーリー一覧</a>
+      <a href="#ch02"><span class="num">02</span>頻出ストーリー型</a>
+      <a href="#ch03"><span class="num">03</span>失点パターン分析</a>
+      <a href="#ch04"><span class="num">04</span>今後出そうな予想</a>
+      <a href="#ch05"><span class="num">05</span>学習計画</a>
+      <a href="#ch06"><span class="num">06</span>用語・解答テンプレ</a>
+    </nav>
+  </aside>
+
+  <!-- ============ メイン ============ -->
+  <main class="main" id="top">
+
+    <!-- トップバー -->
+    <div class="topbar">
+      <div class="title-row">
+        <h2>SC午後対策ダッシュボード</h2>
+        <span class="meta">最終更新日：2026-07-05</span>
+      </div>
+      <p class="lead">情報処理安全確保支援士 午後問題を「業務ストーリー」として復習するための学習ダッシュボード。過去問(R3春〜R7秋)の解答例・採点講評をもとに整理。<strong>「事実」と「予想」は明確に分けて表示しています。</strong></p>
+      <div class="searchbox">
+        <input type="search" id="search" placeholder="キーワード検索（例：XSS / SPF / 認可 / SBOM / CVSS）…">
+        <button class="clear" id="searchClear" aria-label="クリア" style="display:none;">×</button>
+      </div>
+      <div class="search-status" id="searchStatus"></div>
+    </div>
+
+    <!-- ============ ダッシュボード hero ============ -->
+    <div class="hero-grid">
+
+      <div class="hero-card pri search-unit">
+        <h3><span class="label pri">最優先</span> 最優先で見るべき項目</h3>
+        <ol>
+          <li><a href="#ch02">SC-ST-001 Web脆弱性(XSS/SQLi/CSRF/SSRF)</a> — 毎回級</li>
+          <li><a href="#ch02">SC-ST-002 認可不備・API・JWT</a> — 毎回級</li>
+          <li><a href="#ch02">SC-ST-004 マルウェア横展開・ログ調査</a> — 毎回級</li>
+          <li><a href="#ch03">失点パターン P3/P5/P6</a>（対策非対応・暗号混同・メール認証混同）</li>
+          <li><a href="#ch04">予想 順位1〜6</a>（SaaS乗っ取り・委託VPN・API認可・ランサム復旧 等）</li>
+        </ol>
+      </div>
+
+      <div class="hero-card today search-unit">
+        <h3><span class="label study">今日30分</span> 今日30分でやるなら</h3>
+        <ol>
+          <li>0–5分：<a href="#ch02">ストーリーカード</a>を1枚音読</li>
+          <li>5–20分：該当過去問の<strong>設問だけ</strong>解く（本文は流し読み）</li>
+          <li>20–28分：解答例と照合し<a href="#ch03">失点パターン</a>で自己採点</li>
+          <li>28–30分：<a href="#ch06">解答テンプレ</a>を1つ暗唱</li>
+        </ol>
+        <p class="tag">= 05章「30分学習メニューA」</p>
+      </div>
+
+      <div class="hero-card top5 search-unit">
+        <h3><span class="label hot">頻出</span> 頻出ストーリー TOP5</h3>
+        <ol>
+          <li><b>SC-ST-001</b> Web脆弱性 <span class="stars">★★★</span></li>
+          <li><b>SC-ST-002</b> 認可不備・API <span class="stars">★★★</span></li>
+          <li><b>SC-ST-004</b> マルウェア横展開・ログ <span class="stars">★★★</span></li>
+          <li><b>SC-ST-009</b> 脆弱性管理(CVSS/EPSS/KEV) <span class="stars">★★</span>↑</li>
+          <li><b>SC-ST-005</b> サプライチェーン・委託 <span class="stars">★★</span>↑</li>
+        </ol>
+      </div>
+
+      <div class="hero-card miss search-unit">
+        <h3><span class="label warn">要注意</span> 失点しやすい混同 TOP5</h3>
+        <ol>
+          <li>デジタル署名 / <b>MAC</b> / ハッシュ / 暗号化（R7秋で誤答多発）</li>
+          <li><b>SPF</b>(送信元IP) / <b>DKIM</b>(署名) / DMARC(ポリシー)</li>
+          <li><b>認証</b>(誰か) / <b>認可</b>(何してよいか)</li>
+          <li>WAF / IPS / EDR / DLP / SIEM の役割</li>
+          <li>Statement / <b>PreparedStatement</b>（SQLi対策）</li>
+        </ol>
+        <p class="tag">→ 詳細は <a href="#ch03">03章</a> / <a href="#ch06">06章 混同ペア</a></p>
+      </div>
+    </div>
+
+    <!-- =================================================================
+         01 過去問ストーリー一覧
+    ================================================================== -->
+    <section class="chapter" id="ch01">
+      <h3 class="chapter-title">01. 過去問ストーリー一覧 <span class="label fact">事実</span></h3>
+
+      <div class="keypoints search-unit">
+        <strong>この章の要点</strong>
+        <ul>
+          <li>R3春〜R7秋の午後問題を、業務ストーリー単位で一覧化した「実際に出た事実」の整理。</li>
+          <li>試験形式はR5秋から <b>午後Ⅰ＋午後Ⅱ → 統合午後(4問中2問選択)</b> に変更。</li>
+          <li>大分類の登場頻度：Web=毎回級、認証・認可/インシデント=高頻度、委託・サプライチェーン=急増中。</li>
+          <li>各表は横スクロール可。難易度は採点講評の正答率表現を根拠にした相対評価。</li>
+        </ul>
+      </div>
+
+      <div class="card search-unit">
+        <h4>試験形式の変遷（前提）</h4>
+        <div class="table-wrapper">
+          <table class="filterable">
+            <thead><tr><th>時期</th><th>形式</th><th>選択</th></tr></thead>
+            <tbody>
+              <tr><td>〜R5春</td><td><b>午後Ⅰ</b>(PM1)＋<b>午後Ⅱ</b>(PM2)の2部構成</td><td>午後Ⅰは3問中2問、午後Ⅱは2問中1問。午後Ⅱは長文</td></tr>
+              <tr><td>R5秋〜</td><td><b>午後</b>(統合・4問構成)に一本化</td><td>4問中2問選択。1問あたり中程度に平準化</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tag">学習上の意味：R5秋以降が今の本番。R5春以前の午後Ⅰは単元別ドリル、午後Ⅱは長文読解訓練に有効。</p>
+      </div>
+
+      <h4>令和7年度 秋期（R7秋・統合午後）</h4>
+      <div class="table-wrapper search-unit">
+        <table class="wide filterable">
+          <thead><tr><th>問</th><th>大分類</th><th>業務ストーリー</th><th>登場システム</th><th>主な攻撃・脆弱性</th><th>問われた対策</th><th>解答で必要な観点</th><th>難易度</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>問1</td><td>Web/開発/IR</td><td>従業員が社内Webアプリ(タスク管理SaaS)を攻撃。ロール昇格＋格納型XSS</td><td>タスク管理SaaS</td><td>格納型XSS、CSP回避、ロール昇格</td><td>CSP緩和効果、出力時エスケープ、拡張子と実体の整合、開発プロセスでの脆弱性検査</td><td>「対策=開発プロセス」を運用対策/WAFと取り違えない</td><td>やや難</td><td>設問4正答率低。運用対策・製品導入の誤答続出</td></tr>
+            <tr><td>問2</td><td>暗号</td><td>暗号資産交換業の暗号鍵(署名鍵)管理</td><td>鍵管理PC(オフライン)、業務用メディア</td><td>サイドチャネル(電磁波/作動音)、内部不正、鍵とPWの同時移送</td><td>MAC、二人作業、鍵と暗号文の分離管理</td><td>署名/暗号化/MACを混同しない</td><td>難</td><td>設問3(2)「デジタル署名」誤答が多発</td></tr>
+            <tr><td>問3</td><td>NW/ID/認証</td><td>インターネットバンキング利用とリモートワーク(VPN)導入</td><td>Kサービス(VPN/SaaS)、認証基盤、ハードウェアトークン</td><td>中間者、DNS応答改ざん、スマホ故障時のMFA可用性</td><td>DNSSEC、DoH、TLS、接続元IP制限、電話番号MFAの代替策</td><td>VPN接続前に必要な通信まで含める</td><td>平均</td><td>設問4(2)正答率低。接続前通信の考慮漏れ</td></tr>
+            <tr><td>問4</td><td>委託/IoT/MW</td><td>サプライチェーン下の製造業。工場系(SCADA)の管理体制</td><td>SCADA、工作機械、製造監視PC</td><td>未知マルウェア、USB経由感染、通信妨害(DoS)</td><td>リスク対応(回避/移転/保有)、権限マトリクス、NW分離、バックアップ/リストア</td><td>マルウェア対策に「利用者認証強化」は無効。復旧は平常時の備え</td><td>平均</td><td>設問3で認証強化の誤答。設問4で復旧より攻撃阻止を書く誤答</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>令和7年度 春期（R7春・統合午後）</h4>
+      <div class="table-wrapper search-unit">
+        <table class="wide filterable">
+          <thead><tr><th>問</th><th>大分類</th><th>業務ストーリー</th><th>登場システム</th><th>主な攻撃・脆弱性</th><th>問われた対策</th><th>解答で必要な観点</th><th>難易度</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>問1</td><td>委託/開発</td><td>システム開発企業のサプライチェーンリスク対策と侵害対応</td><td>CI/CDパイプライン、外部スクリプト連携、踏み台サーバ</td><td>サプライチェーン侵害、外部スクリプト読込、共用アカウント</td><td>セキュリティバイデザイン、再委託先への同等要求、SBOM、SAST/DAST/IAST</td><td>SBOMは「定義」でなく「利用方法/目的」を書く</td><td>平均</td><td>設問4でSBOM定義丸写し、設問5(2)でテストツール混同</td></tr>
+            <tr><td>問2</td><td>Web/開発</td><td>公開サイトの脆弱性診断結果に基づく対応優先度判断</td><td>公開Webサイト、OpenSSH</td><td>既知脆弱性、item値の推測(IDOR的)、認証総当たり</td><td>CVSS基本値/現状値、EPSS、KEVカタログ、クライアント認証</td><td>CVSS各指標(AC等)の意味、現状値とEPSSの使い分け</td><td>やや難</td><td>設問4(1)でACをCと誤答、5(1)でEPSS手順を誤解</td></tr>
+            <tr><td>問3</td><td>Web/クラウド/暗号</td><td>スマホアプリの脆弱性(JVN公表相当)</td><td>スマホアプリ、クラウドストレージ、CサービスAPI</td><td>アクセスキー悪用、URL偽装(@やサブドメイン)、証明書検証回避</td><td>署名付きURLのサーバ側生成、URL先頭検証、ルート証明書の扱い</td><td>秘密情報処理はサーバで完結。具体的手順を書く</td><td>やや難</td><td>設問1(3)抽象的、2(3)証明書の理解不足</td></tr>
+            <tr><td>問4</td><td>委託/NW</td><td>IT資産管理とアタックサーフェスマネジメント(ASM)</td><td>権威DNSサーバ、CDN、レンタルサーバ</td><td>サブドメインテイクオーバー(CNAME削除漏れ)</td><td>CNAME削除、ポート/脆弱性スキャン、CVSS4.0、KEV</td><td>継続/廃止の判断を取り違えない。長文精読</td><td>平均</td><td>設問1正答率低、3(3)で継続/非継続を逆答</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>令和6年度 秋期（R6秋・統合午後）</h4>
+      <div class="table-wrapper search-unit">
+        <table class="wide filterable">
+          <thead><tr><th>問</th><th>大分類</th><th>業務ストーリー</th><th>登場システム</th><th>主な攻撃・脆弱性</th><th>問われた対策</th><th>解答で必要な観点</th><th>難易度</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>問1</td><td>ログ/IR/MW</td><td>ソフト開発会社の社内システムでのマルウェア感染・横展開のログ調査</td><td>ドメインサーバ、ファイルサーバ、仮想PC、マルウェア対策サービス</td><td>C2通信、RDP横展開、タスク登録、対策ソフト停止、ファイル持出し</td><td>拒否リスト登録、RDP接続元IP制限、DLP、ログからの検知設計</td><td>どのログに何が残るかを設計。持出しはDLP</td><td>平均</td><td>設問2fでアクセス権最小化の的外れ解答</td></tr>
+            <tr><td>問2</td><td>メール</td><td>ドメイン名変更を機にしたメールサービス移行とDMARC導入</td><td>新メールサービス、SPF/DKIM/DMARCレコード</td><td>送信者詐称フィッシング、なりすまし</td><td>SMTPS、SPF/DKIM/DMARC設定、Subject通番とDKIMの関係</td><td>SPFとDKIMの判定対象の違い(SPFはSubject非対象)</td><td>平均</td><td>設問2でS/MIME誤答、設問5でSPF/DKIM混同</td></tr>
+            <tr><td>問3</td><td>Web/IR</td><td>ECサイトのWebスキミングによるカード情報漏えい</td><td>ECサイト、Webサーバアクセスログ</td><td>格納型XSS、SQLi、画面書換(DOM)、クエリでのカード送信</td><td>エスケープ、アクセスログ(リクエストURI)からの被害者特定</td><td>XSSの3類型、改ざん内容の過不足なし、クエリ記録</td><td>平均</td><td>設問1cでXSS類型、2(1)で改ざん内容の過不足</td></tr>
+            <tr><td>問4</td><td>Web/認証</td><td>個人情報を扱うWebサイトのセキュリティ診断</td><td>求人サイト、WebAPI、sessionID</td><td>セッションフィクセーション、脆弱性の組合せ悪用、APIkey窃取</td><td>HTTPヘッダ(HSTS/X-Content-Type)、多要素認証、IP制限、API最小化</td><td>脆弱性を組合せた攻撃連鎖を描く。サイト特性に応じた対策</td><td>やや難</td><td>設問1(5)fでヘッダ効果、2gで攻撃連鎖の理解不足</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>令和6年度 春期（R6春・統合午後）</h4>
+      <div class="table-wrapper search-unit">
+        <table class="wide filterable">
+          <thead><tr><th>問</th><th>大分類</th><th>業務ストーリー</th><th>登場システム</th><th>主な攻撃・脆弱性</th><th>問われた対策</th><th>解答で必要な観点</th><th>難易度</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>問1</td><td>認証/Web/開発</td><td>スマホアプリのAPIセキュリティ設計と脆弱性対応</td><td>REST API、JWT</td><td>JWT改ざん(alg=none)、認可不備(利用者ID不一致)、認証総当たり</td><td>alg検証、利用者ID一致検証、アカウントロック、WAF/正規表現</td><td>JWT検証は「実装済対策」でなく攻撃の流れに沿う</td><td>平均</td><td>設問2(2)でJWT検証の理解不足</td></tr>
+            <tr><td>問2</td><td>NW/認証</td><td>リモートワークとDDoS攻撃への対策</td><td>VPN、UTM、CDN、DNS</td><td>リアルタイム型MITM(MFA突破)、HTTP GET Flood(DDoS)</td><td>アノマリ型IPSしきい値、SPA、CDN/クラウドFW</td><td>MFA突破の手順を正確に。IPS仕様を逆に理解しない</td><td>やや易</td><td>全体正答率やや高</td></tr>
+            <tr><td>問3</td><td>Web/クラウド</td><td>クラウド上Webサイトの脆弱性悪用と対策</td><td>クラウドWebサイト、IMDS</td><td>格納型XSS＋会員機能連鎖、CSRF(トークン悪用)、SSRF→IMDSクレデンシャル窃取</td><td>cookie保護、order-code照合、page値のURL検証(SSRF対策)</td><td>XSS検出箇所と機能を結びつける。CSRFトークンの悪用部分</td><td>難</td><td>設問1(2)・2(1)正答率低。攻撃連鎖の記述が弱い</td></tr>
+            <tr><td>問4</td><td>開発</td><td>JavaとRDBMSのWebアプリのセキュリティレビュー</td><td>Javaアプリ、RDBMS</td><td>権限過剰、SQLi、例外処理不備、ハッシュ</td><td>Linux権限設定、PreparedStatement、finally、SHA-2</td><td>Javaの例外処理仕様(finally/throw)を正確に</td><td>平均</td><td>設問2(5)(6)で例外処理・finallyの理解不足</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>令和5年度 秋期（R5秋・統合午後の初回）</h4>
+      <div class="table-wrapper search-unit">
+        <table class="wide filterable">
+          <thead><tr><th>問</th><th>大分類</th><th>業務ストーリー</th><th>登場システム</th><th>主な攻撃・脆弱性</th><th>問われた対策</th><th>解答で必要な観点</th><th>難易度</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>問1</td><td>Web/IR</td><td>Webアプリの脆弱性悪用インシデント(レビュー投稿)</td><td>会員制Webアプリ、cookie</td><td>格納型XSS(複数投稿でスクリプト合成)、セッションID窃取</td><td>出力前エスケープ、別ドメインへcookieを送らない仕組み</td><td>反射/格納/DOMベースXSSの区別。攻撃痕跡の精読</td><td>平均</td><td>設問1(1)でDOM Based XSS誤答</td></tr>
+            <tr><td>問2</td><td>NW/暗号/認証</td><td>アパレル業のセキュリティ見直し(無線LAN/サーバ証明書)</td><td>無線LAN、RADIUS、サーバ証明書、FW</td><td>偽サイト(証明書検証失敗)、来客用LAN経由侵入、MAC偽装</td><td>サーバ証明書の検証項目、EAP-TLS、秘密鍵の取出し不可、FW設定</td><td>証明書検証の具体的項目。PKIの利用場面</td><td>平均</td><td>設問1(2)証明書検証で正答率低</td></tr>
+            <tr><td>問3</td><td>クラウド/認証/暗号</td><td>CI/CDサービス提供企業と利用企業のインシデント</td><td>CI/CD、コンテナ、コード署名、HSM、Passkey</td><td>フィッシング(TOTP窃取)、コンテナからの環境変数窃取、偽アプリ配布</td><td>WebAuthn/Passkey(フィッシング耐性)、HSM、コード署名</td><td>WebAuthnと他認証の違い。HSMの利点(秘密鍵が漏れない)</td><td>やや難</td><td>設問2(5)WebAuthn混同、3(3)暗号技術の誤解</td></tr>
+            <tr><td>問4</td><td>委託</td><td>業務委託関係(百貨店×運送会社)の個人情報リスクアセスメント</td><td>Sサービス(配送管理)、配送管理用PC</td><td>標的型メール、水飲み場、URLリンク型のマルウェア感染</td><td>リスク特定/分析/評価、EDR、URLフィルタ、振舞い検知</td><td>リスクの具体化と被害の大きさ・頻度評価。前提を外さない</td><td>平均</td><td>設問2でリスクが抽象的・前提逸脱の誤答</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>令和5年度 春期（R5春・午後Ⅰ／午後Ⅱ）</h4>
+      <div class="table-wrapper search-unit">
+        <table class="wide filterable">
+          <thead><tr><th>問</th><th>大分類</th><th>業務ストーリー</th><th>登場システム</th><th>主な攻撃・脆弱性</th><th>問われた対策</th><th>解答で必要な観点</th><th>難易度</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>Ⅰ問1</td><td>開発/Web</td><td>Webアプリ開発のセキュアプログラミング</td><td>Javaアプリ、RDBMS</td><td>SQLi、レースコンディション</td><td>PreparedStatement、抽出条件、設計/実装/テスト対策</td><td>Statementでなく<b>PreparedStatement</b>。E-R図とコード読解</td><td>やや難</td><td>設問1(3)でStatement誤答が多発</td></tr>
+            <tr><td>Ⅰ問2</td><td>ログ/IR/MW</td><td>インシデントのログ・攻撃痕跡調査</td><td>FW、マルウェア(バインド/コネクト)</td><td>FTP通信、リバースシェル、証拠保全</td><td>アクティブ/パッシブFTPのログ、プロセス親子関係、証拠保全</td><td>複数ログ(プロセス・ポート・FW)を関連づける</td><td>やや難</td><td>設問1でFTPモードのFWログ理解不足</td></tr>
+            <tr><td>Ⅰ問3</td><td>クラウド/NW</td><td>クラウド型プロキシへの移行とNW構成見直し</td><td>クラウドプロキシ、FW</td><td>通信経路変化に伴う設定不備</td><td>見直し前後の通信経路把握、フィルタ適用順序</td><td>経路の変化を正確に。ルール適用順序で動作が変わる</td><td>平均</td><td>設問3(1)経路理解不足、3(5)ルール順序</td></tr>
+            <tr><td>Ⅱ問1</td><td>Web</td><td>Webサイトの脆弱性診断(注意点と知識)</td><td>診断ツールV、Webアプリ</td><td>XSS(2画面先で出力)、診断設定</td><td>ツール設定、診断対象URLの考え方、XSS対策</td><td>入力URLと出力URLが別。ツール仕様の正確な理解</td><td>難</td><td>設問2(2)(3)診断設定で正答率低</td></tr>
+            <tr><td>Ⅱ問2</td><td>クラウド/認証</td><td>Webサイトのクラウド移行と機能拡張(認可)</td><td>クラウド、OAuth 2.0、PKCE</td><td>認可不備、OAuth悪用</td><td>OAuth 2.0、PKCE、最小権限、攻撃経路特定</td><td>認証と認可の区別。OAuthは用語でなく具体手順</td><td>難</td><td>設問4 OAuth/PKCE正答率低</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>令和4年度 秋期（R4秋・午後Ⅰ／午後Ⅱ）</h4>
+      <div class="table-wrapper search-unit">
+        <table class="wide filterable">
+          <thead><tr><th>問</th><th>大分類</th><th>業務ストーリー</th><th>登場システム</th><th>主な攻撃・脆弱性</th><th>問われた対策</th><th>解答で必要な観点</th><th>難易度</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>Ⅰ問1</td><td>IoT/Web</td><td>IoT製品開発のファーム改ざん対策とWebアプリ</td><td>IoT機器、ファーム更新、Webアプリ</td><td>偽ファーム配布、POST型CSRF</td><td>TLS/サーバ証明書確認、CSRF対策</td><td>HTTPSは「暗号化」だけでなく証明書確認。CSRFの仕組み</td><td>やや難</td><td>設問1(4)証明書確認漏れ、設問3 CSRF正答率低</td></tr>
+            <tr><td>Ⅰ問2</td><td>IR/MW/ログ</td><td>ソフト脆弱性起因の侵害の痕跡調査〜再発防止</td><td>サーバ、プロセス</td><td>脆弱性悪用、不審プロセス</td><td>プロセス親子関係、影響条件の把握</td><td>プロセスの親子関係を調べる。脆弱性の影響条件評価</td><td>平均</td><td>設問3(1)影響条件把握で正答率低</td></tr>
+            <tr><td>Ⅰ問3</td><td>委託/クラウド/MW</td><td>オンラインゲーム事業者のサプライチェーン攻撃対応</td><td>CI、コンテナ、レジストリ</td><td>C2型マルウェア、イメージ汚染</td><td>CI/CDの安全運用、コンテナでも被害発生の理解</td><td>攻撃の一連の流れ。ソースコード→レジストリ登録の見落とし注意</td><td>平均</td><td>設問1(2)感染経緯の考慮漏れ</td></tr>
+            <tr><td>Ⅱ問1</td><td>MW/NW</td><td>セキュリティ関連会社の脅威調査とCTF(動的解析)</td><td>マルウェア動的解析環境、ファイル共有</td><td>解析環境からの感染拡大、ARPスプーフィング</td><td>安全なファイル転送手順、内部/外部モード切替</td><td>手順が方針に全て従うか確認。ARPテーブル/MAC変化</td><td>平均</td><td>設問2で転送手順の並替え誤り</td></tr>
+            <tr><td>Ⅱ問2</td><td>IR/MW</td><td>EDRを利用した未知マルウェア対策</td><td>EDR</td><td>未知マルウェア</td><td>EDRイベント分析、検知ルール作成、インシデント対応</td><td>イベントからタイムライン整理。対応で時間を浪費する箇所</td><td>平均</td><td>設問6で対応ボトルネックの把握不足</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>令和4年度 春期（R4春・午後Ⅰ／午後Ⅱ）</h4>
+      <div class="table-wrapper search-unit">
+        <table class="wide filterable">
+          <thead><tr><th>問</th><th>大分類</th><th>業務ストーリー</th><th>登場システム</th><th>主な攻撃・脆弱性</th><th>問われた対策</th><th>解答で必要な観点</th><th>難易度</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>Ⅰ問1</td><td>Web/開発</td><td>情報共有用Webシステム開発の脆弱性分析</td><td>Webシステム、RDBMS</td><td>XSS、SQLi</td><td>エスケープ、PreparedStatement、SQL構文/E-R図</td><td>HTTPとHTMLの区別。プレースホルダにはPreparedStatement</td><td>平均</td><td>設問2(3)Statement誤答、設問3 SQL構文誤り</td></tr>
+            <tr><td>Ⅰ問2</td><td>IoT</td><td>IoT機器製品のインシデント対応と脆弱性対策</td><td>IoT機器、ファーム更新</td><td>パストラバーサル(../)、tarオプション悪用、Shodan的検出</td><td>URL正規化、sudoオプション制限、機器検出抑止</td><td>パス正規化してから除外リスト比較。ネット上の機器検出</td><td>平均</td><td>設問4でネット上のIoT検出/抑止の理解不足</td></tr>
+            <tr><td>Ⅰ問3</td><td>認証/暗号</td><td>スマホ向けQRコード決済の不正利用リスク</td><td>QRコード決済アプリ</td><td>なりすまし、証明書失効未確認</td><td>OCSP/CRL、オンライン本人確認(eKYC)</td><td>電子証明書の有効性確認(OCSP/CRL)。本人確認手法</td><td>平均</td><td>設問2(4)失効確認、2(5)本人確認で正答率低</td></tr>
+            <tr><td>Ⅱ問1</td><td>Web/開発</td><td>Webサイトのセキュリティ(脆弱性知識と開発プロセス)</td><td>Webサイト、フレームワーク</td><td>クリックジャッキング、各種脆弱性</td><td>レスポンスヘッダ(X-Frame-Options/CSP)、検出手段、FW組込対策</td><td>脆弱性ごとに有効な検出手段が違う。標準対策</td><td>難</td><td>設問3(2)(5)(6)で正答率低</td></tr>
+            <tr><td>Ⅱ問2</td><td>認証/クラウド</td><td>クラウド移行と各種認証の仕組み</td><td>クラウド、OAuth2.0、OpenID Connect、CDN</td><td>ドメインフロンティング、オフライン総当たり、OAuth/OIDC悪用</td><td>OAuth 2.0、OpenID Connect、パスワード攻撃の区別</td><td>HTTP/TLSとDNSを混同しない。オフライン/オンライン攻撃の区別</td><td>難</td><td>設問1・4(3)・5(4)で正答率低</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>令和3年度 秋期（R3秋・午後Ⅰ／午後Ⅱ）</h4>
+      <div class="table-wrapper search-unit">
+        <table class="wide filterable">
+          <thead><tr><th>問</th><th>大分類</th><th>業務ストーリー</th><th>登場システム</th><th>主な攻撃・脆弱性</th><th>問われた対策</th><th>解答で必要な観点</th><th>難易度</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>Ⅰ問1</td><td>NW/IR</td><td>リモート保守のインシデント対応(SSH)</td><td>SSHサーバ、FW</td><td>中間者、鍵の取り違え</td><td>フィンガプリント確認、公開鍵認証、FW設定見直し</td><td>SSHフィンガプリントの目的。秘密鍵/公開鍵を混同しない</td><td>やや難</td><td>設問1(1)フィンガプリント、3(1)鍵混同</td></tr>
+            <tr><td>Ⅰ問2</td><td>ID/暗号</td><td>設計文書管理とIRM(情報権利管理)製品導入</td><td>IRM製品</td><td>秘密情報漏えい、弱いパスワード</td><td>IRMの保護方式、認証攻撃と有効対策</td><td>ログイン試行制限がある前提を考慮</td><td>平均</td><td>設問2(4)攻撃前提の考慮漏れ</td></tr>
+            <tr><td>Ⅰ問3</td><td>MW/NW</td><td>PCのマルウェア感染と拡大防止</td><td>FW、アプリ許可リスト(Yソフト)</td><td>マルウェア感染、正規ファイル悪用(LOLBin)</td><td>FWフィルタ、許可ファイル悪用への対策</td><td>ハッシュ登録による実行制御。許可済ファイルの悪用手法</td><td>平均</td><td>設問3(2)正規ファイル悪用の理解不足</td></tr>
+            <tr><td>Ⅱ問1</td><td>Web/クラウド/認証</td><td>WebアプリのCSP適用とSaaS移行リスク分析</td><td>Webアプリ、SaaS、FIDO認証器</td><td>XSS、SaaS移行リスク</td><td>CSPによるXSS緩和、リスク分析、FIDO</td><td>CSPがXSS被害を下げる仕組み。利用状況に基づくリスク分析</td><td>平均</td><td>設問2でCSPの仕組み理解不足</td></tr>
+            <tr><td>Ⅱ問2</td><td>IR/MW/委託</td><td>テレワークで発生したインシデント(他社を含む対応)</td><td>会員システム、連携端末</td><td>マルウェア感染、遠隔操作</td><td>感染範囲の絞込み、優先度付き対応</td><td>ガバナンスが効かない他社を含む対応。優先度の条件明示</td><td>平均</td><td>設問4(3)絞込み条件が不明確</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>令和3年度 春期（R3春・午後Ⅰ／午後Ⅱ）</h4>
+      <div class="table-wrapper search-unit">
+        <table class="wide filterable">
+          <thead><tr><th>問</th><th>大分類</th><th>業務ストーリー</th><th>登場システム</th><th>主な攻撃・脆弱性</th><th>問われた対策</th><th>解答で必要な観点</th><th>難易度</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>Ⅰ問1</td><td>認証/Web</td><td>認証システム開発(OAuthソーシャルログイン)</td><td>SNS連携、OAuth</td><td>OAuth悪用、攻撃者アカウント誘導</td><td>OAuthプロトコル理解、可用性の欠点</td><td>図のシーケンスから仕組みを読む。攻撃者アカウントへの誘導</td><td>やや難</td><td>設問1(3)・2(2)でOAuth正答率低</td></tr>
+            <tr><td>Ⅰ問2</td><td>NW</td><td>ネットワークのDNSセキュリティ対策</td><td>DNSサーバ、ホスティング</td><td>DNSキャッシュポイズニング、ゾーン転送</td><td>DNSSEC、DNS over TLS、ゾーン転送のアクセス制御</td><td>DNSの仕組みと攻撃。ゾーン情報の流れ</td><td>やや難</td><td>設問1(4)(7)でDNS正答率低</td></tr>
+            <tr><td>Ⅰ問3</td><td>NW/運用</td><td>セキュリティ運用(脆弱性修正プログラム配信)</td><td>配信システム、WoL、EDR</td><td>未適用脆弱性</td><td>展開前確認、WoL制限と解決、EDR活用</td><td>WoLの仕組みと制限。EDRを使った具体的対策</td><td>平均</td><td>設問3(3)WoL、4(2)EDR活用の記述不足</td></tr>
+            <tr><td>Ⅱ問1</td><td>IR/認証</td><td>インシデント対応体制の整備</td><td>認証基盤、FW</td><td>パスワードリスト攻撃、IP特定</td><td>パスワード各種攻撃の区別、hosts.allow/FW接続元制限、脆弱性管理</td><td>パスワードリスト/総当たり/スプレーを区別。IP特定の意義</td><td>平均</td><td>設問1(1)パスワード攻撃の区別できず</td></tr>
+            <tr><td>Ⅱ問2</td><td>クラウド/NW/認証</td><td>クラウドサービス利用のIT統制</td><td>クラウド、IEEE802.1X、DHCP</td><td>不正DHCP、不正AP、秘密鍵持出し</td><td>不正DHCP検出、802.1Xシーケンス、秘密鍵のコピー禁止</td><td>不正DHCP検出と不正AP検出を混同しない。802.1Xの割当タイミング</td><td>難</td><td>設問1(3)・3(2)・6(1)で正答率低</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card search-unit">
+        <h4>この10回で見えた大分類の登場頻度（実測ベース）</h4>
+        <div class="table-wrapper">
+          <table class="filterable">
+            <thead><tr><th>大分類</th><th>登場回数(問単位・概算)</th><th>傾向</th></tr></thead>
+            <tbody>
+              <tr><td>Web（Webアプリ脆弱性）</td><td>12+</td><td><b>毎回級</b>。XSS/SQLi/CSRF/SSRFが核</td></tr>
+              <tr><td>認証・認可</td><td>9</td><td>高頻度。OAuth/OIDC/JWT/WebAuthn/MFA</td></tr>
+              <tr><td>インシデント対応・ログ分析</td><td>9</td><td>高頻度。ログ相関・タイムライン</td></tr>
+              <tr><td>クラウド・SaaS</td><td>7</td><td>増加傾向。IMDS/CI-CD/コンテナ</td></tr>
+              <tr><td>マルウェア・ランサム</td><td>7</td><td>安定。近年レジリエンス寄り</td></tr>
+              <tr><td>委託先・サプライチェーン</td><td>5</td><td><b>急増</b>（R7で春秋連続）</td></tr>
+              <tr><td>暗号・証明書</td><td>5</td><td>安定。署名/MAC/PKI/HSM</td></tr>
+              <tr><td>ネットワーク防御</td><td>5</td><td>DNS/VPN/FW</td></tr>
+              <tr><td>開発・設計レビュー</td><td>5</td><td>セキュアプログラミング</td></tr>
+              <tr><td>メールセキュリティ</td><td>2</td><td>数年おき（R6秋が直近）</td></tr>
+              <tr><td>IoT・組込み・工場系</td><td>3</td><td>数年おき（R7秋でSCADA復活）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         02 頻出ストーリー型
+    ================================================================== -->
+    <section class="chapter" id="ch02">
+      <h3 class="chapter-title">02. 頻出ストーリー型 <span class="label fact">事実</span> <span class="label hot">高頻出</span></h3>
+
+      <div class="keypoints search-unit">
+        <strong>この章の要点</strong>
+        <ul>
+          <li>過去問を13の「業務ストーリー型」(SC-ST-001〜013)に抽象化。各カードは実在の過去問が根拠。</li>
+          <li>「この型ならこう書く」という<b>反射</b>を作るのが目的。解答の型・キーワード・失点ポイントを収録。</li>
+          <li>毎回級：Web脆弱性 / 認可・API / マルウェア横展開。急増中：委託・SC / 脆弱性管理 / クラウド / リモートMFA。</li>
+          <li>再燃：IoT/OT(SCADA)、暗号の低レイヤ、DNSの深い攻撃。</li>
+        </ul>
+      </div>
+
+      <h4>個別ストーリーカード</h4>
+      <div class="story-grid">
+
+        <article class="story-card hot search-unit">
+          <div class="sid">SC-ST-001</div>
+          <h4>Webアプリ脆弱性の悪用インシデント（XSS中心）</h4>
+          <div class="row"><span class="label hot">★★★毎回級</span><span class="label study">優先度：最優先</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>攻撃者がスクリプトを仕込む→別会員/管理者のブラウザで実行→cookie(セッションID)送信→なりすまし</dd>
+            <dt>問われやすい</dt><dd>XSSの種類判定、攻撃の具体手順、cookie窃取の影響、対策</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">格納型/反射型/DOMベースXSS</span><span class="kw">エスケープ</span><span class="kw">CSP</span><span class="kw">HttpOnly</span><span class="kw">SameSite</span></dd>
+            <dt>間違えやすい点</dt><dd>DOMを使う=DOMベースと早合点(R5秋 設問1(1))。改ざん内容を過不足なく書けない(R6秋 設問2(1))</dd>
+            <dt>類似過去問</dt><dd>R5秋問1、R6秋問3、R7秋問1、R4春Ⅰ問1</dd>
+          </dl>
+        </article>
+
+        <article class="story-card hot search-unit">
+          <div class="sid">SC-ST-002</div>
+          <h4>認可不備・IDOR・API認証の設計欠陥</h4>
+          <div class="row"><span class="label hot">★★★毎回級</span><span class="label study">優先度：最優先</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>パラメータ(item/order-code/求職者ID等)を書換え→権限チェックがなく他人の情報が取れる→情報漏えい</dd>
+            <dt>問われやすい</dt><dd>脆弱性の悪用手順、検証すべき処理、被害を軽減する仕様変更</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">認可/アクセス制御</span><span class="kw">IDOR</span><span class="kw">JWT(alg/署名)</span><span class="kw">最小権限</span><span class="kw">推測困難</span></dd>
+            <dt>間違えやすい点</dt><dd>認証と認可の混同。「既に実装済の対策」を答える(R6春 設問2(2))</dd>
+            <dt>類似過去問</dt><dd>R6春問1、R6秋問4、R7春問2/問3、R5春Ⅱ問2</dd>
+          </dl>
+        </article>
+
+        <article class="story-card search-unit">
+          <div class="sid">SC-ST-003</div>
+          <h4>標的型メール／フィッシングとメール認証</h4>
+          <div class="row"><span class="label warn">★数年おき</span><span class="label study">優先度：中(出たら差)</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>正規企業を装うメール→添付マルウェア or 偽URL→感染 or 認証情報入力→侵入</dd>
+            <dt>問われやすい</dt><dd>各レコードの設定内容、SPFとDKIMの判定対象の違い、なりすまし手口</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">SPF</span><span class="kw">DKIM(署名/hタグ)</span><span class="kw">DMARC</span><span class="kw">エンベロープFrom</span><span class="kw">SMTPS</span></dd>
+            <dt>間違えやすい点</dt><dd>SPFがSubjectを見ると誤解(R6秋)。S/MIMEをSMTP暗号化と混同(R6秋 設問2)</dd>
+            <dt>類似過去問</dt><dd>R6秋問2、R5秋問4(URLリンク型)、R3秋Ⅱ問2</dd>
+          </dl>
+        </article>
+
+        <article class="story-card hot search-unit">
+          <div class="sid">SC-ST-004</div>
+          <h4>マルウェア感染からの横展開とログ調査</h4>
+          <div class="row"><span class="label hot">★★★毎回級</span><span class="label study">優先度：最優先</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>初期侵入(メール/Web)→C2通信→RDP等で横展開→対策ソフト停止→ファイル持出し</dd>
+            <dt>問われやすい</dt><dd>どのログに何が残るか、感染ホストの検出方法、持出し対策</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">C2</span><span class="kw">RDP横展開</span><span class="kw">EDR</span><span class="kw">DLP</span><span class="kw">プロセス親子関係</span><span class="kw">LOLBin</span></dd>
+            <dt>間違えやすい点</dt><dd>持出し対策を「アクセス権最小化」と的外れ(R6秋 設問2f)。確認ログを書かない(R6秋 設問1(8))</dd>
+            <dt>類似過去問</dt><dd>R6秋問1、R4秋Ⅰ問2/Ⅱ問2、R5春Ⅰ問2、R3秋Ⅰ問3</dd>
+          </dl>
+        </article>
+
+        <article class="story-card search-unit">
+          <div class="sid">SC-ST-005</div>
+          <h4>委託先・サプライチェーン起因の侵害</h4>
+          <div class="row"><span class="label hot">★★急増中</span><span class="label study">優先度：高</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>委託先の管理不備 or 外部スクリプト/OSSの汚染→開発・運用経路に侵入→波及</dd>
+            <dt>問われやすい</dt><dd>契約・体制上の要求事項、SBOMの利用目的、テストツールの使い分け</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">サプライチェーン</span><span class="kw">SBOM</span><span class="kw">SAST/DAST/IAST</span><span class="kw">セキュリティバイデザイン</span><span class="kw">再委託</span></dd>
+            <dt>間違えやすい点</dt><dd>SBOMを「定義」だけ書く(R7春 設問4)。SAST/DAST/IASTの特徴混同(R7春 設問5(2))</dd>
+            <dt>類似過去問</dt><dd>R7春問1、R7秋問4、R4秋Ⅰ問3、R5秋問4</dd>
+          </dl>
+        </article>
+
+        <article class="story-card search-unit">
+          <div class="sid">SC-ST-006</div>
+          <h4>クラウド/SaaS移行に伴う構成・権限リスク</h4>
+          <div class="row"><span class="label hot">★★増加中</span><span class="label study">優先度：高</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>移行で通信経路が変化→設定不備/過剰権限/IMDS露出→情報漏えい・クレデンシャル窃取</dd>
+            <dt>問われやすい</dt><dd>見直し前後の経路、SSRFの攻撃手順、クレデンシャル取得方式の違い</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">IMDS</span><span class="kw">SSRF</span><span class="kw">最小権限</span><span class="kw">通信経路</span><span class="kw">フィルタ適用順序</span><span class="kw">コンテナ</span></dd>
+            <dt>間違えやすい点</dt><dd>経路変化を理解せず解答(R5春Ⅰ問3)。SSRFのクレデンシャル取得を書けない(R6春問3)</dd>
+            <dt>類似過去問</dt><dd>R6春問3、R5秋問3、R5春Ⅰ問3/Ⅱ問2、R3秋Ⅱ問1、R3春Ⅱ問2</dd>
+          </dl>
+        </article>
+
+        <article class="story-card search-unit">
+          <div class="sid">SC-ST-007</div>
+          <h4>暗号・鍵・証明書の適切な利用</h4>
+          <div class="row"><span class="label hot">★★安定</span><span class="label study">優先度：高</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>鍵管理の運用不備/検証の欠如→鍵漏えい・なりすまし・改ざん</dd>
+            <dt>問われやすい</dt><dd>どの暗号技術を使うか、証明書の検証項目、鍵管理手順の不備</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">署名/MAC/ハッシュ/暗号化の区別</span><span class="kw">PKI</span><span class="kw">OCSP/CRL</span><span class="kw">HSM</span><span class="kw">EAP-TLS</span><span class="kw">サイドチャネル</span></dd>
+            <dt>間違えやすい点</dt><dd>「デジタル署名」を万能扱い(R7秋 設問3(2))。署名を暗号化できると誤解(R5秋問3)。証明書検証項目を書けない(R5秋問2)</dd>
+            <dt>類似過去問</dt><dd>R7秋問2、R5秋問2/問3、R4春Ⅰ問3、R3秋Ⅰ問1(SSH鍵)</dd>
+          </dl>
+        </article>
+
+        <article class="story-card search-unit">
+          <div class="sid">SC-ST-008</div>
+          <h4>リモートワーク/VPN/多要素認証の突破</h4>
+          <div class="row"><span class="label hot">★★増加中</span><span class="label study">優先度：高</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>VPN/認証基盤にリアルタイム型フィッシング→MFAコードを中継→侵入</dd>
+            <dt>問われやすい</dt><dd>MFA突破の手順、VPN接続前に必要な通信、故障時の代替策</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">リアルタイム型フィッシング(中間者)</span><span class="kw">FIDO/WebAuthn/Passkey</span><span class="kw">接続元IP制限</span><span class="kw">認証基盤</span></dd>
+            <dt>間違えやすい点</dt><dd>MFA突破の手順を書けない(R6春 設問2(1))。接続前通信を見落とす(R7秋 設問4(2))</dd>
+            <dt>類似過去問</dt><dd>R7秋問3、R6春問2、R5秋問3、R3秋Ⅱ問2</dd>
+          </dl>
+        </article>
+
+        <article class="story-card search-unit">
+          <div class="sid">SC-ST-009</div>
+          <h4>脆弱性管理と対応優先度の判断</h4>
+          <div class="row"><span class="label hot">★★増加中</span><span class="label study">優先度：高</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>診断/資産管理で脆弱性を検出→深刻度と悪用状況を評価→優先度決定・対応</dd>
+            <dt>問われやすい</dt><dd>CVSS各指標の意味、現状値とEPSSの使い分け、優先度の理由</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">CVSS(基本値/現状値/AC)</span><span class="kw">EPSS</span><span class="kw">KEVカタログ</span><span class="kw">ASM</span><span class="kw">深刻度</span></dd>
+            <dt>間違えやすい点</dt><dd>CVSSのAC(攻撃条件)をC(機密性影響)と誤答(R7春 設問4(1))。EPSSの手順誤解(R7春 設問5(1))</dd>
+            <dt>類似過去問</dt><dd>R7春問2、R7春問4(ASM)、R3春Ⅰ問3(配信)</dd>
+          </dl>
+        </article>
+
+        <article class="story-card search-unit">
+          <div class="sid">SC-ST-010</div>
+          <h4>セキュアプログラミング／開発プロセスのレビュー</h4>
+          <div class="row"><span class="label hot">★★安定</span><span class="label study">優先度：中〜高</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>Java/RDBMSのコードレビュー→SQLi/例外処理/権限の不備発見→修正</dd>
+            <dt>問われやすい</dt><dd>正しい実装、SQL構文、例外時の動作、対策が「開発プロセス」か</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">PreparedStatement</span><span class="kw">プレースホルダ</span><span class="kw">finally</span><span class="kw">例外</span><span class="kw">SHA-2</span><span class="kw">レースコンディション</span></dd>
+            <dt>間違えやすい点</dt><dd>StatementとPreparedStatement取り違え(R4春・R5春で頻発)。対策を運用/製品導入と混同(R7秋 設問4)</dd>
+            <dt>類似過去問</dt><dd>R6春問4、R5春Ⅰ問1、R4春Ⅰ問1、R7秋問1、R7春問1</dd>
+          </dl>
+        </article>
+
+        <article class="story-card search-unit">
+          <div class="sid">SC-ST-011</div>
+          <h4>ネットワーク基盤(DNS/FW/無線LAN)の防御</h4>
+          <div class="row"><span class="label hot">★★安定</span><span class="label study">優先度：中</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>DNSキャッシュポイズニング/不正DHCP/不正AP等→通信の乗っ取り→対策設計</dd>
+            <dt>問われやすい</dt><dd>攻撃の仕組み、フィルタ設計、割当タイミング、ゾーン情報の流れ</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">DNSSEC</span><span class="kw">DoH/DoT</span><span class="kw">ゾーン転送</span><span class="kw">IEEE802.1X</span><span class="kw">RADIUS</span><span class="kw">不正DHCP検出</span></dd>
+            <dt>間違えやすい点</dt><dd>不正DHCP検出と不正AP検出を混同(R3春Ⅱ問2)。802.1Xのアドレス割当タイミング誤解</dd>
+            <dt>類似過去問</dt><dd>R3春Ⅰ問2、R3春Ⅱ問2、R5秋問2、R7秋問3(DNSSEC/DoH)</dd>
+          </dl>
+        </article>
+
+        <article class="story-card search-unit">
+          <div class="sid">SC-ST-012</div>
+          <h4>IoT・組込み・工場系(OT)のセキュリティ</h4>
+          <div class="row"><span class="label warn">★数年おき(再燃中)</span><span class="label study">優先度：中</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>ファーム改ざん/パストラバーサル/USB感染/OT侵入→制御妨害・乗っ取り</dd>
+            <dt>問われやすい</dt><dd>偽ファーム防止、機器検出/抑止、OT分離、通信妨害への備え</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">ファーム署名</span><span class="kw">TLS/証明書</span><span class="kw">パストラバーサル(../)</span><span class="kw">SCADA</span><span class="kw">ネットワーク分離</span><span class="kw">レジリエンス</span></dd>
+            <dt>間違えやすい点</dt><dd>HTTPS=「暗号化」だけと書き証明書確認に触れない(R4秋Ⅰ問1)。OTのマルウェア対策に認証強化を書く(R7秋 設問3)</dd>
+            <dt>類似過去問</dt><dd>R7秋問4、R4秋Ⅰ問1、R4春Ⅰ問2</dd>
+          </dl>
+        </article>
+
+        <article class="story-card search-unit">
+          <div class="sid">SC-ST-013</div>
+          <h4>リスクアセスメント／管理体制の設計</h4>
+          <div class="row"><span class="label hot">★★安定</span><span class="label study">優先度：中</span></div>
+          <dl>
+            <dt>典型パターン</dt><dd>委託関係/新システムで脅威特定→攻撃シナリオ作成→分析・評価→対応</dd>
+            <dt>問われやすい</dt><dd>具体的な攻撃シナリオ、被害の大きさ・頻度、リスク対応の選択、権限設計</dd>
+            <dt>解答キーワード</dt>
+            <dd class="kw-list"><span class="kw">リスクアセスメント</span><span class="kw">脅威/脆弱性/資産</span><span class="kw">攻撃シナリオ</span><span class="kw">リスク対応4分類</span><span class="kw">最小権限</span></dd>
+            <dt>間違えやすい点</dt><dd>リスクが抽象的で被害評価ができない(R5秋問4)。復旧より攻撃阻止を優先して書く(R7秋 設問4)</dd>
+            <dt>類似過去問</dt><dd>R5秋問4、R7秋問4、R3秋Ⅱ問2</dd>
+          </dl>
+        </article>
+
+      </div>
+
+      <div class="card search-unit">
+        <h4>ストーリー型の頻出度マトリクス</h4>
+        <div class="table-wrapper">
+          <table class="wide filterable">
+            <thead><tr><th>ストーリー型</th><th>頻出度</th><th>代表過去問</th><th>よく出る設問</th><th>解答の型</th><th>対策優先度</th></tr></thead>
+            <tbody>
+              <tr><td>SC-ST-001 Web脆弱性(XSS)</td><td><span class="stars">★★★</span>毎回級</td><td>R5秋問1, R6秋問3, R7秋問1</td><td>XSS種類判定/攻撃手順/対策</td><td>「〜を出力する前にエスケープ処理を施す」</td><td>最優先</td></tr>
+              <tr><td>SC-ST-002 認可不備・API</td><td><span class="stars">★★★</span>毎回級</td><td>R6春問1, R6秋問4, R7春問2</td><td>悪用手順/検証処理/仕様改善</td><td>「利用者IDと資源所有者が一致するか検証する」</td><td>最優先</td></tr>
+              <tr><td>SC-ST-004 マルウェア横展開/ログ</td><td><span class="stars">★★★</span>毎回級</td><td>R6秋問1, R4秋Ⅱ問2</td><td>残るログ/検出方法/持出対策</td><td>「〜のログから〜したホストを検出する」</td><td>最優先</td></tr>
+              <tr><td>SC-ST-006 クラウド/SaaS</td><td><span class="stars">★★</span>増加中</td><td>R6春問3, R5秋問3</td><td>経路変化/SSRF/権限</td><td>「page値が〜以外ならエラーにする」</td><td>高</td></tr>
+              <tr><td>SC-ST-005 サプライチェーン/委託</td><td><span class="stars">★★</span>急増中</td><td>R7春問1, R7秋問4</td><td>契約要求/SBOM/テスト</td><td>「再委託先にも同等の対策を要求させる」</td><td>高</td></tr>
+              <tr><td>SC-ST-007 暗号・鍵・証明書</td><td><span class="stars">★★</span>安定</td><td>R7秋問2, R5秋問2</td><td>技術選択/検証項目/鍵管理</td><td>「MAC(メッセージ認証符号)」等の正確な用語</td><td>高</td></tr>
+              <tr><td>SC-ST-008 リモート/VPN/MFA</td><td><span class="stars">★★</span>増加中</td><td>R7秋問3, R6春問2</td><td>MFA突破手順/接続前通信/代替</td><td>「FIDO/WebAuthnはフィッシング耐性がある」</td><td>高</td></tr>
+              <tr><td>SC-ST-009 脆弱性管理/優先度</td><td><span class="stars">★★</span>増加中</td><td>R7春問2, R7春問4</td><td>CVSS指標/EPSS使い分け/優先度</td><td>「実際に悪用されたため優先度を上げる」</td><td>高</td></tr>
+              <tr><td>SC-ST-003 メール認証</td><td><span class="stars">★</span>数年おき</td><td>R6秋問2</td><td>レコード設定/判定対象/手口</td><td>「SPFレコードに〜の送信元IPを追加する」</td><td>中(出たら差)</td></tr>
+              <tr><td>SC-ST-010 セキュアコーディング</td><td><span class="stars">★★</span>安定</td><td>R6春問4, R5春Ⅰ問1</td><td>正しい実装/例外/開発プロセス</td><td>「PreparedStatementを使う」</td><td>中〜高</td></tr>
+              <tr><td>SC-ST-011 NW基盤(DNS/FW/無線)</td><td><span class="stars">★★</span>安定</td><td>R3春問2, R5秋問2</td><td>攻撃の仕組み/フィルタ/割当</td><td>「ゾーン転送を〜だけに許可する」</td><td>中</td></tr>
+              <tr><td>SC-ST-013 リスクアセス/体制</td><td><span class="stars">★★</span>安定</td><td>R5秋問4, R7秋問4</td><td>シナリオ/評価/リスク対応</td><td>具体的な攻撃シナリオ＋被害の連鎖</td><td>中</td></tr>
+              <tr><td>SC-ST-012 IoT/OT/工場</td><td><span class="stars">★</span>数年おき</td><td>R7秋問4, R4秋Ⅰ問1</td><td>署名検証/分離/復旧</td><td>「独立したLANを構成する」</td><td>中(再燃中)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card search-unit">
+        <h4>時期分類（IPAの出題サイクル観点）</h4>
+        <h5>毎回級に出やすい型</h5>
+        <ul>
+          <li><b>SC-ST-001 Web脆弱性</b> — 十数回連続レベル。落とすと致命的</li>
+          <li><b>SC-ST-002 認可不備・API</b> — Web化・API化の潮流で定番化</li>
+          <li><b>SC-ST-004 マルウェア横展開・ログ調査</b> — インシデント対応枠として毎回</li>
+        </ul>
+        <h5>数年おきに出る型</h5>
+        <ul>
+          <li>SC-ST-003 メール認証 — R6秋。次はR8〜R9頃に再来の可能性</li>
+          <li>SC-ST-011 NW基盤 — 単独大問は数年おき、部品としては頻出</li>
+          <li>SC-ST-013 リスクアセスメント — 管理系の大問として周期的</li>
+        </ul>
+        <h5>最近増えている型</h5>
+        <ul>
+          <li><b>SC-ST-005 サプライチェーン/委託</b> — R7で春秋連続。10大脅威7年連続</li>
+          <li><b>SC-ST-009 脆弱性管理(CVSS/EPSS/KEV/ASM)</b> — R7で春に2問</li>
+          <li><b>SC-ST-006 クラウド/SaaS</b> — クラウド前提の出題が標準化</li>
+          <li><b>SC-ST-008 リモートワーク/VPN/MFA突破(FIDO)</b> — 働き方変化・フィッシング高度化</li>
+        </ul>
+        <h5>しばらく出ていないが再出題されそうな型</h5>
+        <ul>
+          <li>SC-ST-012 IoT/OT/工場系 — R7秋でSCADA復活。制御系は今後も周期的</li>
+          <li>暗号の低レイヤ(ブロック暗号モード/ハッシュ強度) — R7秋で鍵管理として復活の兆し</li>
+          <li>DNSの深い攻撃(サブドメインテイクオーバー等) — R7春で登場。関連は未出</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         03 失点パターン分析
+    ================================================================== -->
+    <section class="chapter" id="ch03">
+      <h3 class="chapter-title">03. 失点パターン分析 <span class="label miss">失点パターン</span></h3>
+
+      <div class="keypoints search-unit">
+        <strong>この章の要点</strong>
+        <ul>
+          <li>採点講評で「散見された」「誤答が多かった」と明記された箇所を抽出した<b>減点される書き方の実例集</b>。</li>
+          <li>失点は12型(P1〜P12)。特に P3(対策非対応)・P5(暗号混同)・P6(メール認証混同)・P9(攻撃連鎖)が高配点。</li>
+          <li>「用語だけ書いて理由が無い」「攻撃と対策が対応しない」が二大失点。</li>
+          <li>末尾に<b>提出前30秒チェックリスト</b>あり。</li>
+        </ul>
+      </div>
+
+      <div class="card search-unit">
+        <h4>失点パターン総覧</h4>
+        <div class="table-wrapper">
+          <table class="wide filterable">
+            <thead><tr><th>#</th><th>失点パターン</th><th>具体例(出典)</th><th>なぜ失点するか</th><th>正しい書き方</th><th>対策</th></tr></thead>
+            <tbody>
+              <tr><td>P1</td><td>問題文の条件を無視</td><td>R7春問2設問1／R5秋問4(リスク前提逸脱)</td><td>一般論を書き本文の固有条件に紐づけない</td><td>本文の固有名・仕様・前提を引用して答案に織り込む</td><td>本文の該当箇所に線→答案に固有名を入れる</td></tr>
+              <tr><td>P2</td><td>用語だけで理由が不足</td><td>R7春問1設問4(SBOM定義のみ)／R5秋問4</td><td>「何を」だけで「なぜ効くか」がない</td><td>「〜することで〜できるから」と効果・目的まで書く</td><td>末尾を必ず「〜から/〜ため」で締める</td></tr>
+              <tr><td>P3</td><td>攻撃原因と対策が非対応</td><td>R7秋問4設問3(認証強化)／R7秋問1設問4(運用対策/WAF)</td><td>攻撃の成立条件を分析せず定番対策を貼る</td><td>攻撃成立の原因を特定→その原因を塞ぐ対策を選ぶ</td><td>「この対策でこの攻撃は止まるか」を自問</td></tr>
+              <tr><td>P4</td><td>認証と認可の混同</td><td>R5春Ⅱ問2/R6春問1</td><td>「本人確認」と「権限」の区別が曖昧</td><td>誰か=認証／何をしてよいか=認可、と切り分け</td><td>SC-ST-002を認可の代表例として反復</td></tr>
+              <tr><td>P5</td><td>暗号技術の混同(署名/暗号化/ハッシュ/MAC/証明書)</td><td>R7秋問2設問3(2)「デジタル署名」／R5秋問3</td><td>各技術が守る性質を整理していない</td><td>完全性+共通鍵=MAC／機密性=暗号化／第三者証明=署名</td><td>06の暗号テンプレ表を暗記</td></tr>
+              <tr><td>P6</td><td>SPF/DKIM/DMARCの役割混同</td><td>R6秋問2設問5「SPFでSubject」「S/MIMEでSMTP暗号化」</td><td>各方式の判定対象を知らない</td><td>SPF=送信元IP／DKIM=署名(hタグ)／DMARC=ポリシー</td><td>判定対象の一覧を丸暗記</td></tr>
+              <tr><td>P7</td><td>WAF/IDS-IPS/SIEM/EDRの役割混同</td><td>R3春Ⅰ問3設問4(2)／R7秋問1(WAFを開発の答えに)</td><td>検知・防御・分析の役割分担が不明確</td><td>WAF=Web境界／IPS=NW侵入／EDR=端末／SIEM=ログ相関</td><td>各製品の"守る層"を1行で</td></tr>
+              <tr><td>P8</td><td>XSS/CSRF/SQLi/SSRFの原因と対策の混同</td><td>R5秋問1(格納型→DOM)／R6春問3(SSRF/CSRF連鎖)</td><td>脆弱性ごとの成立条件・対策の対応表がない</td><td>各脆弱性=「どこで/何が/どう対策」の3点セット</td><td>06のWeb脆弱性対応表を暗記</td></tr>
+              <tr><td>P9</td><td>攻撃手順・攻撃連鎖が書けない</td><td>R6春問3設問1(2)/2(1)／R6秋問4設問2g</td><td>単発の脆弱性しか見ず機能をまたぐ悪用を描けない</td><td>「攻撃者が〜し、次に〜して、最終的に〜する」と時系列で</td><td>攻撃を主語=攻撃者の物語として書く</td></tr>
+              <tr><td>P10</td><td>逆・反対を書くケアレスミス</td><td>R7春問4設問3(3)／R5春Ⅰ問3設問5／R6春問2(IPS逆)</td><td>長文で条件の向きを取り違える</td><td>設問の問う向き(する/しない、許可/拒否)を丸で囲む</td><td>提出前に「向き」だけ再チェック</td></tr>
+              <tr><td>P11</td><td>具体性の欠如(抽象的解答)</td><td>R7春問3設問1(3)／R4春Ⅰ問3</td><td>「適切に管理する」等の曖昧語で逃げる</td><td>手順・対象・条件を具体的に(誰が/何を/どうやって)</td><td>「具体的に」と問われたら固有名+操作を書く</td></tr>
+              <tr><td>P12</td><td>プロセス/経路/シーケンスの理解不足</td><td>R5春Ⅰ問3／R3春Ⅱ問2(802.1X)／R4秋Ⅰ問2(親子)</td><td>図やシーケンスを流れとして追えていない</td><td>図の矢印を1本ずつ追い、状態変化を言語化</td><td>シーケンス図は指でなぞって順序確認</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card search-unit">
+        <h4>特に頻出・高配点の失点パターン深掘り</h4>
+
+        <h5>◆ P5 暗号技術の混同 —「デジタル署名」と書けば当たる、ではない</h5>
+        <ul>
+          <li><b>R7秋 問2 設問3(2)</b>：改ざん検知の手段を問われ「デジタル署名」で失点。正答は<span class="imp">MAC(メッセージ認証符号)</span>。共通鍵を共有する当事者間の完全性保証にはMACが適切。</li>
+          <li><b>R5秋 問3 設問3(3)</b>：HSMの利点を「電子署名を暗号化できる」「秘密鍵が漏れても安全」と誤解。正答は「<b>秘密鍵がHSMの外に出ない/漏れない</b>」。</li>
+        </ul>
+        <div class="factbox">教訓：暗号は「守りたい性質」から逆算する。機密性→暗号化、完全性+共通鍵保持者→MAC、完全性+第三者に証明→デジタル署名。</div>
+
+        <h5>◆ P6 SPF/DKIM/DMARCの判定対象</h5>
+        <ul>
+          <li><b>R6秋 問2 設問5</b>：SPF側で「Subjectに通番」→ <span class="imp">SPFはSubjectを判定対象にしない</span>ので誤り。SPFは<b>エンベロープFromのドメインと送信元IP</b>を照合。</li>
+          <li>DKIM側では「hタグにSubjectが含まれる」ため、Subjectを変更するとDKIM署名検証が失敗する、という因果を答える必要があった。</li>
+        </ul>
+        <div class="factbox">教訓：SPF=IPアドレス、DKIM=電子署名(hタグで対象指定)、DMARC=結果を使ったポリシー+レポート。判定材料を混ぜない。</div>
+
+        <h5>◆ P3 攻撃原因と対策の非対応 —「効かない対策」を書く典型</h5>
+        <ul>
+          <li><b>R7秋 問4 設問3</b>：マルウェア対策として「SCADAの利用者認証強化」。講評は「<b>マルウェア対策として利用者認証の強化はあまり効果がない</b>」と明記。</li>
+          <li><b>R7秋 問1 設問4</b>：脆弱性を作り込まない<b>開発プロセス</b>を問うたのに、「ログ分析」「ID棚卸」「WAF導入」など<b>運用対策・製品導入</b>を解答。</li>
+        </ul>
+        <div class="factbox">教訓：対策を書く前に「この攻撃はどの段階で成立するか」を特定し、その段階を塞ぐ対策だけを選ぶ。</div>
+
+        <h5>◆ P2 理由不足 — SBOMは「定義」でなく「使い方」</h5>
+        <ul>
+          <li><b>R7春 問1 設問4</b>：SBOM(ソフト部品表)の<b>利点</b>を問われ定義を書いただけで失点。正答は「利用ソフトとバージョンが明確になり、<b>脆弱性の影響有無を容易に把握できる</b>から」。</li>
+        </ul>
+
+        <h5>◆ P9 攻撃連鎖 — 単発脆弱性ではなく"つなげて"悪用する</h5>
+        <ul>
+          <li><b>R6春 問3</b>：XSS検出箇所(管理者のみ実行可)と利用者情報取得(会員管理機能)を<b>結びつけて</b>攻撃を構成。CSRFではトークンを攻撃者が自分のアカウントで取得して悪用する部分が書けず失点。</li>
+          <li><b>R6秋 問4 設問2g</b>：複数脆弱性を組み合わせた攻撃の「後の流れ」に合わない解答が散見。</li>
+        </ul>
+        <div class="factbox">教訓：近年は「脆弱性A×機能B×脆弱性C」の連鎖問題が増加。攻撃者視点で時系列に物語化する。</div>
+      </div>
+
+      <div class="card search-unit">
+        <h4>大分類別・頻出失点キーワード早見表</h4>
+        <div class="table-wrapper">
+          <table class="filterable">
+            <thead><tr><th>大分類</th><th>頻出失点キーワード</th><th>ひとことメモ</th></tr></thead>
+            <tbody>
+              <tr><td>Web</td><td>格納型/反射型/DOMベースの取り違え、改ざん内容の過不足</td><td>まず種類を正しく判定</td></tr>
+              <tr><td>認証・認可</td><td>認証≠認可、JWT検証、OAuth手順を用語だけで済ます</td><td>「誰か」と「何してよいか」を分離</td></tr>
+              <tr><td>暗号</td><td>署名/MAC/暗号化/ハッシュの混同、証明書検証項目、鍵と暗号文の同時保管</td><td>守る性質から逆算</td></tr>
+              <tr><td>メール</td><td>SPFがSubjectを見ると誤解、S/MIME=SMTP暗号化の誤解</td><td>判定対象を暗記</td></tr>
+              <tr><td>クラウド</td><td>経路変化の理解不足、SSRF→IMDSが書けない、最小権限違反</td><td>移行前後を図で追う</td></tr>
+              <tr><td>NW</td><td>不正DHCPと不正AP混同、802.1X割当タイミング、ゾーン転送許可範囲</td><td>シーケンスを指でなぞる</td></tr>
+              <tr><td>IR/ログ</td><td>確認ログの明示なし、プロセス親子関係、タイムライン整理不足</td><td>「どのログを見るか」を必ず書く</td></tr>
+              <tr><td>MW</td><td>効かない対策(認証強化)、持出し対策=権限最小化の誤り、復旧より攻撃阻止</td><td>平常時の備え(バックアップ)を重視</td></tr>
+              <tr><td>委託/SC</td><td>SBOM定義丸写し、SAST/DAST/IAST混同、再委託先への要求漏れ</td><td>使い方・目的を書く</td></tr>
+              <tr><td>脆弱性管理</td><td>CVSSのACをCと誤答、EPSS/現状値の使い分け、KEV未活用</td><td>各指標の意味を1行で</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card search-unit">
+        <h4>「あと一歩」を防ぐ答案チェックリスト（提出前30秒）</h4>
+        <ul class="checklist">
+          <li><input type="checkbox" id="c03-1"><label for="c03-1">固有名詞を入れたか（本文のシステム名・機能名・IPを引用）→ P1対策</label></li>
+          <li><input type="checkbox" id="c03-2"><label for="c03-2">末尾が「〜から/〜ため」で理由になっているか → P2対策</label></li>
+          <li><input type="checkbox" id="c03-3"><label for="c03-3">その対策でその攻撃は本当に止まるか → P3対策</label></li>
+          <li><input type="checkbox" id="c03-4"><label for="c03-4">認証/認可、署名/暗号化/MACを取り違えていないか → P4/P5対策</label></li>
+          <li><input type="checkbox" id="c03-5"><label for="c03-5">問われている向き(する/しない・許可/拒否)は合っているか → P10対策</label></li>
+          <li><input type="checkbox" id="c03-6"><label for="c03-6">「どのログを見て」「誰が何をどうやって」まで具体化したか → P9/P11対策</label></li>
+          <li><input type="checkbox" id="c03-7"><label for="c03-7">字数制限に対して要素が足りているか(40字なら要素2つが目安) → P8対策</label></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         04 今後出そうな予想
+    ================================================================== -->
+    <section class="chapter" id="ch04">
+      <h3 class="chapter-title">04. 今後出そうなストーリー予想 <span class="label pred">予想</span></h3>
+
+      <div class="keypoints search-unit">
+        <strong>この章の要点</strong>
+        <ul>
+          <li><span class="imp">これは予想です。</span>01〜03の「事実」と違い、傾向＋最新動向＋IPAの好みから推論したもの。</li>
+          <li>根拠：①過去問の周期性 ②10大脅威で継続上位 ③直近で制度・攻撃が動いた領域 ④午前Ⅱ先行論点。</li>
+          <li>信頼度：順位1〜6,13,15,18は<b>高</b>(毎回級の延長)。7〜12,14,16,17は<b>中</b>。9(生成AI)は<b>やや投機的</b>。</li>
+          <li>学習優先度：<span class="stars">★★★</span>=最優先で潰す / <span class="stars">★★</span>=押さえる / ★=知識として持つ。</li>
+        </ul>
+      </div>
+
+      <h4>予想ストーリー（22件・カード表示）</h4>
+      <div class="pred-grid">
+
+        <article class="pred-card search-unit"><div class="rank">1</div><h4>SaaS利用企業でのアカウント乗っ取りとMFA/条件付きアクセス</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★★</span></dd>
+          <dt>出そうな理由</dt><dd>クラウド前提化＋MFA突破の高度化。SC-ST-008が毎年進化。10大脅威常連</dd>
+          <dt>問われそうな技術</dt><dd>IdP、SAML/OIDC、条件付きアクセス、FIDO2、リスクベース認証</dd>
+          <dt>必要な対策知識</dt><dd>フィッシング耐性MFA、デバイス証明書、IP/デバイス条件</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">2</div><h4>M365/Google Workspace風クラウドメールへの標的型攻撃</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★★</span></dd>
+          <dt>出そうな理由</dt><dd>メール認証(SC-ST-003)は数年おき＋クラウドメール化。R6秋の続編になりやすい</dd>
+          <dt>問われそうな技術</dt><dd>DMARC(p=reject)、OAuthアプリ同意、メール転送ルール悪用</dd>
+          <dt>必要な対策知識</dt><dd>SPF/DKIM/DMARC、OAuth同意フィッシング、監査ログ</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">3</div><h4>委託先VPN/リモート保守アカウント悪用による社内侵入</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★★</span></dd>
+          <dt>出そうな理由</dt><dd>ランサム侵入経路の実態＋SC-ST-005/008の合流。R7で委託が春秋連続</dd>
+          <dt>問われそうな技術</dt><dd>VPN、委託先アカウント管理、最小権限、ログ監視</dd>
+          <dt>必要な対策知識</dt><dd>ゼロトラスト、特権アクセス管理(PAM)、多要素認証</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">4</div><h4>Web API(REST/GraphQL)の認可不備による大量情報漏えい</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★★</span></dd>
+          <dt>出そうな理由</dt><dd>SC-ST-002が毎回級。API化の潮流。OWASP API Top10</dd>
+          <dt>問われそうな技術</dt><dd>IDOR、BOLA、スコープ、レート制限、GraphQLの過剰取得</dd>
+          <dt>必要な対策知識</dt><dd>オブジェクトレベル認可、API Gateway、スキーマ制限</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">5</div><h4>OAuth/OIDC設定ミス・トークン悪用による不正アクセス</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★★</span></dd>
+          <dt>出そうな理由</dt><dd>R5春・R4春でOAuth/PKCEが頻出。設定ミス事例が実務で多発</dd>
+          <dt>問われそうな技術</dt><dd>リダイレクトURI検証、PKCE、state、トークン失効</dd>
+          <dt>必要な対策知識</dt><dd>PKCE、redirect_uri完全一致、nonce/state</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">6</div><h4>ランサムウェア感染後の封じ込め・復旧とレジリエンス</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★★</span></dd>
+          <dt>出そうな理由</dt><dd>10大脅威1位常連。R7秋でレジリエンス概念が明示的に登場</dd>
+          <dt>問われそうな技術</dt><dd>バックアップ(3-2-1/イミュータブル)、隔離、EDR、事業継続</dd>
+          <dt>必要な対策知識</dt><dd>オフライン/イミュータブルバックアップ、BCP、復旧計画</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">7</div><h4>CI/CDパイプライン・シークレット漏えい/サプライチェーン汚染</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>SC-ST-005急増。R7春でCI/CD登場。OSS汚染事例が世界的に多発</dd>
+          <dt>問われそうな技術</dt><dd>シークレット管理、依存関係、SBOM、署名(Sigstore)</dd>
+          <dt>必要な対策知識</dt><dd>シークレットボールト、SLSA、依存関係スキャン</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">8</div><h4>クラウドストレージ/オブジェクトストレージの公開設定ミス</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>定番事故。SC-ST-006の派生。R7春でアクセスキー悪用が既出</dd>
+          <dt>問われそうな技術</dt><dd>バケットポリシー、公開ACL、署名付きURL、CSPM</dd>
+          <dt>必要な対策知識</dt><dd>最小公開、CSPM、アクセスキーのローテーション</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">9</div><h4>生成AI/LLM利用に伴う情報漏えい・プロンプトインジェクション <span class="label warn">やや投機的</span></h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>生成AIの業務利用が急拡大。午前ⅡでAI論点が増加。ただし午後での出題実績はまだ乏しい</dd>
+          <dt>問われそうな技術</dt><dd>プロンプトインジェクション、機密入力、RAGの権限、出力検証</dd>
+          <dt>必要な対策知識</dt><dd>DLP、入出力フィルタ、利用ガイドライン、権限分離</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">10</div><h4>ゼロトラスト移行(ID中心)と境界防御の限界</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>働き方変化＋SC-ST-008。IPAがアーキ思想を問い始める段階</dd>
+          <dt>問われそうな技術</dt><dd>ZTNA、IAP、デバイス姿勢評価、マイクロセグメンテーション</dd>
+          <dt>必要な対策知識</dt><dd>ZTA原則、継続的検証、最小権限</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">11</div><h4>サブドメインテイクオーバー/DNS運用不備の悪用</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>R7春で登場したばかり＝関連論点(DNSリバインディング等)へ展開余地</dd>
+          <dt>問われそうな技術</dt><dd>CNAME残存、WHOIS、DNSSEC、権威DNS運用</dd>
+          <dt>必要な対策知識</dt><dd>ASM、DNSレコード棚卸、廃止時手順</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">12</div><h4>アタックサーフェスマネジメント(ASM)と外部公開資産の棚卸</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>R7春問4で初出＝IPAの新お気に入り。今後定着の可能性</dd>
+          <dt>問われそうな技術</dt><dd>ASM、ポートスキャン、脆弱性スキャン、シャドーIT</dd>
+          <dt>必要な対策知識</dt><dd>資産台帳、外部スキャン、KEV連携</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">13</div><h4>脆弱性対応優先度(CVSS4.0/EPSS/KEV)の実務判断</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★★</span></dd>
+          <dt>出そうな理由</dt><dd>R7春で春に2問。指標が新しく更新され続ける領域</dd>
+          <dt>問われそうな技術</dt><dd>CVSS4.0、EPSS、KEVカタログ、SSVC</dd>
+          <dt>必要な対策知識</dt><dd>CVSS各指標、EPSS、KEV、SSVC決定木</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">14</div><h4>工場・OT/制御システム(SCADA/PLC)のネットワーク分離不備</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>R7秋で復活。製造業のIT/OT融合とランサム被害増</dd>
+          <dt>問われそうな技術</dt><dd>Purdueモデル、IT/OT境界、一方向ゲートウェイ、USB管理</dd>
+          <dt>必要な対策知識</dt><dd>ネットワーク分離、OT向けバックアップ、USB制御</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">15</div><h4>エンドポイントのEDR/XDRを用いた検知・封じ込め</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★★</span></dd>
+          <dt>出そうな理由</dt><dd>SC-ST-004毎回級＋EDRが標準装備化。R6秋・R4秋Ⅱで既出</dd>
+          <dt>問われそうな技術</dt><dd>EDR/XDR、プロセスツリー、IoC、SOAR自動化</dd>
+          <dt>必要な対策知識</dt><dd>EDR運用、ログ相関、プレイブック</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">16</div><h4>パスワードレス認証(Passkey/FIDO2)への移行</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>R5秋でWebAuthn/Passkey既出。業界移行が加速</dd>
+          <dt>問われそうな技術</dt><dd>FIDO2、パスキー、同期/デバイス固定、リカバリ</dd>
+          <dt>必要な対策知識</dt><dd>WebAuthn、公開鍵認証、代替手段設計</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">17</div><h4>Webスキミング(Magecart)とサードパーティスクリプト管理</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>R6秋問3で既出＝カード情報漏えいの王道、再出題余地</dd>
+          <dt>問われそうな技術</dt><dd>外部スクリプト、SRI、CSP、決済ページ分離</dd>
+          <dt>必要な対策知識</dt><dd>SRI、CSP、アクセスログ調査、PCI DSS</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">18</div><h4>クレデンシャルスタッフィング/パスワードリスト攻撃対策</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★★</span></dd>
+          <dt>出そうな理由</dt><dd>R3春Ⅱ問1で既出＝定番。漏えいID再利用が続く</dd>
+          <dt>問われそうな技術</dt><dd>パスワードリスト/スプレー/総当たりの区別、レート制限</dd>
+          <dt>必要な対策知識</dt><dd>各攻撃の区別、MFA、リスクベース、漏えいPWチェック</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">19</div><h4>DDoS(L7/HTTP Flood)とCDN/WAFによる緩和</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>R6春問2で既出。攻撃の大規模化が続く</dd>
+          <dt>問われそうな技術</dt><dd>HTTP GET Flood、アノマリ検知しきい値、CDN、レート制限</dd>
+          <dt>必要な対策知識</dt><dd>CDN、クラウドWAF、ISP DDoS防御</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">20</div><h4>内部不正・退職者による情報持ち出し(DLP/権限管理)</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>R6秋問1・R7秋問1で内部起点が既出。継続テーマ</dd>
+          <dt>問われそうな技術</dt><dd>DLP、権限マトリクス、ログ監視、IRM</dd>
+          <dt>必要な対策知識</dt><dd>DLP、最小権限、アクセスログ、退職時手順</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">21</div><h4>コンテナ/Kubernetes環境の権限昇格・設定不備</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>R5秋・R4秋でコンテナ既出＝クラウドネイティブ深化</dd>
+          <dt>問われそうな技術</dt><dd>コンテナエスケープ、RBAC、Secrets、イメージ脆弱性</dd>
+          <dt>必要な対策知識</dt><dd>最小権限、イメージスキャン、Secrets管理</dd></dl></article>
+
+        <article class="pred-card search-unit"><div class="rank">22</div><h4>証明書・TLS運用(期限切れ/失効/TLSインスペクション)</h4>
+          <dl><dt>学習優先度</dt><dd><span class="stars">★★</span></dd>
+          <dt>出そうな理由</dt><dd>SC-ST-007安定枠。R7春でルート証明書/インスペクション既出</dd>
+          <dt>問われそうな技術</dt><dd>証明書検証、OCSP/CRL、TLSインスペクション、証明書管理</dd>
+          <dt>必要な対策知識</dt><dd>PKI、OCSP/CRL、証明書ライフサイクル管理</dd></dl></article>
+
+      </div>
+
+      <div class="card search-unit">
+        <h4>予想の信頼度メモ（根拠の強さ）</h4>
+        <p><b>信頼度：高</b>（過去問の延長線上・ほぼ確実にどれか出る）<br>順位1〜6,13,15,18：Web脆弱性・認可・API・認証・インシデント/ログ・脆弱性管理は毎回級。切り口の違いだけ。</p>
+        <p><b>信頼度：中</b>（トレンドとして濃厚だがいつ来るか読みにくい）<br>順位7〜12,14,16,17：サプライチェーン・クラウド設定・ASM・OT・Passkeyは直近で明確に増加中。</p>
+        <div class="note">信頼度：やや投機的 — 順位9(生成AI/LLM)は午前Ⅱでは既出だが、<b>午後での出題実績はまだ乏しい</b>。過去問の事実ではない点に注意。</div>
+      </div>
+
+      <div class="card search-unit">
+        <h4>「出たら差がつく」ダークホース候補（順位外・知識として）</h4>
+        <ul>
+          <li><b>メールの新技術</b>：BIMI、ARC（ML転送時の認証引継ぎ）</li>
+          <li><b>DNS深掘り</b>：DNSリバインディング、DoH悪用によるC2秘匿</li>
+          <li><b>Webの新しめ脆弱性</b>：プロトタイプ汚染、SSRF+IMDSv2、リクエストスマグリング</li>
+          <li><b>認証の穴</b>：SAMLレスポンス改ざん、JWTのkid/jku悪用、セッション固定の応用</li>
+          <li><b>暗号の低レイヤ</b>：ブロック暗号モード(ECB/CBC)の弱点、パディングオラクル、SHA-1廃止</li>
+          <li><b>法制度・体制</b>：改正個人情報保護法の漏えい報告義務、経済安保、能動的サイバー防御</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         05 学習計画
+    ================================================================== -->
+    <section class="chapter" id="ch05">
+      <h3 class="chapter-title">05. 学習計画 <span class="label study">学習計画</span></h3>
+
+      <div class="keypoints search-unit">
+        <strong>この章の要点</strong>
+        <ul>
+          <li>「頻出ストーリー型を潰す→失点パターンを避ける書き方を固める→予想テーマで穴を埋める」の順。</li>
+          <li>最優先TOP10、8週間計画、30分メニュー、解く順番、復習チェックリストを収録。</li>
+          <li>チェックボックスは<b>この端末に自動保存</b>されます(localStorage)。</li>
+          <li>用語・テンプレの中身は06章に集約。</li>
+        </ul>
+      </div>
+
+      <div class="card search-unit">
+        <h4>最優先で潰すべきストーリー TOP10（ランキング）</h4>
+        <ol class="rank-list">
+          <li class="rank-item"><span class="no">1</span><div class="body"><span class="t">Web脆弱性(XSS/SQLi/CSRF/SSRF)</span>（SC-ST-001）<br><span class="goal">到達目標：3類型XSS・SQLi・CSRF・SSRFを原因/対策/攻撃手順で即答</span></div></li>
+          <li class="rank-item"><span class="no">2</span><div class="body"><span class="t">認可不備・API・JWT</span>（SC-ST-002）<br><span class="goal">到達目標：認可検証処理を一文で書ける。JWT(alg/署名)を説明できる</span></div></li>
+          <li class="rank-item"><span class="no">3</span><div class="body"><span class="t">マルウェア横展開・ログ調査</span>（SC-ST-004）<br><span class="goal">到達目標：「どのログに何が残り、どう検出するか」を書ける</span></div></li>
+          <li class="rank-item"><span class="no">4</span><div class="body"><span class="t">脆弱性管理・優先度(CVSS/EPSS/KEV/ASM)</span>（SC-ST-009）<br><span class="goal">到達目標：CVSS各指標・EPSS・KEVの使い分けを言える</span></div></li>
+          <li class="rank-item"><span class="no">5</span><div class="body"><span class="t">サプライチェーン・委託先</span>（SC-ST-005）<br><span class="goal">到達目標：SBOM/SAST/DAST/再委託要求を目的付きで書ける</span></div></li>
+          <li class="rank-item"><span class="no">6</span><div class="body"><span class="t">暗号・鍵・証明書</span>（SC-ST-007）<br><span class="goal">到達目標：署名/暗号化/MAC/ハッシュを目的で選べる。証明書検証項目を列挙</span></div></li>
+          <li class="rank-item"><span class="no">7</span><div class="body"><span class="t">リモートワーク/VPN/MFA突破</span>（SC-ST-008）<br><span class="goal">到達目標：中間者型フィッシングの手順とFIDO耐性を説明できる</span></div></li>
+          <li class="rank-item"><span class="no">8</span><div class="body"><span class="t">クラウド/SaaS(SSRF/IMDS/コンテナ)</span>（SC-ST-006）<br><span class="goal">到達目標：移行前後の経路とSSRF→IMDSを書ける</span></div></li>
+          <li class="rank-item"><span class="no">9</span><div class="body"><span class="t">メール認証(SPF/DKIM/DMARC)</span>（SC-ST-003）<br><span class="goal">到達目標：3方式の判定対象を即答</span></div></li>
+          <li class="rank-item"><span class="no">10</span><div class="body"><span class="t">セキュアコーディング/開発プロセス</span>（SC-ST-010）<br><span class="goal">到達目標：実装対策と「開発プロセスの対策」を区別できる</span></div></li>
+        </ol>
+      </div>
+
+      <div class="card search-unit">
+        <h4>8週間計画（週ごとカード）</h4>
+        <p class="tag">前提：平日30分×5＋週末90分×2。試験まで2ヶ月のケース。短ければ第1〜4週を圧縮。</p>
+        <div class="week-grid">
+          <div class="week-card"><span class="w">Week 1</span><div class="th">Web脆弱性を固める</div><div class="kv"><b>型：</b>SC-ST-001</div><div class="kv"><b>平日：</b>メニューA/C</div><div class="kv"><b>週末：</b>R6秋問3、R5秋問1</div><div class="kv"><b>ゴール：</b>XSS3類型を原因/対策/手順で書ける</div></div>
+          <div class="week-card"><span class="w">Week 2</span><div class="th">認可・API・JWT</div><div class="kv"><b>型：</b>SC-ST-002</div><div class="kv"><b>平日：</b>メニューA/B</div><div class="kv"><b>週末：</b>R6春問1、R6秋問4</div><div class="kv"><b>ゴール：</b>認証と認可を切り分け、認可検証を書ける</div></div>
+          <div class="week-card"><span class="w">Week 3</span><div class="th">ログ・マルウェア・IR</div><div class="kv"><b>型：</b>SC-ST-004</div><div class="kv"><b>平日：</b>メニューA/D</div><div class="kv"><b>週末：</b>R6秋問1、R4秋Ⅱ問2</div><div class="kv"><b>ゴール：</b>「どのログを見るか」を必ず書ける</div></div>
+          <div class="week-card"><span class="w">Week 4</span><div class="th">暗号・証明書・認証</div><div class="kv"><b>型：</b>SC-ST-007/008</div><div class="kv"><b>平日：</b>メニューB/C</div><div class="kv"><b>週末：</b>R7秋問2、R5秋問2/問3</div><div class="kv"><b>ゴール：</b>署名/MAC/暗号化を目的で選べる</div></div>
+          <div class="week-card"><span class="w">Week 5</span><div class="th">クラウド・SaaS</div><div class="kv"><b>型：</b>SC-ST-006</div><div class="kv"><b>平日：</b>メニューA/D</div><div class="kv"><b>週末：</b>R6春問3、R5秋問3</div><div class="kv"><b>ゴール：</b>SSRF→IMDSと経路変化を書ける</div></div>
+          <div class="week-card"><span class="w">Week 6</span><div class="th">サプライチェーン・脆弱性管理</div><div class="kv"><b>型：</b>SC-ST-005/009</div><div class="kv"><b>平日：</b>メニューA/B</div><div class="kv"><b>週末：</b>R7春問1、R7春問2/問4</div><div class="kv"><b>ゴール：</b>SBOM/CVSS/EPSS/KEVを使い分け</div></div>
+          <div class="week-card"><span class="w">Week 7</span><div class="th">弱点補強＋メール/開発</div><div class="kv"><b>型：</b>SC-ST-003/010</div><div class="kv"><b>平日：</b>弱点別B</div><div class="kv"><b>週末：</b>R6秋問2、R6春問4</div><div class="kv"><b>ゴール：</b>苦手ストーリーを1つ克服</div></div>
+          <div class="week-card"><span class="w">Week 8</span><div class="th">総仕上げ・本番演習</div><div class="kv"><b>型：</b>総合</div><div class="kv"><b>平日：</b>メニューD</div><div class="kv"><b>週末：</b>R7秋・R7春を通しで</div><div class="kv"><b>ゴール：</b>時間内に2問完答、03チェック自動化</div></div>
+        </div>
+      </div>
+
+      <div class="card search-unit">
+        <h4>30分学習メニュー（チェックリスト）</h4>
+        <div class="menu-box">
+          <h5>メニューA：ストーリー高速反復</h5>
+          <ul class="checklist">
+            <li><input type="checkbox" id="mA1"><label for="mA1">0-5分：02のストーリーカードを1枚音読</label></li>
+            <li><input type="checkbox" id="mA2"><label for="mA2">5-20分：該当過去問の設問だけ解く(本文は流し読み)</label></li>
+            <li><input type="checkbox" id="mA3"><label for="mA3">20-28分：解答例と照合、03の失点パターンで自己採点</label></li>
+            <li><input type="checkbox" id="mA4"><label for="mA4">28-30分：06の該当テンプレを1つ暗唱</label></li>
+          </ul>
+        </div>
+        <div class="menu-box">
+          <h5>メニューB：失点パターン潰し</h5>
+          <ul class="checklist">
+            <li><input type="checkbox" id="mB1"><label for="mB1">03のP1〜P12から1つ選ぶ</label></li>
+            <li><input type="checkbox" id="mB2"><label for="mB2">該当する過去問設問を3つ解き、誤答の"型"を体に入れる</label></li>
+          </ul>
+        </div>
+        <div class="menu-box">
+          <h5>メニューC：用語瞬発</h5>
+          <ul class="checklist">
+            <li><input type="checkbox" id="mC1"><label for="mC1">06の用語表を赤シート方式で確認</label></li>
+            <li><input type="checkbox" id="mC2"><label for="mC2">混同ペア(署名/MAC、SPF/DKIM、認証/認可、WAF/IPS/EDR)を重点</label></li>
+          </ul>
+        </div>
+        <div class="menu-box">
+          <h5>メニューD：本番シミュレーション部分</h5>
+          <ul class="checklist">
+            <li><input type="checkbox" id="mD1"><label for="mD1">過去問1問を時間を計って解く(統合午後1問=目安25〜30分)</label></li>
+            <li><input type="checkbox" id="mD2"><label for="mD2">丸付けは翌日に行う</label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card search-unit">
+        <h4>過去問を解く順番（推奨シーケンス）</h4>
+        <p class="tag">新形式(R5秋〜統合午後)を本番と同型として最後に厚く。その前に旧午後Ⅰ(短問)で基礎を作る。</p>
+        <ol>
+          <li><b>基礎固め(単元別ドリル)</b>：R5春Ⅰ問1(SQLi) → R4春Ⅰ問1(XSS/SQLi) → R3秋Ⅰ問1(SSH鍵) → R3春Ⅰ問2(DNS)</li>
+          <li><b>頻出型の反復</b>：R6春問1(API) → R6秋問4(認可) → R6春問3(SSRF/CSRF) → R6秋問3(Webスキミング)</li>
+          <li><b>インシデント/ログ</b>：R6秋問1 → R4秋Ⅱ問2(EDR) → R5春Ⅰ問2(ログ相関)</li>
+          <li><b>暗号/認証/クラウド</b>：R7秋問2(暗号鍵) → R5秋問3(WebAuthn/HSM) → R5秋問2(証明書/無線)</li>
+          <li><b>最新トレンド</b>：R7春問1(SBOM) → R7春問2(CVSS/EPSS) → R7春問4(ASM) → R7秋問4(SCADA/レジリエンス)</li>
+          <li><b>本番通し演習</b>：R7秋 → R7春 → R6秋（新形式、時間を計って4問中2問選択）</li>
+        </ol>
+        <div class="factbox">選択問題のコツ：本番は4問中2問。得意ストーリー(TOP10のうち強い型)が来た問を選ぶ判断を、演習で癖づける。</div>
+      </div>
+
+      <div class="card search-unit">
+        <h4>復習時のチェックリスト</h4>
+        <button id="resetChecks" style="float:right;font-size:12px;padding:4px 12px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer;">全チェックをリセット</button>
+        <h5>解いた直後（丸付け時）</h5>
+        <ul class="checklist">
+          <li><input type="checkbox" id="r1"><label for="r1">不正解は「知識不足」か「読み違い(P1/P10)」か「書き方(P2/P11)」か分類したか</label></li>
+          <li><input type="checkbox" id="r2"><label for="r2">解答例と自分の答案の"要素の数"を比べたか(40字=要素2つが目安)</label></li>
+          <li><input type="checkbox" id="r3"><label for="r3">理由・利点を問われた設問で末尾が「〜から」になっていたか(P2)</label></li>
+          <li><input type="checkbox" id="r4"><label for="r4">攻撃と対策が対応していたか(P3)、認証/認可・署名/暗号化を混同していないか(P4/P5)</label></li>
+        </ul>
+        <h5>1日後（再確認）</h5>
+        <ul class="checklist">
+          <li><input type="checkbox" id="r5"><label for="r5">その問のストーリーIDを02で確認し、類似過去問を1つ挙げられるか</label></li>
+          <li><input type="checkbox" id="r6"><label for="r6">06の該当テンプレを見ずに書けるか</label></li>
+          <li><input type="checkbox" id="r7"><label for="r7">説明できない用語を06に追記したか</label></li>
+        </ul>
+        <h5>週次（横断復習）</h5>
+        <ul class="checklist">
+          <li><input type="checkbox" id="r8"><label for="r8">今週の誤答を03のP1〜P12に分類し、最多パターンを特定したか</label></li>
+          <li><input type="checkbox" id="r9"><label for="r9">最多パターンへの対策(チェック手順)を来週の答案で実行したか</label></li>
+          <li><input type="checkbox" id="r10"><label for="r10">混同ペアを口頭で区別できるか</label></li>
+        </ul>
+        <h5>直前期</h5>
+        <ul class="checklist">
+          <li><input type="checkbox" id="r11"><label for="r11">TOP10ストーリーすべてで代表過去問を最低1問"完答"できる状態か</label></li>
+          <li><input type="checkbox" id="r12"><label for="r12">予想テーマ(04順位1〜6,13,15,18)の用語を06で確認したか</label></li>
+          <li><input type="checkbox" id="r13"><label for="r13">本番の選択判断(得意な型を選ぶ)を演習で再現できたか</label></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         06 用語・解答テンプレ（アコーディオン）
+    ================================================================== -->
+    <section class="chapter" id="ch06">
+      <h3 class="chapter-title">06. 用語別・解答テンプレート <span class="label tmpl">テンプレート</span></h3>
+
+      <div class="keypoints search-unit">
+        <strong>この章の要点</strong>
+        <ul>
+          <li>そのまま骨格として使える<b>解答文テンプレ</b>と、混同しやすい用語の区別を一覧化。</li>
+          <li>□には本文の固有名詞(システム名・機能名・パラメータ名・IP)を入れる。当てはめを必ず行う(P1対策)。</li>
+          <li>各分野は<b>クリックで開閉</b>。最後の「混同ペア確認カード」は試験直前に音読。</li>
+        </ul>
+      </div>
+
+      <details class="accordion search-unit"><summary>1. Webアプリ脆弱性（XSS / SQLi / CSRF / SSRF）</summary>
+        <div class="acc-body">
+          <h5>XSS（他人のブラウザで悪意のスクリプトを実行させる攻撃）</h5>
+          <ul>
+            <li><b>格納型</b>：スクリプトがサーバに保存され閲覧者全員で実行(掲示板等)。被害大</li>
+            <li><b>反射型</b>：URLパラメータ等のスクリプトがその場で返り実行。リンクを踏ませる</li>
+            <li><b>DOMベース</b>：サーバを介さずブラウザ内JSがDOMを書換え実行。<span class="imp">※DOMを使う=DOMベースではない</span></li>
+          </ul>
+          <div class="tmpl-line"><span class="q">対策：</span>□(出力箇所)にデータを出力する前にエスケープ処理を施す。</div>
+          <div class="tmpl-line"><span class="q">緩和：</span>CSP(読み込み元を制限)を設定し、許可した配信元以外のスクリプト実行を禁止する。</div>
+          <div class="tmpl-line"><span class="q">cookie保護：</span>cookieにHttpOnly属性を付与しスクリプトからの読み取りを防ぐ／別ドメインのURLへcookieが送られない仕組みにする。</div>
+          <h5>SQLインジェクション</h5>
+          <div class="tmpl-line"><span class="q">対策：</span>□の処理を、プレースホルダを用いたPreparedStatementで実装する。<span class="kw">※Statement(文字列連結)ではダメ</span></div>
+          <h5>CSRF（利用者に意図しない操作を送信させる攻撃）</h5>
+          <div class="tmpl-line"><span class="q">攻撃：</span>攻撃者が用意したわなフォームに利用者を誘導し、利用者の権限で□を実行させる。</div>
+          <div class="tmpl-line"><span class="q">対策：</span>リクエストにCSRFトークンを付与し、サーバ側で照合する。</div>
+          <h5>SSRF（サーバに攻撃者指定の宛先へ通信させる攻撃）</h5>
+          <div class="tmpl-line"><span class="q">攻撃：</span>パラメータ□の値をIMDS(クラウドのメタデータ提供機能)のURLに変更し、クレデンシャルを取得する。</div>
+          <div class="tmpl-line"><span class="q">対策：</span>パラメータ□の値が許可した□以外のURLならエラーにする。</div>
+          <h5>Webヘッダ系</h5>
+          <ul>
+            <li><b>HSTS</b>：□への接続をHTTPSに強制する</li>
+            <li><b>X-Content-Type-Options</b>：Content-Typeで指定したMIMEタイプを強制適用する</li>
+            <li><b>クリックジャッキング対策</b>：X-Frame-Options / CSPのframe-ancestorsでフレーム埋め込みを制限する</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="accordion search-unit"><summary>2. 認証 / 認可 / API（JWT・OAuth・OIDC）</summary>
+        <div class="acc-body">
+          <div class="table-wrapper"><table>
+            <thead><tr><th></th><th>認証(Authentication)</th><th>認可(Authorization)</th></tr></thead>
+            <tbody>
+              <tr><td>問い</td><td>「あなたは誰か」</td><td>「あなたは何をしてよいか」</td></tr>
+              <tr><td>例</td><td>ログイン、MFA</td><td>ロール、アクセス制御、スコープ</td></tr>
+              <tr><td>崩れると</td><td>なりすまし</td><td>他人のデータにアクセス(IDOR)</td></tr>
+            </tbody>
+          </table></div>
+          <div class="tmpl-line"><span class="q">認可不備(IDOR)対策：</span>リクエストの利用者IDと□(資源)の所有者が一致するかをサーバ側で検証する。</div>
+          <div class="tmpl-line"><span class="q">推測困難化：</span>□(ID)を推測困難な値になるよう生成方法を変更する。</div>
+          <h5>JWT（署名付きトークン）</h5>
+          <div class="tmpl-line"><span class="q">alg=none対策：</span>JWTヘッダのalgの値がNONEでないことを検証する。</div>
+          <div class="tmpl-line"><span class="q">改ざん対策：</span>JWTに含まれる利用者IDが□(セッションの利用者)と一致するか検証する。</div>
+          <h5>OAuth 2.0 / OpenID Connect</h5>
+          <ul>
+            <li><b>OAuth</b>=認可(アクセス権の委譲)、<b>OIDC</b>=OAuthの上で認証を行う仕組み</li>
+            <li><b>PKCE</b>(認可コード横取り対策)：認可時にcode_verifierのハッシュを送り、トークン交換時にcode_verifierを検証</li>
+            <li><b>redirect_uri</b>：登録済みと完全一致する場合のみ許可／<b>state・nonce</b>：CSRF・リプレイ対策</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="accordion search-unit"><summary>3. マルウェア / ログ / インシデント対応（WAF・IDS・IPS・EDR・DLP・SIEM）</summary>
+        <div class="acc-body">
+          <div class="tmpl-line"><span class="q">検出：</span>□のログから、□(条件)に該当する□(ホスト/利用者)を検出する。<br>例：マルウェア対策サービスのログから、対策ソフトが停止したホストを検出する。</div>
+          <p>調査の観点：プロセスの<b>親子関係</b>、通信先URL、タスク登録、認証(RDP)ログ、タイムライン整理</p>
+          <div class="table-wrapper"><table>
+            <thead><tr><th>製品</th><th>守る層</th><th>役割</th></tr></thead>
+            <tbody>
+              <tr><td>WAF</td><td>Web境界</td><td>Webアプリへの攻撃を検知・遮断</td></tr>
+              <tr><td>IDS/IPS</td><td>ネットワーク</td><td>侵入を検知(IDS)/防御(IPS)</td></tr>
+              <tr><td>EDR</td><td>エンドポイント</td><td>端末の不審挙動を検知し対応(隔離等)</td></tr>
+              <tr><td>DLP</td><td>データ</td><td>情報の持ち出しを検知・制限</td></tr>
+              <tr><td>SIEM</td><td>横断</td><td>各種ログを相関分析</td></tr>
+            </tbody>
+          </table></div>
+          <div class="tmpl-line"><span class="q">持ち出し対策：</span>□にDLPを導入し、ファイルの持ち出しを制限する。<span class="kw">※「アクセス権最小化」では防げない</span></div>
+          <div class="tmpl-line"><span class="q">横展開対策：</span>仮想PC/サーバへのRDP接続に対し、接続元IPアドレスによる制限を行う。</div>
+        </div>
+      </details>
+
+      <details class="accordion search-unit"><summary>4. 暗号 / 鍵 / 証明書（署名・MAC・ハッシュ・暗号化 / PKI）</summary>
+        <div class="acc-body">
+          <div class="table-wrapper"><table>
+            <thead><tr><th>守りたい性質</th><th>使う技術</th><th>補足</th></tr></thead>
+            <tbody>
+              <tr><td>機密性(見られない)</td><td>暗号化(共通鍵/公開鍵)</td><td>AES等</td></tr>
+              <tr><td>完全性＋当事者間の真正性</td><td><b>MAC(メッセージ認証符号)</b></td><td>共通鍵を共有する相手同士</td></tr>
+              <tr><td>完全性＋第三者に送信者を証明</td><td><b>デジタル署名</b></td><td>公開鍵ペア。否認防止</td></tr>
+              <tr><td>データの同一性確認</td><td>ハッシュ(SHA-2)</td><td>鍵なし</td></tr>
+            </tbody>
+          </table></div>
+          <div class="note">改ざん検知＝反射的に「デジタル署名」と書かない。共通鍵共有の文脈なら<b>MAC</b>(R7秋の頻出誤答)</div>
+          <div class="tmpl-line"><span class="q">HSMの利点：</span>秘密鍵がHSMの外部に出ないため、鍵の漏えいを防げる。<span class="kw">※「署名を暗号化できる」等は誤り</span></div>
+          <h5>証明書・PKI（サーバ証明書の検証項目）</h5>
+          <ol>
+            <li>信頼された認証局(CA)が発行したものか</li>
+            <li>証明書のサーバ名(CN/SAN)が接続先と一致するか</li>
+            <li>有効期限内か</li>
+            <li>失効していないか（<b>OCSP</b>=オンライン失効確認／<b>CRL</b>=失効リスト）</li>
+          </ol>
+          <div class="tmpl-line"><span class="q">偽サイト検知：</span>HTTPSでアクセスするため、偽サイトのサーバ証明書は検証に失敗する。</div>
+          <div class="tmpl-line"><span class="q">無線LAN(EAP-TLS)：</span>EAP-TLSに必要な認証情報(秘密鍵)は業務PCから取り出せないようにし、業務PCにしか格納できないようにする。</div>
+        </div>
+      </details>
+
+      <details class="accordion search-unit"><summary>5. リモートワーク / VPN / 多要素認証（FIDO・中間者）</summary>
+        <div class="acc-body">
+          <div class="tmpl-line"><span class="q">中間者型フィッシング手順：</span>攻撃者が偽サイトに入力された利用者ID/パスワードを正規サイトへ中継し、正規利用者に送られたMFAコードを偽サイトで受け取って正規サイトに入力し、認証を突破する。</div>
+          <div class="tmpl-line"><span class="q">フィッシング耐性：</span>FIDO/WebAuthn(パスキー)は、認証情報にオリジン(接続先)と署名を含めサーバが検証するため、偽サイトでは認証が成立せずフィッシング耐性がある。</div>
+          <div class="tmpl-line"><span class="q">入力先の限定：</span>認証情報は、メール内リンクから開いた画面には入力せず、正規の□(VPNダイアログ等)にだけ入力する。</div>
+          <div class="tmpl-line"><span class="q">接続元制限：</span>□サイトへのアクセスを許可する接続元IPアドレスを□に制限する。</div>
+          <p>MFA代替(故障時)：セキュリティ強度を落とさない代替(別のFIDO認証器登録、バックアップコードの安全管理等)を認証基盤の仕様に沿って書く</p>
+        </div>
+      </details>
+
+      <details class="accordion search-unit"><summary>6. クラウド / SaaS（IMDS・SSRF・コンテナ）</summary>
+        <div class="acc-body">
+          <ul>
+            <li><b>通信経路</b>：移行前後で「どこを経由するか」を図で追い、変化点を答える(R5春Ⅰ問3)</li>
+            <li><b>フィルタリング</b>：ルールは適用順序で動作が変わるため番号順に注意</li>
+            <li><b>IMDS/SSRF</b>：SSRFテンプレ参照。IMDSv2はトークン必須で緩和</li>
+          </ul>
+          <div class="tmpl-line"><span class="q">最小権限：</span>□(利用者/API)に必要最小限の権限だけを付与する。</div>
+          <p>コンテナ：どの権限で実行されるかを理解。RBAC、イメージスキャン、Secrets管理</p>
+        </div>
+      </details>
+
+      <details class="accordion search-unit"><summary>7. メールセキュリティ（SPF / DKIM / DMARC）</summary>
+        <div class="acc-body">
+          <div class="table-wrapper"><table>
+            <thead><tr><th>方式</th><th>何を見るか</th><th>一言</th></tr></thead>
+            <tbody>
+              <tr><td><b>SPF</b></td><td>送信元IPアドレス と エンベロープFromのドメイン</td><td>Subjectは見ない</td></tr>
+              <tr><td><b>DKIM</b></td><td>電子署名(hタグで対象ヘッダ指定、Subjectを含むことも)</td><td>署名対象を変えると検証失敗</td></tr>
+              <tr><td><b>DMARC</b></td><td>SPF/DKIMの結果＋Fromドメインの整合</td><td>ポリシー(none/quarantine/reject)とレポート</td></tr>
+            </tbody>
+          </table></div>
+          <div class="tmpl-line"><span class="q">SPF設定：</span>SPFレコードに、□(新サービス)のメール送信元IPアドレスを追加する。</div>
+          <div class="tmpl-line"><span class="q">DKIM失敗の因果：</span>DKIMのhタグにSubjectが含まれるのに、□(ML等)でSubjectが変わるため署名検証が失敗する。</div>
+          <div class="note">S/MIMEは本文/添付の暗号化・署名であって、SMTP暗号化(SMTPS)ではない(R6秋の誤答)</div>
+        </div>
+      </details>
+
+      <details class="accordion search-unit"><summary>8. 委託 / サプライチェーン / 脆弱性管理（SBOM・SAST/DAST・CVSS/EPSS/KEV・ASM）</summary>
+        <div class="acc-body">
+          <h5>サプライチェーン</h5>
+          <div class="tmpl-line"><span class="q">再委託：</span>委託先に要求する対策と同等のセキュリティ対策を、再委託先にも要求させる。</div>
+          <div class="tmpl-line"><span class="q">SBOMの利点：</span>利用しているソフトウェアやバージョンが明確になり、脆弱性の影響有無を容易に把握できるから。<span class="kw">※定義だけはNG</span></div>
+          <div class="table-wrapper"><table>
+            <thead><tr><th>略語</th><th>名称</th><th>特徴</th></tr></thead>
+            <tbody>
+              <tr><td>SAST</td><td>静的解析</td><td>ソースコードを解析。実行不要、早期発見</td></tr>
+              <tr><td>DAST</td><td>動的解析</td><td>稼働中アプリに攻撃を送り検出</td></tr>
+              <tr><td>IAST</td><td>対話型</td><td>実行時にコード内部も観測、両者の中間</td></tr>
+            </tbody>
+          </table></div>
+          <h5>脆弱性管理の指標</h5>
+          <div class="table-wrapper"><table>
+            <thead><tr><th>指標</th><th>何を表すか</th><th>使いどころ</th></tr></thead>
+            <tbody>
+              <tr><td>CVSS基本値</td><td>脆弱性そのものの深刻度</td><td>技術的特性。AC=攻撃条件の複雑さ(※Cと混同注意)</td></tr>
+              <tr><td>CVSS現状値</td><td>攻撃コードの有無等の"今"の状況</td><td>公開情報から自分で評価する手間</td></tr>
+              <tr><td>EPSS</td><td>悪用される確率(予測)</td><td>FIRSTの公開値をそのまま使える</td></tr>
+              <tr><td>KEVカタログ</td><td>実際に悪用が確認された脆弱性リスト</td><td>「実際に悪用された」→優先度を上げる根拠</td></tr>
+            </tbody>
+          </table></div>
+          <div class="tmpl-line"><span class="q">優先度：</span>KEVカタログに掲載され実際に悪用されているため、対応優先度を上げる。</div>
+          <h5>ASM（アタックサーフェスマネジメント）</h5>
+          <div class="tmpl-line"><span class="q">サブドメインテイクオーバー対策：</span>終了したサブドメインのCNAMEレコードを(権威DNSサーバから)削除する。</div>
+          <div class="tmpl-line"><span class="q">稼働調査：</span>ポートスキャンで公開ポートを確認し、脆弱性スキャナーで脆弱性の有無を確認する。</div>
+          <div class="tmpl-line"><span class="q">廃止判断：</span>継続しない場合は速やかにネットワークから切り離し、機器を廃棄する。</div>
+        </div>
+      </details>
+
+      <details class="accordion search-unit"><summary>9. セキュアコーディング / 開発プロセス</summary>
+        <div class="acc-body">
+          <ul>
+            <li><b>PreparedStatement</b>：SQLi参照</li>
+            <li><b>例外処理(Java)</b>：例外発生時でも必ず実行される<code>finally</code>でリソースを解放する／捕捉した例外は握りつぶさず再throwする</li>
+            <li><b>パスワード保存</b>：SHA-256等のハッシュ(＋ソルト)で保存する(可逆な暗号化ではない)</li>
+            <li><b>最小権限</b>：DBアクセス権を機能ごとに必要最小限に</li>
+          </ul>
+          <div class="note">「開発プロセスの対策」を問われたら、設計/実装/テスト/レビュー/専門家による脆弱性検査など<b>プロセス上の施策</b>に限定。運用対策(ログ分析・棚卸)や製品導入(WAF)を書かない(R7秋の頻出誤答)</div>
+        </div>
+      </details>
+
+      <details class="accordion search-unit"><summary>10. リスクアセスメント / 体制</summary>
+        <div class="acc-body">
+          <ul>
+            <li><b>リスク対応4分類</b>：回避／移転／低減(軽減)／保有(受容)</li>
+          </ul>
+          <div class="tmpl-line"><span class="q">攻撃シナリオ：</span>攻撃者が□(手口)により□(初期侵入)し、□(横展開)して、最終的に□(被害)する。<span class="kw">※被害の大きさ・頻度まで具体化</span></div>
+          <p>権限マトリクス：所属組織×(読込/書込/権限変更)を最小権限で設計</p>
+          <div class="tmpl-line"><span class="q">レジリエンス(復旧優先)：</span>被害発生時に迅速復旧するため、平常時にバックアップを取得しておく。<span class="kw">※復旧を問われて攻撃阻止を書かない</span></div>
+        </div>
+      </details>
+
+      <details class="accordion search-unit"><summary>11. ネットワーク基盤（DNS / FW / 無線LAN）</summary>
+        <div class="acc-body">
+          <ul>
+            <li><b>DNSSEC</b>：DNS応答にデジタル署名を付け、改ざん(キャッシュポイズニング)を検知する</li>
+            <li><b>DoH/DoT</b>：DNS通信をHTTPS/TLSで暗号化し、盗聴・改ざんを防ぐ</li>
+            <li><b>ゾーン転送制限</b>：ゾーン転送要求を許可するホストを必要最小限(□)に制限する</li>
+            <li><b>IEEE802.1X/RADIUS</b>：認証後にネットワーク接続を許可。EAP-TLSは証明書認証</li>
+            <li><b>不正DHCP検出</b>(※不正AP検出と混同注意)：DHCP応答を監視し、許可外のDHCPサーバを検知</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="accordion search-unit" open><summary>12. 混同ペア・最終確認カード（試験直前に音読）</summary>
+        <div class="acc-body">
+          <ul>
+            <li>認証（誰か）↔ 認可（何してよいか）</li>
+            <li>デジタル署名（第三者に証明・公開鍵）↔ MAC（当事者間・共通鍵）↔ ハッシュ（鍵なし）↔ 暗号化（機密性）</li>
+            <li>SPF（送信元IP）↔ DKIM（署名・hタグ）↔ DMARC（ポリシー）</li>
+            <li>WAF（Web境界）↔ IPS（NW侵入）↔ EDR（端末）↔ DLP（データ持出）↔ SIEM（ログ相関）</li>
+            <li>格納型XSS ↔ 反射型XSS ↔ DOMベースXSS</li>
+            <li>SAST（静的）↔ DAST（動的）↔ IAST（対話型）</li>
+            <li>CVSS基本値（深刻度）↔ 現状値（今の状況）↔ EPSS（悪用確率）↔ KEV（悪用実績）</li>
+            <li>Statement（危険）↔ PreparedStatement（安全・プレースホルダ）</li>
+            <li>OAuth（認可・権限委譲）↔ OIDC（認証）</li>
+            <li>パスワードリスト（漏えいID再利用）↔ スプレー（少数PWを多数IDへ）↔ 総当たり（1IDに全PW）</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <footer style="margin-top:30px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:12px;">
+      SC午後対策ダッシュボード / 出典：IPA 情報処理安全確保支援士試験 午後問題 解答例・採点講評(R3春〜R7秋) をもとに整理。「事実」と「予想」は分離表示。最終更新 2026-07-05。
+    </footer>
+
+  </main>
+</div>
+
+<button id="toTop" aria-label="TOPへ戻る">↑</button>
+<script src="script.js"></script>
+</body>
+</html>
