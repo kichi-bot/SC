@@ -28,6 +28,10 @@
     var units = Array.prototype.slice.call(
       document.querySelectorAll('.search-unit')
     );
+    // 折りたたみ(details)は初期の開閉状態を記憶（検索解除時に復元）
+    units.forEach(function (u) {
+      if (u.tagName === 'DETAILS') u.dataset.initOpen = u.open ? '1' : '0';
+    });
     var rows  = Array.prototype.slice.call(
       document.querySelectorAll('table.filterable tbody tr')
     );
@@ -45,6 +49,8 @@
         u.classList.toggle('search-hidden', !match);
         u.classList.toggle('hit', match);
         if (match) hits++;
+        // 一致した折りたたみは自動で開いて結果を見せる
+        if (match && u.tagName === 'DETAILS') u.open = true;
       });
 
       rows.forEach(function (r) {
@@ -65,7 +71,10 @@
     }
 
     function reset() {
-      units.forEach(function (u) { u.classList.remove('search-hidden', 'hit'); });
+      units.forEach(function (u) {
+        u.classList.remove('search-hidden', 'hit');
+        if (u.tagName === 'DETAILS') u.open = u.dataset.initOpen === '1';
+      });
       rows.forEach(function (r) { r.classList.remove('search-hidden'); });
       document.querySelectorAll('section.chapter').forEach(function (s) { s.classList.remove('dim'); });
     }
@@ -121,20 +130,28 @@
   }
 
   /* -------------------- モバイルサイドバー -------------------- */
-  var _sb, _bd;
+  var _sb, _bd, _burger;
   function setupSidebar() {
     _sb = document.querySelector('.sidebar');
     _bd = document.querySelector('.backdrop');
-    var burger = document.querySelector('.hamburger');
-    if (burger) burger.addEventListener('click', function () {
-      _sb.classList.toggle('open');
-      if (_bd) _bd.classList.toggle('show', _sb.classList.contains('open'));
+    _burger = document.querySelector('.hamburger');
+    if (_burger) _burger.addEventListener('click', function () {
+      var open = _sb.classList.toggle('open');
+      if (_bd) _bd.classList.toggle('show', open);
+      document.body.classList.toggle('no-scroll', open);   // メニュー展開中は背景を固定
+      _burger.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     if (_bd) _bd.addEventListener('click', closeSidebar);
+    // Escキーでも閉じられるように
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeSidebar();
+    });
   }
   function closeSidebar() {
     if (_sb) _sb.classList.remove('open');
     if (_bd) _bd.classList.remove('show');
+    document.body.classList.remove('no-scroll');
+    if (_burger) _burger.setAttribute('aria-expanded', 'false');
   }
 
   /* -------------------- チェックリスト保存 -------------------- */
