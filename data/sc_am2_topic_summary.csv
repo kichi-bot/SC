@@ -1,0 +1,15 @@
+﻿main_category,count,recent_weighted_score,priority,pm_relevance,study_action
+DoS/DDoS・ボットネット,32,55,B,middle,Smurf/ICMPFlood/NTPリフレクション/DRDoSの手口の違いを1枚にまとめる。Mirai・NOTICEも再出題傾向
+マルウェア・ランサムウェア・標的型攻撃,60,87,B,high,Mirai・ルートキット・ポリモーフィック・検出手法(ビヘイビア法)・証拠保全の順序を暗記
+メールセキュリティ,57,81,A,high,SPF=IP、DKIM=署名、DMARC=ポリシー、OP25B=25番遮断、587=サブミッションポートを丸暗記。用語問題で確実に取る
+Web脆弱性,56,86,A,high,XSS/CSRF/SQLiの攻撃と対策を対で暗記。午後のセキュアプログラミングに最重要なので仕組みまで理解する
+認証・認可・SAML・OAuth,73,128,A,high,SAML(IdP/SP/アサーション)とOAuth2.0(アクセストークン)の登場人物を整理。FIDO/パスキー・802.1X+RADIUSも頻出
+PKI・証明書・TLS・HTTPS,49,84,A,high,CRL/OCSP/RA/VA/CPSをセットで暗記し、TLSの鍵交換と証明書検証の流れを1回描く。午後のHTTPS/証明書問題に直結
+暗号・ハッシュ・電子署名,98,148,A,middle,衝突発見困難性・CRYPTREC・暗号利用モード・MAC・PQCの正答文を暗記。ハッシュ/MAC/署名の違いを図で1回整理
+セキュア開発・脆弱性管理・CVE・CVSS,25,42,B,middle,CVE/CVSS/CWE/JVN/SBOMの一言定義を暗記。混同しやすいので比較表で覚える
+クラウド・ゼロトラスト・ログ管理・SIEM,15,30,B,middle,CASB/CSPM/SOAR/UEBA/IoCの一言定義を暗記。R6以降の新定番で再出題可能性が高い
+ISMS・リスク管理・監査・法制度,80,126,B,middle,ISMAP・NIST CSF2.0(GOVERN追加)・MITRE・JIS Q 27000用語・内部統制(全般/業務処理)を押さえる。問25の監査は毎回固定枠
+ネットワーク,158,225,B,high,サブネット計算・スパニングツリー・ICMP・TCP/IPヘッダーを手を動かして復習。問18〜20の固定枠
+データベース,33,49,C,low,SQL実行結果のトレースとコミット完了時点(ログ書込み時)だけ確認。問21の固定枠
+開発技術・サービスマネジメント,83,126,C,low,可用性計算の練習2〜3問とテスト手法・アジャイル用語の確認のみ。問22〜24の固定枠
+その他SC午前Ⅱ固有テーマ,6,8,C,low,深追いしない。過去問で出たものだけ正答文を暗記
