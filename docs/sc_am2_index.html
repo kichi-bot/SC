@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SC午前Ⅱ 傾向と対策</title>
+<link rel="stylesheet" href="./assets/sc_am2_style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <h1>SC午前Ⅱ 傾向と対策</h1>
+  <p class="sub">応用情報合格者向け・午前Ⅰ免除前提</p>
+  <span class="scope">SC午前Ⅱのみ / 午前Ⅰ・午後は集計対象外</span>
+  <p class="sub">最終更新日:<span id="updated">2026-07-06</span>(H21春〜R7秋・33回825問を集計)</p>
+</header>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="#summary">結論</a>
+  <a href="#today">今日やること</a>
+  <a href="#priority">優先順位</a>
+  <a href="#trend">カテゴリ別傾向</a>
+  <a href="#strategy">戦略</a>
+  <a href="#flashcards">暗記カード</a>
+  <a href="#diff">用語の違い</a>
+  <a href="#plan">4週間計画</a>
+  <a href="#questions">問題データ</a>
+</div></nav>
+
+<!-- 2. 結論サマリー -->
+<section id="summary">
+  <h2>結論サマリー</h2>
+  <p id="last-section" class="note" style="display:none"></p>
+  <div class="cards c3 summary-cards">
+    <div class="card"><div class="label">最優先分野</div><div class="big">暗号・PKI/TLS・認証認可・メール・Web脆弱性</div><p class="muted">再出題が多く午後にもつながる5分野</p></div>
+    <div class="card"><div class="label">目標</div><div class="big">25問中 17〜19問</div><p class="muted">最低ライン15問(60%)。40分で25問=1問96秒</p></div>
+    <div class="card warn"><div class="label">最大の事実</div><div class="big">毎回3割が過去問と同一</div><p class="muted">直近10回平均33%が同一文面の再出題。類題込みで実質5〜6割</p></div>
+    <div class="card"><div class="label">方針</div><div class="big">暗記カード → 過去問 → 間違い復習</div><p class="muted">直近10回分(250問)を2周が最短ルート</p></div>
+    <div class="card"><div class="label">構成の型</div><div class="big">問1〜17がセキュリティ</div><p class="muted">問18〜20 NW / 問21 DB / 問22〜23 開発 / 問24 SM / 問25 監査で固定</p></div>
+  </div>
+</section>
+
+<!-- 3. 今日やること -->
+<section id="today">
+  <h2>今日の30分</h2>
+  <div class="today">
+    <ol>
+      <li><span class="min">5分</span>:昨日間違えた用語・言えなかったカードを確認</li>
+      <li><span class="min">15分</span>:午前Ⅱ過去問を10問解く(または暗記カード15〜20枚)</li>
+      <li><span class="min">10分</span>:間違えた理由を1行で記録(例「CRLとOCSPを混同」)</li>
+    </ol>
+    <p class="muted">休日は最大60分。詳しくは<a href="#plan">4週間計画</a>へ。</p>
+  </div>
+</section>
+
+<!-- 4. 優先順位マップ -->
+<section id="priority">
+  <h2>優先順位マップ</h2>
+  <p class="muted">出典:<a href="../data/sc_am2_topic_summary.csv">data/sc_am2_topic_summary.csv</a>(直近重みスコア=直近6回×3+7〜12回前×2+それ以前×1)</p>
+  <div class="cards c2" id="topics-ab"></div>
+  <details class="plain">
+    <summary>優先度C・Dのカテゴリを表示(問21〜24の固定枠。応用情報の貯金で対応)</summary>
+    <div class="body"><div class="cards c2" id="topics-cd"></div></div>
+  </details>
+</section>
+
+<!-- 5. カテゴリ別傾向 -->
+<section id="trend">
+  <h2>カテゴリ別傾向</h2>
+  <p class="muted">詳細版:<a href="./sc_am2_trend.md">sc_am2_trend.md</a></p>
+
+  <details open>
+    <summary>暗号・ハッシュ・電子署名 <span class="badge pri-A">A</span></summary>
+    <div class="body">
+      <p>毎回3問前後。同一問題の再出題が最も多く、暗記効率が最高の分野。</p>
+      <ul>
+        <li><b>典型問題</b>:衝突発見困難性(6回)、CRYPTREC暗号リスト、暗号利用モード、MAC、サイドチャネル/タイミング攻撃、PQC(3回)</li>
+        <li><b>ひっかけ</b>:ハッシュ/MAC/デジタル署名の役割混同。「誰の・何鍵か」の入れ替え</li>
+        <li><b>対策</b>:定番問題の正答文を暗記。鍵の主体を必ず意識</li>
+        <li><b>午後とのつながり</b>:中。証明書・TLS・危殆化対応の前提知識</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>PKI・証明書・TLS・HTTPS <span class="badge pri-A">A</span></summary>
+    <div class="body">
+      <p>毎回1.5問前後。CRL/OCSP/RA/VA/CPSがローテーション出題される。</p>
+      <ul>
+        <li><b>典型問題</b>:デジタル証明書の用途(6回)、OCSP(5回)、CRL、RA=本人確認、VA=失効応答、CPS=運用規程、HSTS</li>
+        <li><b>ひっかけ</b>:CRLに載るのは「有効期限内に失効した」証明書。期限切れは載らない</li>
+        <li><b>対策</b>:CA/RA/VAの役割分担とCRL/OCSPの違いを比較で暗記</li>
+        <li><b>午後とのつながり</b>:高。サーバ証明書検証・TLS設定は午後頻出</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>認証・認可・SAML・OAuth <span class="badge pri-A">A</span></summary>
+    <div class="body">
+      <p>毎回2問強で増加傾向(R6秋は6問)。SAML/OAuth/FIDOが熱い。</p>
+      <ul>
+        <li><b>典型問題</b>:SAMLの流れ(IdP/SP/アサーション)、OAuth2.0のトークン発行者、FIDO/パスキー、802.1X+RADIUS、EAP-TLS、AAA</li>
+        <li><b>ひっかけ</b>:認証(本人確認)と認可(権限付与)の混同</li>
+        <li><b>対策</b>:SAMLとOAuthの登場人物と流れを一度図に描く</li>
+        <li><b>午後とのつながり</b>:高。SSO・API認可・多要素認証は午後の定番</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>Web脆弱性 <span class="badge pri-A">A</span></summary>
+    <div class="body">
+      <p>毎回1〜2問だが、午後との相乗効果が最大の分野。</p>
+      <ul>
+        <li><b>典型問題</b>:CSRF対策で「効果がないもの」(3回)、OSコマンドインジェクションのログ読解、SQLi対策の組合せ、WAFのフォールスポジティブ</li>
+        <li><b>ひっかけ</b>:XSS対策(エスケープ)をCSRF対策と誤認させる選択肢が定番</li>
+        <li><b>対策</b>:攻撃と対策を必ず対で覚える。仕組みまで理解する</li>
+        <li><b>午後とのつながり</b>:最高。セキュアプログラミング問題に直結</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>メールセキュリティ <span class="badge pri-A">A</span></summary>
+    <div class="body">
+      <p>毎回1.5問前後。用語の丸暗記だけで確実に取れる得点源。</p>
+      <ul>
+        <li><b>典型問題</b>:SPF(3回)、DKIM(3回)、DMARC、SMTP-AUTH(5回)、OP25B(3回)、サブミッションポート587、メール暗号化3方式の鍵の単位</li>
+        <li><b>ひっかけ</b>:SPF(IP)とDKIM(署名)の検証対象の混同。S/MIMEとSMTP over TLSの混同</li>
+        <li><b>対策</b>:「SPF=IP、DKIM=署名、DMARC=ポリシー」を呪文化</li>
+        <li><b>午後とのつながり</b>:高。送信ドメイン認証の設定問題が午後に出る</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>DoS/DDoS・ボットネット <span class="badge pri-B">B</span></summary>
+    <div class="body">
+      <p>毎回1問前後でやや増加。手口の違いだけ問われる。</p>
+      <ul>
+        <li><b>典型問題</b>:Smurf(6回)、ICMP Flood(4回)、NTPリフレクション、DRDoS、バックスキャッタ、Mirai、NOTICE</li>
+        <li><b>ひっかけ</b>:直接型と反射型の区別。Smurfは「応答を攻撃対象に集中させる」</li>
+        <li><b>対策</b>:DoS系比較メモ1枚で全部取れる</li>
+        <li><b>午後とのつながり</b>:中</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>マルウェア・ランサムウェア・標的型攻撃 <span class="badge pri-B">B</span></summary>
+    <div class="body">
+      <p>毎回2問前後。R5以降の新顔用語の再出題ゾーン。</p>
+      <ul>
+        <li><b>典型問題</b>:Mirai(3回)、ルートキット、ポリモーフィック型、ビヘイビア法、証拠保全の優先順位、クリプトジャッキング、コネクトバック、AI攻撃</li>
+        <li><b>ひっかけ</b>:マルウェアの型の定義混同。証拠保全は揮発性の高い順</li>
+        <li><b>対策</b>:新顔(ドメインフロンティング/モデルインバージョン等)は一言定義を暗記</li>
+        <li><b>午後とのつながり</b>:高。インシデント対応・ログ調査の長文に直結</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>セキュア開発・脆弱性管理・CVE/CVSS <span class="badge pri-B">B</span></summary>
+    <div class="body">
+      <p>毎回0.5〜1問で増加傾向。混同整理だけで取れる。</p>
+      <ul>
+        <li><b>典型問題</b>:CVE(4回)、CWE、CVSS、JVN、SBOM、ペネトレーションテスト、ファジング</li>
+        <li><b>ひっかけ</b>:CVE(識別子)/CWE(種類)/CVSS(深刻度)の相互混同</li>
+        <li><b>対策</b>:3つの違いを一言で言えるようにする</li>
+        <li><b>午後とのつながり</b>:中。脆弱性管理・パッチ運用の問題</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>ISMS・リスク管理・監査・法制度 <span class="badge pri-B">B</span></summary>
+    <div class="body">
+      <p>毎回2.5問前後で増加傾向。問25の監査枠は毎回固定。</p>
+      <ul>
+        <li><b>典型問題</b>:JIS Q 27000用語、ISMAP/ISMAP-LIU、NIST CSF 2.0(GOVERN追加)、MITRE、SIM3、CSIRT/PSIRT/SOC、内部統制、システム監査基準</li>
+        <li><b>ひっかけ</b>:全般統制(開発保守の管理)と業務処理統制(アプリ内の統制)の区別</li>
+        <li><b>対策</b>:制度名と「どこが・何のために」をセットで暗記</li>
+        <li><b>午後とのつながり</b>:中。リスクアセスメントの考え方は午後でも使う</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>クラウド・ゼロトラスト・ログ管理・SIEM <span class="badge pri-B">B</span></summary>
+    <div class="body">
+      <p>ほぼ全てR4以降の出題。最も明確な増加分野で、初出→2回目の再出題が狙われる時期。</p>
+      <ul>
+        <li><b>典型問題</b>:CASB(利用可視化)、CSPM(設定監視)、SOAR(運用自動化)、UEBA(振る舞い検知)、IoC(侵害の痕跡)</li>
+        <li><b>ひっかけ</b>:5つの機能の相互混同</li>
+        <li><b>対策</b>:一言定義の暗記のみで取れる</li>
+        <li><b>午後とのつながり</b>:中〜高。クラウド設定不備は午後の新定番</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>ネットワーク(FW・IDS/IPS含む) <span class="badge pri-B">B</span></summary>
+    <div class="body">
+      <p>毎回4〜5問(問18〜20の固定枠+セキュリティ機器)。</p>
+      <ul>
+        <li><b>典型問題</b>:ステートフルインスペクション(計8回)、IPS(シグネチャ/アノマリ)、サブネット計算、スパニングツリー、ICMP、DNSSEC(計8回)、カミンスキー攻撃対策、無線LAN</li>
+        <li><b>ひっかけ</b>:TCPヘッダーとIPヘッダーの情報の混同(宛先ポート番号はTCP)</li>
+        <li><b>対策</b>:計算問題は手を動かす。FW/IDS/IPS/WAFは比較で暗記</li>
+        <li><b>午後とのつながり</b>:高。FWルール設計・ログ調査の基礎</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>データベース(問21) / 開発技術・SM(問22〜24) <span class="badge pri-C">C</span></summary>
+    <div class="body">
+      <p>応用情報レベルの固定枠。ここで5問以上落とさないことが合格の前提。</p>
+      <ul>
+        <li><b>典型問題</b>:SQL実行結果、コミット完了時点(ログ書込み時)、テスト駆動開発、KPT、可用性計算(R7春98.3%・R7秋99.52%)、JIS Q 20000</li>
+        <li><b>ひっかけ</b>:可用性計算でサービス提供時間帯の条件を見落とす</li>
+        <li><b>対策</b>:可用性計算だけ2〜3問練習。他は応用情報の記憶で対応</li>
+        <li><b>午後とのつながり</b>:低</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- 6. 戦略 -->
+<section id="strategy">
+  <h2>6割戦略・7割戦略</h2>
+  <div>
+    <div class="tabs">
+      <button class="active" data-panel="tab-60">最短で6割</button>
+      <button data-panel="tab-70">安定して7割</button>
+      <button data-panel="tab-check">直前チェックリスト</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-60">
+      <div class="cards c3">
+        <div class="card"><h3>捨てない分野</h3><ul>
+          <li>暗号・PKI・TLS(毎回4〜5問。再出題の中心)</li>
+          <li>メールセキュリティ(丸暗記で確実)</li>
+          <li>問18〜25の8問(応用情報レベル)</li>
+        </ul></div>
+        <div class="card"><h3>暗記で取る分野</h3><ul>
+          <li>DoS系の手口の違い</li>
+          <li>マルウェア定番(Mirai/ルートキット/ビヘイビア法)</li>
+          <li>クラウド・SOC系用語(CASB/CSPM/SOAR/UEBA/IoC)</li>
+          <li>制度系(ISMAP/NIST CSF/CVE・CWE・CVSS)</li>
+        </ul></div>
+        <div class="card"><h3>深追いしない分野</h3><ul>
+          <li>DBの細かい理論(問21の1問だけ)</li>
+          <li>開発技術の細部(問22〜23)</li>
+          <li>初見の長文計算問題(最後に回す)</li>
+        </ul></div>
+      </div>
+      <p class="note">得点内訳の目安:再出題8〜12問+新傾向用語2〜3問+問18〜25で5〜6問 → 15問ラインは過去問演習の量でほぼ決まる。</p>
+    </div>
+
+    <div class="tab-panel" id="tab-70">
+      <div class="cards c3">
+        <div class="card"><h3>仕組み理解が必要</h3><ul>
+          <li>SAML/OAuth2.0の流れ(登場人物を図で)</li>
+          <li>TLS・証明書検証の流れ</li>
+          <li>XSS/CSRF/SQLi(攻撃→だから対策)</li>
+          <li>サブネット・可用性計算(手を動かす)</li>
+        </ul></div>
+        <div class="card"><h3>午後にも効く分野</h3><ul>
+          <li>Web脆弱性、メール認証(SPF/DKIM/DMARC)</li>
+          <li>TLS/証明書、認証連携</li>
+          <li>FW/IDS/IPSのログ読解</li>
+          <li>インシデント対応(証拠保全の順序)</li>
+        </ul></div>
+        <div class="card"><h3>重点復習</h3><ul>
+          <li><b>R6〜R7初出</b>(次回最有力):ドメインフロンティング、コネクトバック、IoC、UEBA、CSPM、SIM3、Identity Proofing、DTLS、Enhanced Open、モデルインバージョン、パスキー</li>
+          <li><b>サイクル的に有力</b>:衝突発見困難性、OCSP、DNSSEC、SMTP-AUTH</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-check">
+      <p class="muted">チェック状態はこの端末に保存されます(localStorage)。</p>
+      <ul class="checklist">
+        <li><label><input type="checkbox" data-key="spf"><span>SPF / DKIM / DMARC の検証対象を言える</span></label></li>
+        <li><label><input type="checkbox" data-key="crl"><span>CRL / OCSP の違いを言える(失効リスト vs リアルタイム照会)</span></label></li>
+        <li><label><input type="checkbox" data-key="ra"><span>RA / VA / CPS の役割を言える</span></label></li>
+        <li><label><input type="checkbox" data-key="hash"><span>ハッシュ / MAC / デジタル署名の違いを言える</span></label></li>
+        <li><label><input type="checkbox" data-key="saml"><span>SAML と OAuth の用途の違いを言える(認証連携 vs 認可)</span></label></li>
+        <li><label><input type="checkbox" data-key="8021x"><span>802.1X の3役(サプリカント/オーセンティケータ/認証サーバ)を言える</span></label></li>
+        <li><label><input type="checkbox" data-key="dos"><span>Smurf / リフレクション / DRDoS の手口を言える</span></label></li>
+        <li><label><input type="checkbox" data-key="cve"><span>CVE / CWE / CVSS の違いを言える</span></label></li>
+        <li><label><input type="checkbox" data-key="cloud"><span>CASB / CSPM / SOAR / UEBA / SIEM の一言定義を言える</span></label></li>
+        <li><label><input type="checkbox" data-key="forensic"><span>証拠保全の順序(揮発性の高い順)を言える</span></label></li>
+        <li><label><input type="checkbox" data-key="control"><span>全般統制と業務処理統制の区別を言える</span></label></li>
+        <li><label><input type="checkbox" data-key="avail"><span>可用性計算の手順(サービス提供時間−停止時間)を確認した</span></label></li>
+        <li><label><input type="checkbox" data-key="new"><span>R6〜R7初出用語(IoC/コネクトバック/ドメインフロンティング/PQC/パスキー)を見直した</span></label></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 7. 暗記カード -->
+<section id="flashcards">
+  <h2>暗記カード(55枚)</h2>
+  <div class="filter-bar">
+    <input type="search" id="fcard-search" placeholder="用語・本文を検索(例: OCSP)">
+    <select id="fcard-cat"><option value="">全カテゴリ</option></select>
+    <label style="display:flex;align-items:center;gap:.3rem;font-size:.85rem"><input type="checkbox" id="fcard-hide-learned">覚えたカードを隠す</label>
+  </div>
+  <p class="count-note" id="fcard-count"></p>
+  <div class="cards fcards c2" id="fcard-list">
+
+    <details class="card" data-cat="暗号" data-term="共通鍵暗号"><summary><span class="term">共通鍵暗号</span><span class="cat-tag">暗号</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>暗号化と復号に同じ鍵を使う方式。高速だが鍵配送が課題</dd>
+      <dt>試験での問われ方</dt><dd>AESの特徴、鍵の総数(n人ならn(n-1)/2)、ハイブリッド暗号での役割</dd>
+      <dt>ひっかけ</dt><dd>「公開鍵で暗号化し共通鍵で復号」のような鍵の取り違え選択肢</dd>
+      <dt>関連用語</dt><dd>AES、ブロック暗号、ストリーム暗号、鍵配送問題</dd>
+      <dt>午後とのつながり</dt><dd>通信・保存データの暗号化方式の選定</dd></dl></div></details>
+
+    <details class="card" data-cat="暗号" data-term="公開鍵暗号"><summary><span class="term">公開鍵暗号</span><span class="cat-tag">暗号</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>鍵ペアを使う方式。暗号化は相手の公開鍵、署名は自分の秘密鍵</dd>
+      <dt>試験での問われ方</dt><dd>RSA・楕円曲線暗号、鍵の使い分け、ハイブリッド暗号</dd>
+      <dt>ひっかけ</dt><dd>「誰の・どちらの鍵か」を入れ替えた選択肢が定番</dd>
+      <dt>関連用語</dt><dd>RSA、楕円曲線暗号、PKI、デジタル署名</dd>
+      <dt>午後とのつながり</dt><dd>証明書・署名検証の前提知識</dd></dl></div></details>
+
+    <details class="card" data-cat="暗号" data-term="ハッシュ"><summary><span class="term">ハッシュ</span><span class="cat-tag">暗号</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>任意長データから固定長の値を計算する一方向関数。改ざん検知に使う</dd>
+      <dt>試験での問われ方</dt><dd>衝突発見困難性(6回出題)、原像計算困難性、SHA-512/256</dd>
+      <dt>ひっかけ</dt><dd>「ハッシュ値から元データを復元」は不可能(一方向性)</dd>
+      <dt>関連用語</dt><dd>SHA-2/SHA-3、ソルト、レインボーテーブル</dd>
+      <dt>午後とのつながり</dt><dd>パスワード保存、改ざん検知、ブロックチェーン</dd></dl></div></details>
+
+    <details class="card" data-cat="暗号" data-term="MAC"><summary><span class="term">MAC(メッセージ認証符号)</span><span class="cat-tag">暗号</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>共通鍵とメッセージから作る符号。完全性+送信者確認を保証</dd>
+      <dt>試験での問われ方</dt><dd>MACで何が確認できるか(R6春問2)、HMACの仕組み</dd>
+      <dt>ひっかけ</dt><dd>第三者への証明(否認防止)はできない(共通鍵は双方が持つ)</dd>
+      <dt>関連用語</dt><dd>HMAC、CMAC、完全性、デジタル署名との違い</dd>
+      <dt>午後とのつながり</dt><dd>APIの改ざん検知、DKIMとの対比</dd></dl></div></details>
+
+    <details class="card" data-cat="暗号" data-term="デジタル署名"><summary><span class="term">デジタル署名</span><span class="cat-tag">暗号</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>送信者の秘密鍵で署名し受信者が公開鍵で検証。完全性+否認防止</dd>
+      <dt>試験での問われ方</dt><dd>XMLデジタル署名(デタッチ署名)、署名生成に使う鍵</dd>
+      <dt>ひっかけ</dt><dd>「受信者の公開鍵で署名」など鍵の主体の入れ替え</dd>
+      <dt>関連用語</dt><dd>秘密鍵、証明書、XML署名、タイムスタンプ</dd>
+      <dt>午後とのつながり</dt><dd>コード署名、S/MIME、電子契約</dd></dl></div></details>
+
+    <details class="card" data-cat="暗号" data-term="AES"><summary><span class="term">AES</span><span class="cat-tag">暗号</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>米国標準の共通鍵ブロック暗号(128ビットブロック、鍵128/192/256ビット)</dd>
+      <dt>試験での問われ方</dt><dd>暗号利用モード(CTR/CBC)、WPA2-AESなど利用場面</dd>
+      <dt>ひっかけ</dt><dd>公開鍵暗号と誤認させる選択肢</dd>
+      <dt>関連用語</dt><dd>ブロック暗号、CRYPTREC、WPA2/WPA3</dd>
+      <dt>午後とのつながり</dt><dd>無線LAN・VPN・ストレージ暗号化の実装</dd></dl></div></details>
+
+    <details class="card" data-cat="暗号" data-term="RSA"><summary><span class="term">RSA</span><span class="cat-tag">暗号</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>素因数分解の困難性を根拠とする公開鍵暗号。暗号化と署名の両方に使える</dd>
+      <dt>試験での問われ方</dt><dd>安全性の根拠、鍵長、楕円曲線暗号(短い鍵で同等強度)との対比</dd>
+      <dt>ひっかけ</dt><dd>楕円曲線暗号の根拠(離散対数問題)との混同</dd>
+      <dt>関連用語</dt><dd>楕円曲線暗号、PQC、素因数分解</dd>
+      <dt>午後とのつながり</dt><dd>証明書の鍵、危殆化対応</dd></dl></div></details>
+
+    <details class="card" data-cat="暗号" data-term="PFS"><summary><span class="term">PFS(前方秘匿性)</span><span class="cat-tag">暗号</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>秘密鍵が漏れても過去の通信の復号を許さない性質(セッションごとの使い捨て鍵)</dd>
+      <dt>試験での問われ方</dt><dd>Forward Secrecyの説明を選ぶ(R4秋)</dd>
+      <dt>ひっかけ</dt><dd>「将来の通信も守る」ではなく「過去の通信を守る」</dd>
+      <dt>関連用語</dt><dd>DHE/ECDHE、TLS1.3(PFS必須)</dd>
+      <dt>午後とのつながり</dt><dd>TLS設定・暗号スイート選定</dd></dl></div></details>
+
+    <details class="card" data-cat="暗号" data-term="PQC"><summary><span class="term">PQC(耐量子暗号)</span><span class="cat-tag">暗号</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>量子コンピュータでも解読困難で、従来コンピュータ上で動く暗号(格子暗号など)</dd>
+      <dt>試験での問われ方</dt><dd>定義を選ぶ(R3秋→R6秋→R7秋と3回出題)</dd>
+      <dt>ひっかけ</dt><dd>量子暗号(量子鍵配送=盗聴検知)との混同</dd>
+      <dt>関連用語</dt><dd>量子鍵配送(QKD)、格子暗号、CRYPTREC</dd>
+      <dt>午後とのつながり</dt><dd>暗号の危殆化・移行計画</dd></dl></div></details>
+
+    <details class="card" data-cat="暗号" data-term="CRYPTREC"><summary><span class="term">CRYPTREC</span><span class="cat-tag">暗号</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>電子政府で使う暗号を評価・選定する体制。リストは推奨/推奨候補/運用監視の3構成</dd>
+      <dt>試験での問われ方</dt><dd>リストの3区分の意味(推奨=実績あり、運用監視=互換性維持のみ)</dd>
+      <dt>ひっかけ</dt><dd>「証明書健全性リスト」など存在しない区分を混ぜる</dd>
+      <dt>関連用語</dt><dd>電子政府推奨暗号リスト、デジタル庁・総務省・経産省</dd>
+      <dt>午後とのつながり</dt><dd>暗号アルゴリズム選定の根拠</dd></dl></div></details>
+
+    <details class="card" data-cat="PKI・TLS" data-term="PKI"><summary><span class="term">PKI</span><span class="cat-tag">PKI・TLS</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>公開鍵の正しさを認証局の署名(証明書)で保証する基盤</dd>
+      <dt>試験での問われ方</dt><dd>構成要素(CA/RA/VA)の役割分担</dd>
+      <dt>ひっかけ</dt><dd>RA(登録・本人確認)とVA(失効検証)の役割の入れ替え</dd>
+      <dt>関連用語</dt><dd>CA、RA、VA、CPS、X.509</dd>
+      <dt>午後とのつながり</dt><dd>証明書検証フロー、社内CA運用</dd></dl></div></details>
+
+    <details class="card" data-cat="PKI・TLS" data-term="CA"><summary><span class="term">CA(認証局)</span><span class="cat-tag">PKI・TLS</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>デジタル証明書を発行・失効させる機関</dd>
+      <dt>試験での問われ方</dt><dd>CAの秘密鍵で証明書に署名する、CRL発行</dd>
+      <dt>ひっかけ</dt><dd>本人確認はRAの仕事(CAと分離される場合)</dd>
+      <dt>関連用語</dt><dd>ルートCA、中間CA、CPS、CRL</dd>
+      <dt>午後とのつながり</dt><dd>証明書チェーンの検証</dd></dl></div></details>
+
+    <details class="card" data-cat="PKI・TLS" data-term="電子証明書"><summary><span class="term">電子証明書(デジタル証明書)</span><span class="cat-tag">PKI・TLS</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>公開鍵と所有者情報をCAが署名で結び付けたデータ(X.509)</dd>
+      <dt>試験での問われ方</dt><dd>TLSでの用途=鍵交換と通信相手の認証(6回出題)</dd>
+      <dt>ひっかけ</dt><dd>「証明書で通信データそのものを暗号化する」は誤り</dd>
+      <dt>関連用語</dt><dd>X.509、サーバ証明書、クライアント証明書</dd>
+      <dt>午後とのつながり</dt><dd>証明書エラーの原因分析が午後頻出</dd></dl></div></details>
+
+    <details class="card" data-cat="PKI・TLS" data-term="CRL"><summary><span class="term">CRL</span><span class="cat-tag">PKI・TLS</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>有効期限内に失効した証明書のシリアル番号一覧。CAが定期発行</dd>
+      <dt>試験での問われ方</dt><dd>CRLに載るもの(期限切れは載らない)、X.509のCRL</dd>
+      <dt>ひっかけ</dt><dd>「有効期限が切れた証明書が登録される」は誤り</dd>
+      <dt>関連用語</dt><dd>OCSP、シリアル番号、失効</dd>
+      <dt>午後とのつながり</dt><dd>失効確認の仕組み選定</dd></dl></div></details>
+
+    <details class="card" data-cat="PKI・TLS" data-term="OCSP"><summary><span class="term">OCSP</span><span class="cat-tag">PKI・TLS</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>証明書の失効状態をリアルタイムに問い合わせるプロトコル</dd>
+      <dt>試験での問われ方</dt><dd>利用目的(5回出題)、OCSPレスポンダ=VA</dd>
+      <dt>ひっかけ</dt><dd>CRL(リスト配布)との方式の違い</dd>
+      <dt>関連用語</dt><dd>OCSPステープリング、VA</dd>
+      <dt>午後とのつながり</dt><dd>TLSハンドシェイク遅延との関係</dd></dl></div></details>
+
+    <details class="card" data-cat="PKI・TLS" data-term="TLS"><summary><span class="term">TLS</span><span class="cat-tag">PKI・TLS</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>通信の暗号化+改ざん検知+相手認証を行うプロトコル</dd>
+      <dt>試験での問われ方</dt><dd>TLS1.3の暗号スイート、証明書の役割、HTTPSとの関係</dd>
+      <dt>ひっかけ</dt><dd>TLS=暗号化だけ、ではない(認証と完全性も)</dd>
+      <dt>関連用語</dt><dd>暗号スイート、PFS、HTTPS、HSTS、DTLS(UDP版)</dd>
+      <dt>午後とのつながり</dt><dd>サーバ設定・プロトコルバージョン選定が午後頻出</dd></dl></div></details>
+
+    <details class="card" data-cat="PKI・TLS" data-term="HSTS"><summary><span class="term">HSTS</span><span class="cat-tag">PKI・TLS</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>「以後この期間は必ずHTTPSで接続せよ」とブラウザに指示する応答ヘッダー</dd>
+      <dt>試験での問われ方</dt><dd>動作の説明(3回出題)</dd>
+      <dt>ひっかけ</dt><dd>サーバのリダイレクトではなく「ブラウザが」HTTPSに切り替える</dd>
+      <dt>関連用語</dt><dd>中間者攻撃、SSLストリッピング対策</dd>
+      <dt>午後とのつながり</dt><dd>Webサーバのセキュリティヘッダー設定</dd></dl></div></details>
+
+    <details class="card" data-cat="認証・認可" data-term="SAML"><summary><span class="term">SAML</span><span class="cat-tag">認証・認可</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>IdPが認証した結果(アサーション)をSPが検証してSSOを実現する標準(OASIS策定)</dd>
+      <dt>試験での問われ方</dt><dd>認証の流れ、OASISが策定したものはどれか(計7回前後)</dd>
+      <dt>ひっかけ</dt><dd>OAuth(認可)との用途混同</dd>
+      <dt>関連用語</dt><dd>IdP、SP、アサーション、SSO</dd>
+      <dt>午後とのつながり</dt><dd>クラウドサービスのSSO設計</dd></dl></div></details>
+
+    <details class="card" data-cat="認証・認可" data-term="OAuth"><summary><span class="term">OAuth</span><span class="cat-tag">認証・認可</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>利用者の認可の下、他サービスにリソースへの限定アクセス権(アクセストークン)を与える枠組み</dd>
+      <dt>試験での問われ方</dt><dd>アクセストークンを発行するのは誰か(=リソースがあるサービスの認可サーバ)</dd>
+      <dt>ひっかけ</dt><dd>認証プロトコルではない(認証はOpenID Connect)</dd>
+      <dt>関連用語</dt><dd>アクセストークン、認可サーバ、OpenID Connect</dd>
+      <dt>午後とのつながり</dt><dd>API連携の認可設計、トークン漏えい対応</dd></dl></div></details>
+
+    <details class="card" data-cat="認証・認可" data-term="FIDO パスキー"><summary><span class="term">FIDO/パスキー</span><span class="cat-tag">認証・認可</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>公開鍵暗号で認証するパスワードレス認証。秘密鍵は認証器内、生体情報は端末外に出ない</dd>
+      <dt>試験での問われ方</dt><dd>パスキーの性質の組合せ(R6秋)</dd>
+      <dt>ひっかけ</dt><dd>「生体情報をサーバに送って照合する」は誤り</dd>
+      <dt>関連用語</dt><dd>WebAuthn、認証器、多要素認証</dd>
+      <dt>午後とのつながり</dt><dd>フィッシング耐性のある認証方式の提案</dd></dl></div></details>
+
+    <details class="card" data-cat="認証・認可" data-term="IEEE802.1X"><summary><span class="term">IEEE802.1X</span><span class="cat-tag">認証・認可</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>LAN接続時にポート単位で認証する枠組み。サプリカント/オーセンティケータ/認証サーバの3役</dd>
+      <dt>試験での問われ方</dt><dd>APはオーセンティケータ+RADIUSクライアント(4回出題)、EAP-TLS=証明書で相互認証</dd>
+      <dt>ひっかけ</dt><dd>サプリカント=クライアント側ソフト(サーバではない)</dd>
+      <dt>関連用語</dt><dd>EAP、RADIUS、WPA2/3エンタープライズ</dd>
+      <dt>午後とのつながり</dt><dd>無線LAN・有線LANの検疫設計</dd></dl></div></details>
+
+    <details class="card" data-cat="認証・認可" data-term="認証 認可"><summary><span class="term">認証/認可</span><span class="cat-tag">認証・認可</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>認証=本人確認、認可=確認済みの主体への権限付与</dd>
+      <dt>試験での問われ方</dt><dd>AAA(認証・認可・アカウンティング)、アクセス制御</dd>
+      <dt>ひっかけ</dt><dd>両者を混同させる選択肢すべて</dd>
+      <dt>関連用語</dt><dd>AAA、RADIUS/Diameter、RBAC、最小権限</dd>
+      <dt>午後とのつながり</dt><dd>IDOR(認可不備)は午後の超頻出テーマ</dd></dl></div></details>
+
+    <details class="card" data-cat="Web脆弱性" data-term="XSS"><summary><span class="term">XSS</span><span class="cat-tag">Web脆弱性</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>Webページに悪意あるスクリプトを混入させ、閲覧者のブラウザで実行させる攻撃</dd>
+      <dt>試験での問われ方</dt><dd>対策(出力時エスケープ、CSP)、種類(格納型/反射型/DOMベース)</dd>
+      <dt>ひっかけ</dt><dd>SQLインジェクションやCSRFの対策との取り違え</dd>
+      <dt>関連用語</dt><dd>エスケープ、CSP、HttpOnly、セッションハイジャック</dd>
+      <dt>午後とのつながり</dt><dd>午後の最頻出テーマの一つ(cookie窃取ストーリー)</dd></dl></div></details>
+
+    <details class="card" data-cat="Web脆弱性" data-term="CSRF"><summary><span class="term">CSRF</span><span class="cat-tag">Web脆弱性</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>ログイン済み利用者に意図しないリクエストを送信させる攻撃</dd>
+      <dt>試験での問われ方</dt><dd>「対策として効果がないもの」(3回出題。エスケープ処理が誤答の定番)</dd>
+      <dt>ひっかけ</dt><dd>XSS対策(エスケープ)はCSRFには効かない</dd>
+      <dt>関連用語</dt><dd>秘密トークン、再認証、SameSite属性</dd>
+      <dt>午後とのつながり</dt><dd>Webアプリの対策設計</dd></dl></div></details>
+
+    <details class="card" data-cat="Web脆弱性" data-term="SQLインジェクション"><summary><span class="term">SQLインジェクション</span><span class="cat-tag">Web脆弱性</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>入力値でSQL文を改変しDBを不正操作する攻撃</dd>
+      <dt>試験での問われ方</dt><dd>実装の対策(プレースホルダ)と実装以外の対策(WAF等)の組合せ(3回出題)</dd>
+      <dt>ひっかけ</dt><dd>エスケープとプレースホルダの位置づけ</dd>
+      <dt>関連用語</dt><dd>バインド機構、プリペアドステートメント、WAF</dd>
+      <dt>午後とのつながり</dt><dd>セキュアプログラミング問題に直結</dd></dl></div></details>
+
+    <details class="card" data-cat="Web脆弱性" data-term="セッションハイジャック"><summary><span class="term">セッションハイジャック</span><span class="cat-tag">Web脆弱性</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>セッションIDを盗む・推測するなどして他人のセッションを乗っ取る攻撃</dd>
+      <dt>試験での問われ方</dt><dd>セッションIDの要件(推測困難・ログイン後に再発行)</dd>
+      <dt>ひっかけ</dt><dd>固定化攻撃(セッションフィクセーション)との区別</dd>
+      <dt>関連用語</dt><dd>セッションID、cookie、HttpOnly、Secure</dd>
+      <dt>午後とのつながり</dt><dd>cookie属性設計・ログイン処理の設計</dd></dl></div></details>
+
+    <details class="card" data-cat="Web脆弱性" data-term="Cookie Secure属性 HttpOnly属性"><summary><span class="term">Cookie(Secure属性/HttpOnly属性)</span><span class="cat-tag">Web脆弱性</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>Secure=HTTPS通信でのみ送信、HttpOnly=スクリプトから読み取り不可</dd>
+      <dt>試験での問われ方</dt><dd>各属性で何が防げるか</dd>
+      <dt>ひっかけ</dt><dd>Secure属性は「暗号化して保存」ではない(送信条件の制限)</dd>
+      <dt>関連用語</dt><dd>SameSite、セッションID、XSS</dd>
+      <dt>午後とのつながり</dt><dd>cookie属性の指摘・修正問題が午後頻出</dd></dl></div></details>
+
+    <details class="card" data-cat="Web脆弱性" data-term="WAF"><summary><span class="term">WAF</span><span class="cat-tag">Web脆弱性</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>Webアプリへの攻撃パターンをHTTPレベルで検知・遮断する装置/ソフト</dd>
+      <dt>試験での問われ方</dt><dd>フォールスポジティブ(正常通信を誤検知)、ブラックリスト/ホワイトリスト</dd>
+      <dt>ひっかけ</dt><dd>IDS/IPS(ネットワーク層中心)との層の違い</dd>
+      <dt>関連用語</dt><dd>シグネチャ、フォールスネガティブ、リバースプロキシ型</dd>
+      <dt>午後とのつながり</dt><dd>多層防御の設計、検知ログの読解</dd></dl></div></details>
+
+    <details class="card" data-cat="メール" data-term="SPF"><summary><span class="term">SPF</span><span class="cat-tag">メール</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>DNSに登録された正規送信サーバのIPと実際の送信元IPの適合性を受信側が検証</dd>
+      <dt>試験での問われ方</dt><dd>受信側が行うこと(MAIL FROMのドメインとIPの照合)</dd>
+      <dt>ひっかけ</dt><dd>検証対象はIPアドレス(署名ではない)。ヘッダーFromではなくエンベロープFrom</dd>
+      <dt>関連用語</dt><dd>DNS TXTレコード、エンベロープFrom</dd>
+      <dt>午後とのつながり</dt><dd>送信ドメイン認証の設定問題(R6秋午後など)</dd></dl></div></details>
+
+    <details class="card" data-cat="メール" data-term="DKIM"><summary><span class="term">DKIM</span><span class="cat-tag">メール</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>送信側メールサーバがデジタル署名を付与し、受信側がDNSの公開鍵で検証</dd>
+      <dt>試験での問われ方</dt><dd>説明を選ぶ(3回出題)</dd>
+      <dt>ひっかけ</dt><dd>SPF(IP検証)との検証対象の混同</dd>
+      <dt>関連用語</dt><dd>デジタル署名、DNSレコード、hタグ</dd>
+      <dt>午後とのつながり</dt><dd>転送時もSPFと違い認証が保たれる点</dd></dl></div></details>
+
+    <details class="card" data-cat="メール" data-term="DMARC"><summary><span class="term">DMARC</span><span class="cat-tag">メール</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>SPF/DKIM失敗時の処理方針(none/quarantine/reject)を送信側ドメイン管理者が指定する仕組み</dd>
+      <dt>試験での問われ方</dt><dd>失敗時の処理方針を指定する仕組みはどれか(R6秋)</dd>
+      <dt>ひっかけ</dt><dd>DMARC自体は認証しない(SPF/DKIMの結果を使う)</dd>
+      <dt>関連用語</dt><dd>アライメント、レポート機能</dd>
+      <dt>午後とのつながり</dt><dd>なりすましメール対策の全体設計</dd></dl></div></details>
+
+    <details class="card" data-cat="メール" data-term="SMTP-AUTH"><summary><span class="term">SMTP-AUTH</span><span class="cat-tag">メール</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>メール送信(投稿)時に利用者IDとパスワードで利用者認証する仕組み</dd>
+      <dt>試験での問われ方</dt><dd>特徴を選ぶ(5回出題)</dd>
+      <dt>ひっかけ</dt><dd>サーバ間転送ではなく「クライアント→サーバの投稿時」の認証</dd>
+      <dt>関連用語</dt><dd>サブミッションポート587、POP before SMTP</dd>
+      <dt>午後とのつながり</dt><dd>メール送信経路の設計</dd></dl></div></details>
+
+    <details class="card" data-cat="メール" data-term="OP25B"><summary><span class="term">OP25B</span><span class="cat-tag">メール</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>ISPが自網の動的IPから外部の25番ポートへの直接送信を遮断するスパム対策</dd>
+      <dt>試験での問われ方</dt><dd>導入目的(3回出題)</dd>
+      <dt>ひっかけ</dt><dd>遮断対象は「ISP管理下→管理外」への25番。受信は遮断しない</dd>
+      <dt>関連用語</dt><dd>サブミッションポート587、SMTP-AUTH</dd>
+      <dt>午後とのつながり</dt><dd>メールが送れない原因調査</dd></dl></div></details>
+
+    <details class="card" data-cat="ネットワーク" data-term="TCP"><summary><span class="term">TCP</span><span class="cat-tag">ネットワーク</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>コネクション型で信頼性のあるトランスポート層プロトコル(3ウェイハンドシェイク)</dd>
+      <dt>試験での問われ方</dt><dd>ヘッダーに含まれる情報(宛先ポート番号)、3ウェイハンドシェイクの図</dd>
+      <dt>ひっかけ</dt><dd>IPアドレスはIPヘッダー(TCPヘッダーではない)</dd>
+      <dt>関連用語</dt><dd>SYN/ACK、ポート番号、ウィンドウ制御</dd>
+      <dt>午後とのつながり</dt><dd>FWルール・ログのポート読解</dd></dl></div></details>
+
+    <details class="card" data-cat="ネットワーク" data-term="UDP"><summary><span class="term">UDP</span><span class="cat-tag">ネットワーク</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>コネクションレスで高速だが再送保証のないトランスポート層プロトコル</dd>
+      <dt>試験での問われ方</dt><dd>UDPを使うサービス(DNS/NTP)、リフレクション攻撃に悪用される理由</dd>
+      <dt>ひっかけ</dt><dd>送信元偽装が容易=反射攻撃に使われる</dd>
+      <dt>関連用語</dt><dd>DTLS(UDP上のTLS)、QUIC、リフレクション攻撃</dd>
+      <dt>午後とのつながり</dt><dd>DNS/NTPの増幅攻撃対策</dd></dl></div></details>
+
+    <details class="card" data-cat="ネットワーク" data-term="DNS"><summary><span class="term">DNS</span><span class="cat-tag">ネットワーク</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>ドメイン名とIPアドレス等を対応付ける分散データベース</dd>
+      <dt>試験での問われ方</dt><dd>キャッシュポイズニング、カミンスキー攻撃対策(ポートランダム化)、DNSSEC(署名で応答検証)、CAAレコード</dd>
+      <dt>ひっかけ</dt><dd>DNSSECは「暗号化」ではなく「署名による検証」</dd>
+      <dt>関連用語</dt><dd>権威サーバ、キャッシュサーバ、オープンリゾルバ</dd>
+      <dt>午後とのつながり</dt><dd>DNS設定・なりすまし対策が午後頻出</dd></dl></div></details>
+
+    <details class="card" data-cat="ネットワーク" data-term="ARP"><summary><span class="term">ARP</span><span class="cat-tag">ネットワーク</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>IPアドレスからMACアドレスを解決するプロトコル</dd>
+      <dt>試験での問われ方</dt><dd>ARPスプーフィング/ポイズニング(偽の応答で通信を横取り)</dd>
+      <dt>ひっかけ</dt><dd>DNSポイズニングとの層の違い(ARPは同一セグメント内)</dd>
+      <dt>関連用語</dt><dd>MACアドレス、中間者攻撃、ARPキャッシュ</dd>
+      <dt>午後とのつながり</dt><dd>証拠保全でARPキャッシュを最初に取る理由(揮発性)</dd></dl></div></details>
+
+    <details class="card" data-cat="ネットワーク" data-term="IDS IPS"><summary><span class="term">IDS/IPS</span><span class="cat-tag">ネットワーク</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>IDS=不正通信を検知して通知、IPS=経路上(インライン)で検知して遮断</dd>
+      <dt>試験での問われ方</dt><dd>インラインモードのシグネチャ型/アノマリ型IPSの特徴</dd>
+      <dt>ひっかけ</dt><dd>シグネチャ型(既知パターン照合)とアノマリ型(正常からの逸脱検知)の混同</dd>
+      <dt>関連用語</dt><dd>フォールスポジティブ、インライン、ミラーポート</dd>
+      <dt>午後とのつながり</dt><dd>検知ログからの侵入分析</dd></dl></div></details>
+
+    <details class="card" data-cat="ネットワーク" data-term="SIEM"><summary><span class="term">SIEM</span><span class="cat-tag">ネットワーク</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>各機器のログを集約・相関分析してインシデントの兆候を検知するシステム</dd>
+      <dt>試験での問われ方</dt><dd>目的(リアルタイムに近い分析・通知)</dd>
+      <dt>ひっかけ</dt><dd>SOAR(対応の自動化)との役割の違い</dd>
+      <dt>関連用語</dt><dd>ログ管理、相関分析、SOC、SOAR、UEBA</dd>
+      <dt>午後とのつながり</dt><dd>ログ調査体制の設計</dd></dl></div></details>
+
+    <details class="card" data-cat="攻撃・マルウェア" data-term="DoS DDoS"><summary><span class="term">DoS/DDoS</span><span class="cat-tag">攻撃・マルウェア</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>大量の通信や欠陥悪用でサービスを妨害する攻撃。DDoSは多数の踏み台から分散実行</dd>
+      <dt>試験での問われ方</dt><dd>Smurf(ICMP+ブロードキャスト)、ICMP Flood、NTPリフレクション、DRDoS(反射・増幅)</dd>
+      <dt>ひっかけ</dt><dd>直接型と反射型の区別。Smurfの「応答が攻撃対象に集中する」仕組み</dd>
+      <dt>関連用語</dt><dd>ボットネット、リフレクション、増幅率、バックスキャッタ</dd>
+      <dt>午後とのつながり</dt><dd>CDN・スクラビングなど対策選定</dd></dl></div></details>
+
+    <details class="card" data-cat="攻撃・マルウェア" data-term="ボットネット"><summary><span class="term">ボットネット</span><span class="cat-tag">攻撃・マルウェア</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>C&amp;Cサーバの指令で動く感染機器群。DDoSやスパム送信に悪用</dd>
+      <dt>試験での問われ方</dt><dd>Miraiの動作(IoT機器に感染、C&amp;C指令でDDoS)、NOTICE(注意喚起の取組)</dd>
+      <dt>ひっかけ</dt><dd>C&amp;C通信の方向(感染機器から外向きに接続=コネクトバック)</dd>
+      <dt>関連用語</dt><dd>C&amp;Cサーバ、Mirai、IoT、コネクトバック</dd>
+      <dt>午後とのつながり</dt><dd>プロキシログからのC&amp;C通信発見</dd></dl></div></details>
+
+    <details class="card" data-cat="攻撃・マルウェア" data-term="ランサムウェア"><summary><span class="term">ランサムウェア</span><span class="cat-tag">攻撃・マルウェア</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>データを暗号化(+窃取)して身代金を要求するマルウェア</dd>
+      <dt>試験での問われ方</dt><dd>二重恐喝、対策(オフラインバックアップ)</dd>
+      <dt>ひっかけ</dt><dd>「バックアップがあれば安全」→窃取・暴露型には効かない</dd>
+      <dt>関連用語</dt><dd>二重恐喝、RaaS、オフラインバックアップ、3-2-1ルール</dd>
+      <dt>午後とのつながり</dt><dd>インシデント対応・事業継続の長文テーマ</dd></dl></div></details>
+
+    <details class="card" data-cat="攻撃・マルウェア" data-term="標的型攻撃"><summary><span class="term">標的型攻撃</span><span class="cat-tag">攻撃・マルウェア</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>特定組織を狙い、業務を装ったメール等で侵入する攻撃(APT=持続的)</dd>
+      <dt>試験での問われ方</dt><dd>APTの説明、やり取り型、水飲み場型</dd>
+      <dt>ひっかけ</dt><dd>無差別型(ばらまき)との区別</dd>
+      <dt>関連用語</dt><dd>APT、水飲み場型、サイバーキルチェーン、C&amp;C</dd>
+      <dt>午後とのつながり</dt><dd>侵入後の横展開・ログ調査ストーリー</dd></dl></div></details>
+
+    <details class="card" data-cat="管理・制度" data-term="ISMS"><summary><span class="term">ISMS</span><span class="cat-tag">管理・制度</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>組織の情報セキュリティをPDCAで管理する仕組み(JIS Q 27001)</dd>
+      <dt>試験での問われ方</dt><dd>JIS Q 27000の用語定義(リスク・脆弱性・完全性など)</dd>
+      <dt>ひっかけ</dt><dd>機密性・完全性・可用性の定義の入れ替え</dd>
+      <dt>関連用語</dt><dd>JIS Q 27001/27002、適用宣言書、リスクアセスメント</dd>
+      <dt>午後とのつながり</dt><dd>規程・体制面の設問</dd></dl></div></details>
+
+    <details class="card" data-cat="管理・制度" data-term="リスクアセスメント"><summary><span class="term">リスクアセスメント</span><span class="cat-tag">管理・制度</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>リスクの特定→分析→評価の一連のプロセス</dd>
+      <dt>試験での問われ方</dt><dd>リスク対応(回避/低減/移転/保有)との区別</dd>
+      <dt>ひっかけ</dt><dd>リスク対応まで含めるとリスクマネジメント(アセスメントは評価まで)</dd>
+      <dt>関連用語</dt><dd>リスク受容基準、残留リスク、リスクファイナンス</dd>
+      <dt>午後とのつながり</dt><dd>対策の優先順位付けの根拠</dd></dl></div></details>
+
+    <details class="card" data-cat="管理・制度" data-term="CVE"><summary><span class="term">CVE</span><span class="cat-tag">管理・制度</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>個々の脆弱性に付ける世界共通の識別子(MITREが事務局)</dd>
+      <dt>試験での問われ方</dt><dd>CVE識別子の意味(4回出題)</dd>
+      <dt>ひっかけ</dt><dd>CWE(種類の一覧)、CVSS(深刻度)との混同</dd>
+      <dt>関連用語</dt><dd>CWE、CVSS、JVN、MITRE</dd>
+      <dt>午後とのつながり</dt><dd>脆弱性情報のトリアージ</dd></dl></div></details>
+
+    <details class="card" data-cat="管理・制度" data-term="CVSS"><summary><span class="term">CVSS</span><span class="cat-tag">管理・制度</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>脆弱性の深刻度を0.0〜10.0で評価する共通基準</dd>
+      <dt>試験での問われ方</dt><dd>基本評価基準・現状評価基準・環境評価基準の3つ</dd>
+      <dt>ひっかけ</dt><dd>CVSSは「リスク」ではなく「深刻度」の指標</dd>
+      <dt>関連用語</dt><dd>基本値、攻撃元区分、KEV</dd>
+      <dt>午後とのつながり</dt><dd>パッチ適用の優先度判断</dd></dl></div></details>
+
+    <details class="card" data-cat="管理・制度" data-term="ISMAP"><summary><span class="term">ISMAP</span><span class="cat-tag">管理・制度</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>政府が調達するクラウドサービスを事前に評価・登録する制度</dd>
+      <dt>試験での問われ方</dt><dd>制度の説明(R5春→R7春)、ISMAP-LIU(低リスク用途のSaaS向け)</dd>
+      <dt>ひっかけ</dt><dd>民間向けの認証制度ではない(政府調達のため)</dd>
+      <dt>関連用語</dt><dd>ISMAP-LIU、クラウドサービス、JIS Q 27000系</dd>
+      <dt>午後とのつながり</dt><dd>クラウド選定の要件</dd></dl></div></details>
+
+    <details class="card" data-cat="管理・制度" data-term="MITRE ATT&CK"><summary><span class="term">MITRE ATT&amp;CK</span><span class="cat-tag">管理・制度</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>実際の攻撃の戦術・技術を分類したナレッジベース(MITREはCVEの事務局でもある)</dd>
+      <dt>試験での問われ方</dt><dd>ナレッジベースはどれか(R6秋)、MITREの役割(R7秋)</dd>
+      <dt>ひっかけ</dt><dd>サイバーキルチェーン(攻撃段階モデル)との違い</dd>
+      <dt>関連用語</dt><dd>TTP、サイバーキルチェーン、脅威インテリジェンス</dd>
+      <dt>午後とのつながり</dt><dd>攻撃シナリオの分析視点</dd></dl></div></details>
+
+    <details class="card" data-cat="クラウド・SOC" data-term="CASB"><summary><span class="term">CASB</span><span class="cat-tag">クラウド・SOC</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>クラウド利用を可視化・制御する仲介機能(シャドーIT発見)</dd>
+      <dt>試験での問われ方</dt><dd>利用効果(R6春)</dd>
+      <dt>ひっかけ</dt><dd>CSPM(設定監視)との違い</dd>
+      <dt>関連用語</dt><dd>シャドーIT、SASE、プロキシ</dd>
+      <dt>午後とのつながり</dt><dd>クラウド利用統制</dd></dl></div></details>
+
+    <details class="card" data-cat="クラウド・SOC" data-term="CSPM"><summary><span class="term">CSPM</span><span class="cat-tag">クラウド・SOC</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>クラウドの設定を継続監視し、設定ミスを検知するツール</dd>
+      <dt>試験での問われ方</dt><dd>機能(R7秋)</dd>
+      <dt>ひっかけ</dt><dd>CASB(利用の可視化)との違い</dd>
+      <dt>関連用語</dt><dd>設定不備、IaaS/PaaS、コンプライアンスチェック</dd>
+      <dt>午後とのつながり</dt><dd>ストレージ公開設定ミスの事故対応</dd></dl></div></details>
+
+    <details class="card" data-cat="クラウド・SOC" data-term="SOAR"><summary><span class="term">SOAR</span><span class="cat-tag">クラウド・SOC</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>脅威インテリジェンス活用+セキュリティ運用の自動化+インシデント対応の効率化</dd>
+      <dt>試験での問われ方</dt><dd>説明(R6秋)</dd>
+      <dt>ひっかけ</dt><dd>SIEM(検知)との役割の違い(SOARは対応の自動化)</dd>
+      <dt>関連用語</dt><dd>プレイブック、SIEM、SOC</dd>
+      <dt>午後とのつながり</dt><dd>SOC運用の改善提案</dd></dl></div></details>
+
+    <details class="card" data-cat="クラウド・SOC" data-term="UEBA"><summary><span class="term">UEBA</span><span class="cat-tag">クラウド・SOC</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>利用者や機器の振る舞いを学習し、異常行動を検知する仕組み</dd>
+      <dt>試験での問われ方</dt><dd>機能(R7秋)</dd>
+      <dt>ひっかけ</dt><dd>EDR(端末の検知・対応)との違い</dd>
+      <dt>関連用語</dt><dd>振る舞い検知、内部不正、SIEM</dd>
+      <dt>午後とのつながり</dt><dd>内部不正・アカウント乗っ取りの検知</dd></dl></div></details>
+
+    <details class="card" data-cat="クラウド・SOC" data-term="IoC"><summary><span class="term">IoC(侵害指標)</span><span class="cat-tag">クラウド・SOC</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>侵害の痕跡となる技術情報(C&amp;C通信履歴、不正ファイルのハッシュ値など)</dd>
+      <dt>試験での問われ方</dt><dd>該当するもの=ログに残されたC&amp;Cサーバとの通信履歴(R7春)</dd>
+      <dt>ひっかけ</dt><dd>脆弱性情報(CVE)とは別物</dd>
+      <dt>関連用語</dt><dd>脅威インテリジェンス、SIEM、ハッシュ値</dd>
+      <dt>午後とのつながり</dt><dd>侵害調査でログから探すもの</dd></dl></div></details>
+
+    <details class="card" data-cat="クラウド・SOC" data-term="SBOM"><summary><span class="term">SBOM</span><span class="cat-tag">クラウド・SOC</span></summary><div class="body"><dl>
+      <dt>一言で</dt><dd>ソフトウェアの構成コンポーネントと依存関係のリスト</dd>
+      <dt>試験での問われ方</dt><dd>何か(R6春)</dd>
+      <dt>ひっかけ</dt><dd>ライセンス管理専用ではない(脆弱性管理に使う)</dd>
+      <dt>関連用語</dt><dd>サプライチェーン、OSS、脆弱性管理</dd>
+      <dt>午後とのつながり</dt><dd>OSS脆弱性(Log4j型)の影響調査</dd></dl></div></details>
+
+  </div>
+</section>
+
+<!-- 8. 用語の違い -->
+<section id="diff">
+  <h2>混同しやすい用語の違い</h2>
+  <p class="muted">ひっかけ選択肢はほぼここから作られる。1枚30秒で確認。詳細:<a href="./sc_am2_terms_diff.md">sc_am2_terms_diff.md</a></p>
+  <div class="cards c2">
+    <div class="card diff-card"><h3>SPF / DKIM / DMARC</h3>
+      <div class="vs cols">
+        <div><b>SPF</b>:送信元IPを検証(DNSのTXTと照合。エンベロープFrom)</div>
+        <div><b>DKIM</b>:デジタル署名を検証(転送に強い)</div>
+        <div><b>DMARC</b>:失敗時の処理方針を送信側が指定+レポート</div>
+      </div>
+      <div class="memo">覚え方:「SPFはIP、DKIMは署名、DMARCはポリシー」</div>
+    </div>
+    <div class="card diff-card"><h3>IDS / IPS / WAF</h3>
+      <div class="vs cols">
+        <div><b>IDS</b>:検知して通知(遮断しない)</div>
+        <div><b>IPS</b>:インラインで検知+遮断</div>
+        <div><b>WAF</b>:Webアプリ層(HTTP)に特化して防御</div>
+      </div>
+      <div class="memo">シグネチャ型=既知パターン照合 / アノマリ型=正常からの逸脱検知</div>
+    </div>
+    <div class="card diff-card"><h3>ハッシュ / MAC / デジタル署名</h3>
+      <div class="vs cols">
+        <div><b>ハッシュ</b>:鍵なし。完全性のみ</div>
+        <div><b>MAC</b>:共通鍵。完全性+相手確認(否認防止は不可)</div>
+        <div><b>署名</b>:秘密鍵で署名。完全性+否認防止</div>
+      </div>
+      <div class="memo">覚え方:「鍵なし→共通鍵→公開鍵」の順に保証が強くなる</div>
+    </div>
+    <div class="card diff-card"><h3>共通鍵暗号 / 公開鍵暗号</h3>
+      <div class="vs cols">
+        <div><b>共通鍵</b>:同じ鍵。高速。鍵配送が課題。n人でn(n-1)/2個</div>
+        <div><b>公開鍵</b>:鍵ペア。暗号化=相手の公開鍵、署名=自分の秘密鍵。低速</div>
+      </div>
+      <div class="memo">実運用はハイブリッド:データは共通鍵、共通鍵の受け渡しに公開鍵</div>
+    </div>
+    <div class="card diff-card"><h3>CRL / OCSP</h3>
+      <div class="vs cols">
+        <div><b>CRL</b>:失効証明書のシリアル番号一覧をCAが定期発行</div>
+        <div><b>OCSP</b>:失効状態をリアルタイム照会(応答=VA)</div>
+      </div>
+      <div class="memo">載るのは「有効期限内に失効」した証明書。期限切れは対象外</div>
+    </div>
+    <div class="card diff-card"><h3>SAML / OAuth</h3>
+      <div class="vs cols">
+        <div><b>SAML</b>:認証の連携(SSO)。IdP→アサーション→SP</div>
+        <div><b>OAuth 2.0</b>:認可の委譲。アクセストークンで限定アクセス</div>
+      </div>
+      <div class="memo">覚え方:「SAML=あなたは誰か、OAuth=何をしてよいか」</div>
+    </div>
+    <div class="card diff-card"><h3>XSS / CSRF / SQLインジェクション</h3>
+      <div class="vs cols">
+        <div><b>XSS</b>:被害者のブラウザでスクリプト実行 → エスケープ・CSP</div>
+        <div><b>CSRF</b>:意図しないリクエストを送信させる → トークン・再認証</div>
+        <div><b>SQLi</b>:SQL文を改変 → プレースホルダ</div>
+      </div>
+      <div class="memo">CSRF対策に「エスケープ」を選ばせるのが定番ひっかけ(3回出題)</div>
+    </div>
+    <div class="card diff-card"><h3>TCP / UDP</h3>
+      <div class="vs cols">
+        <div><b>TCP</b>:コネクション型(3ウェイハンドシェイク)。信頼性あり</div>
+        <div><b>UDP</b>:コネクションレス。高速。送信元偽装が容易→反射攻撃に悪用</div>
+      </div>
+      <div class="memo">ポート番号はTCP/UDPヘッダー、IPアドレスはIPヘッダー(3回出題)</div>
+    </div>
+    <div class="card diff-card"><h3>DoS / DDoS(と反射型)</h3>
+      <div class="vs cols">
+        <div><b>DoS</b>:単一発信元からの妨害</div>
+        <div><b>DDoS</b>:多数の踏み台(ボットネット)から分散攻撃</div>
+        <div><b>DRDoS</b>:送信元を標的に偽装→応答が標的に集中(DNS/NTP増幅)</div>
+      </div>
+      <div class="memo">Smurf=ICMPエコー要求をブロードキャストへ(送信元は標的に偽装)</div>
+    </div>
+    <div class="card diff-card"><h3>CVE / CVSS(+CWE)</h3>
+      <div class="vs cols">
+        <div><b>CVE</b>:個々の脆弱性の識別子(MITREが事務局)</div>
+        <div><b>CVSS</b>:深刻度の数値評価(0.0〜10.0)</div>
+        <div><b>CWE</b>:脆弱性の種類の一覧(XSS=CWE-79)</div>
+      </div>
+      <div class="memo">覚え方:「CVE=名前、CVSS=点数、CWE=種類」</div>
+    </div>
+    <div class="card diff-card"><h3>認証 / 認可</h3>
+      <div class="vs cols">
+        <div><b>認証</b>:相手が本人かを確認(パスワード・生体・証明書)</div>
+        <div><b>認可</b>:認証済みの主体に何を許すか(アクセス制御)</div>
+      </div>
+      <div class="memo">+Accounting(利用記録)でAAA(RADIUS/Diameter。R6秋出題)</div>
+    </div>
+    <div class="card diff-card"><h3>暗号化 / ハッシュ化 / 符号化</h3>
+      <div class="vs cols">
+        <div><b>暗号化</b>:鍵があれば元に戻せる(機密性)</div>
+        <div><b>ハッシュ化</b>:元に戻せない一方向変換(完全性)</div>
+        <div><b>符号化</b>:表現形式の変換。誰でも戻せる(Base64等)</div>
+      </div>
+      <div class="memo">「Base64で暗号化」という表現は常に誤り</div>
+    </div>
+  </div>
+  <details>
+    <summary>おまけ:直近試験で問われた新しめの対比</summary>
+    <div class="body"><ul>
+      <li><b>CASB</b>(利用の可視化) / <b>CSPM</b>(設定の監視) / <b>SIEM</b>(ログ相関分析) / <b>SOAR</b>(対応自動化) / <b>UEBA</b>(振る舞い検知)</li>
+      <li><b>CSIRT</b>(自組織のインシデント対応) / <b>PSIRT</b>(自社製品の脆弱性対応。R7秋出題) / <b>SOC</b>(監視・分析の実働部隊)</li>
+      <li><b>量子暗号(QKD)</b>(盗聴を検知できる鍵配送) / <b>PQC</b>(量子計算機に耐える従来型暗号)</li>
+      <li><b>サイバーキルチェーン</b>(攻撃の段階モデル) / <b>MITRE ATT&amp;CK</b>(戦術・技術のナレッジベース)</li>
+    </ul></div>
+  </details>
+</section>
+
+<!-- 9. 4週間学習計画 -->
+<section id="plan">
+  <h2>4週間学習計画(1日30分)</h2>
+  <p class="muted">詳細版:<a href="./sc_am2_30min_plan.md">sc_am2_30min_plan.md</a>。1日の型=5分復習→15分過去問/カード→10分間違いの理由を1行記録</p>
+  <div class="cards c2">
+    <div class="card week-card"><h3>Week 1:暗号・PKI・TLS</h3>
+      <div class="aim">狙い:再出題率最高ゾーンを固めて暗号・PKI分野の正答率80%へ</div>
+      <ul>
+        <li>毎日:共通鍵/公開鍵→ハッシュ/MAC/署名→CRYPTREC・PQC→PKI(CA/RA/VA)・CRL/OCSP→TLS・HSTS・PFSの順にカード化+過去問5問</li>
+        <li>週末:範囲の過去問15問通し+サイドチャネル/タイミング/テンペストの定番3問</li>
+      </ul></div>
+    <div class="card week-card"><h3>Week 2:Web脆弱性・認証認可</h3>
+      <div class="aim">狙い:午後との相乗効果が最大の2分野を仕組みから理解</div>
+      <ul>
+        <li>毎日:XSS/CSRF/SQLiを対で→Cookie属性→SAMLの流れを図に→OAuth・FIDO→802.1X・RADIUSの順+過去問5問</li>
+        <li>週末:範囲の過去問15問通し+WAF・IDS/IPSの違い</li>
+      </ul></div>
+    <div class="card week-card"><h3>Week 3:メール・ネットワーク・マルウェア</h3>
+      <div class="aim">狙い:丸暗記で取れる用語問題を総取り</div>
+      <ul>
+        <li>毎日:SPF/DKIM/DMARC→SMTP-AUTH/OP25B/587→DoS系比較メモ→Mirai・証拠保全→DNS系+サブネット計算の順+過去問5問</li>
+        <li>週末:範囲の過去問15問通し+クラウド・SOC系新用語を一気にカード化</li>
+      </ul></div>
+    <div class="card week-card"><h3>Week 4:総復習・模試形式・弱点補強</h3>
+      <div class="aim">狙い:40分計測の模試で17問以上を2回連続</div>
+      <ul>
+        <li>毎日:制度系(ISMAP/NIST CSF/MITRE)→問21〜25対策(SQL・可用性計算・監査)→R7秋模試→復習→R7春模試の順</li>
+        <li>週末:R6秋or R6春模試+印が付いたカードと間違い理由ノートの総ざらい</li>
+      </ul></div>
+  </div>
+  <div class="card week-card" style="margin-top:.8rem;border:2px solid #dc2626">
+    <h3>直前3日プラン</h3>
+    <ul>
+      <li><b>3日前</b>:直前チェックリストを全項目口頭で確認。言えないものをカードに戻す</li>
+      <li><b>2日前</b>:未実施の直近回(R5春・R5秋あたり)を40分計測で1回分</li>
+      <li><b>前日</b>:鉄板問題の正答文とR6〜R7初出の新用語だけを30分で流し読み。夜更かししない</li>
+      <li><b>当日朝</b>:SPF/DKIM/DMARC、CRL/OCSP、CVE/CWE/CVSS、CASB/CSPM/SOAR/UEBAの4セットだけ最終確認</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10. 問題データ一覧 -->
+<section id="questions">
+  <h2>問題データ一覧(午前Ⅱ 825問)</h2>
+  <p class="muted">H21春〜R7秋の全問。元データ:<a href="../data/sc_am2_questions.csv">data/sc_am2_questions.csv</a> / <a href="../data/sc_am2_topic_summary.csv">data/sc_am2_topic_summary.csv</a></p>
+  <div class="filter-bar">
+    <input type="search" id="q-search" placeholder="キーワード検索(例: DNSSEC、2025)">
+    <select id="q-cat"><option value="">全カテゴリ</option></select>
+    <select id="q-pri">
+      <option value="">全優先度</option>
+      <option value="A">A:最優先</option>
+      <option value="B">B:重要</option>
+      <option value="C">C:余力</option>
+      <option value="D">D:低頻度</option>
+    </select>
+  </div>
+  <p class="count-note" id="q-count"></p>
+  <div id="q-list"></div>
+  <button class="more-btn" id="q-more">さらに100問表示</button>
+</section>
+
+<button id="toTop" title="トップへ戻る">↑</button>
+
+<footer><div class="inner">
+  <p><b>SC午前Ⅱ 傾向と対策</b> — 対象:SC午前Ⅱのみ(825問)。午前Ⅰ・高度共通午前Ⅰ(koudo_am1)・午後問題は集計対象外(午後は関連性の言及のみ)。</p>
+  <p>Markdown原本:
+    <a href="./sc_am2_trend.md">傾向分析</a> /
+    <a href="./sc_am2_strategy.md">合格戦略</a> /
+    <a href="./sc_am2_flashcards.md">暗記カード</a> /
+    <a href="./sc_am2_30min_plan.md">30分学習計画</a> /
+    <a href="./sc_am2_terms_diff.md">用語の違い</a> /
+    <a href="../data/sc_am2_questions.csv">問題別CSV</a>
+  </p>
+  <p>データ出典:sc-siken.com過去問データ(sc_kakomon.json)を機械集計。カテゴリ分類はキーワードベースの自動分類のため数%の誤差を含みます。</p>
+</div></footer>
+
+<script src="./assets/sc_am2_data.js"></script>
+<script src="./assets/sc_am2_app.js"></script>
+</body>
+</html>
