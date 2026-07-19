@@ -1,0 +1,152 @@
+/* Shared dark theme for SC GitHub Pages (non-AM2 pages). */
+:root {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --card: #111827;
+  --ink: #e5e7eb;
+  --ink-soft: #9ca3af;
+  --line: #2a3850;
+  --line-soft: #1f2a3d;
+  --brand: #3b82f6;
+  --brand-dark: #93c5fd;
+  --info: #60a5fa;
+  --info-bg: #13294b;
+  --danger: #f87171;
+  --danger-bg: #3b161d;
+  --warn: #fbbf24;
+  --warn-bg: #34270c;
+  --study: #34d399;
+  --study-bg: #10352c;
+  --pred: #c4b5fd;
+  --pred-bg: #252451;
+  --tmpl: #67e8f9;
+  --tmpl-bg: #12333a;
+  --shadow: 0 4px 14px rgba(0, 0, 0, .28);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, .42);
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+a { color: #60a5fa; }
+a:visited { color: #a5b4fc; }
+strong, b { color: var(--ink); }
+
+.sidebar { background: #0f172a; color: #cbd5e1; border-right: 1px solid var(--line); }
+.sidebar .sub, .sidebar .nav-group-label { color: #8191a8; }
+.sidebar nav a { color: #cbd5e1; }
+.sidebar nav a:hover { background: rgba(96, 165, 250, .12); }
+.sidebar nav a.active { background: #1d4ed8; }
+
+.topbar {
+  background: rgba(11, 18, 32, .94);
+  border-bottom-color: var(--line);
+}
+.topbar h2,
+section.chapter > h3.chapter-title,
+.main h4,
+.story-card h4,
+.pred-card h4,
+.rank-item .body .t,
+.accordion > summary { color: var(--brand-dark); }
+
+.searchbox input,
+.searchbox .clear,
+input,
+select,
+textarea,
+button {
+  background: var(--card);
+  color: var(--ink);
+  border-color: var(--line);
+}
+.searchbox input::placeholder,
+input::placeholder,
+textarea::placeholder { color: #64748b; }
+.searchbox .clear { background: #263244; color: #cbd5e1; }
+
+.card,
+.story-card,
+.pred-card,
+.hero-card,
+.week-card,
+.accordion,
+.table-wrapper,
+.rank-item,
+.menu-box,
+.keypoints,
+.note,
+.factbox,
+.tmpl-line,
+.panel,
+.box,
+article {
+  background-color: var(--card);
+  color: var(--ink);
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+
+.keypoints,
+.factbox { background: var(--info-bg); border-color: #24466e; }
+.note { background: var(--warn-bg); border-color: #8a6510; }
+.rank-item,
+.menu-box { background: var(--study-bg); border-color: #20634f; }
+.accordion > summary,
+.tmpl-line { background: var(--tmpl-bg); }
+
+code, .kw {
+  background: #172033;
+  border-color: var(--line);
+  color: #cbd5e1;
+}
+
+.table-wrapper { background: var(--card); }
+thead th { background: #172033; color: #bfdbfe; border-bottom-color: var(--line); }
+tbody td { border-bottom-color: var(--line-soft); }
+tbody tr:nth-child(even) { background: #0f172a; }
+tbody tr:hover { background: #172554; }
+
+.label.fact { background: var(--info-bg); color: #93c5fd; border-color: #315c8a; }
+.label.pred { background: var(--pred-bg); color: #c4b5fd; border-color: #514f91; }
+.label.hot,
+.label.miss { background: var(--danger-bg); color: #fca5a5; border-color: #7f303b; }
+.label.warn { background: var(--warn-bg); color: #fcd34d; border-color: #80620d; }
+.label.tmpl { background: var(--tmpl-bg); color: #67e8f9; border-color: #286b73; }
+.label.study { background: var(--study-bg); color: #6ee7b7; border-color: #28715d; }
+
+.hamburger { background: var(--card); color: var(--ink); border-color: var(--line); }
+.backdrop { background: rgba(0, 0, 0, .68); }
+#toTop { background: #2563eb; color: #fff; }
+
+/* Generic fallbacks for additional static pages. */
+header, nav, footer { border-color: var(--line); }
+section, main, .container, .content { color: var(--ink); }
+hr { border-color: var(--line); }
+blockquote { background: #111827; border-color: #3b82f6; color: #cbd5e1; }
+
+::selection { background: #1d4ed8; color: #fff; }
+
+@media print {
+  :root {
+    color-scheme: light;
+    --bg: #fff;
+    --card: #fff;
+    --ink: #111827;
+    --ink-soft: #4b5563;
+    --line: #d1d5db;
+    --line-soft: #e5e7eb;
+    --brand-dark: #24486b;
+  }
+  html, body, .card, .story-card, .pred-card, .hero-card, .week-card,
+  .accordion, .table-wrapper, .rank-item, .menu-box, .keypoints, .note,
+  .factbox, .tmpl-line, article {
+    background: #fff !important;
+    color: #111827 !important;
+    box-shadow: none !important;
+  }
+  thead th { background: #f3f4f6 !important; color: #111827 !important; }
+  tbody tr:nth-child(even) { background: #fafafa !important; }
+}
