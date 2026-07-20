@@ -34,8 +34,24 @@ jobs:
           rm -rf _site
           mkdir -p _site
 
-          # Keep the existing SC afternoon dashboard at the site root.
+          # Keep the existing SC afternoon dashboards at the site root.
           cp -a html/. _site/
+
+          # Apply the shared dark theme to every HTML page copied from html/.
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+
+          site = Path("_site")
+          theme = site / "dark.css"
+          for page in site.rglob("*.html"):
+              text = page.read_text(encoding="utf-8")
+              if "data-sc-dark-theme" in text or "</head>" not in text:
+                  continue
+              href = Path(os.path.relpath(theme, page.parent)).as_posix()
+              link = f'  <link rel="stylesheet" href="{href}" data-sc-dark-theme>\n'
+              page.write_text(text.replace("</head>", link + "</head>", 1), encoding="utf-8")
+          PY
 
           # Publish the SC AM2 dashboard at /am2/ with its assets and notes.
           mkdir -p _site/am2
