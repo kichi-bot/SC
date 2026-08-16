@@ -7,7 +7,7 @@ body {
   background: #f6f8fb;
   color: #1f2937;
   line-height: 1.7;
-  font-size: 1rem;
+  font-size: 1.02rem;
 }
 a { color: #2563eb; }
 h2 { font-size: 1.3rem; border-left: 5px solid #2563eb; padding-left: .6rem; margin: 0 0 1rem; }
@@ -24,10 +24,10 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
   text-align: center;
 }
 .site-header h1 { margin: 0; font-size: 1.5rem; }
-.site-header .sub { margin: .4rem 0 0; opacity: .92; font-size: .92rem; }
+.site-header .sub { margin: .4rem 0 0; opacity: .92; font-size: 1.02rem; }
 .site-header .scope {
   display: inline-block; margin-top: .7rem; padding: .25rem .8rem;
-  background: rgba(255,255,255,.16); border-radius: 999px; font-size: .8rem;
+  background: rgba(255,255,255,.16); border-radius: 999px; font-size: 1.02rem;
 }
 
 /* ナビ */
@@ -39,7 +39,7 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
 }
 .nav .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 .5rem; }
 .nav a {
-  display: inline-block; padding: .65rem .7rem; font-size: .85rem;
+  display: inline-block; padding: .65rem .7rem; font-size: 1.02rem;
   color: #374151; text-decoration: none; border-bottom: 3px solid transparent;
 }
 .nav a:hover, .nav a.active { color: #2563eb; border-bottom-color: #2563eb; }
@@ -50,14 +50,14 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
   background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px;
   padding: .9rem 1rem; box-shadow: 0 1px 2px rgba(0,0,0,.04);
 }
-.card h3 { margin: 0 0 .4rem; font-size: 1rem; }
-.card p { margin: .3rem 0; font-size: .92rem; }
-.muted { color: #6b7280; font-size: .85rem; }
+.card h3 { margin: 0 0 .4rem; font-size: 1.02rem; }
+.card p { margin: .3rem 0; font-size: 1.02rem; }
+.muted { color: #6b7280; font-size: 1.02rem; }
 
 /* 結論サマリー */
 .summary-cards .card { border-top: 4px solid #2563eb; }
 .summary-cards .card.warn { border-top-color: #dc2626; }
-.summary-cards .label { font-size: .78rem; color: #6b7280; }
+.summary-cards .label { font-size: 1.02rem; color: #6b7280; }
 .summary-cards .big { font-size: 1.05rem; font-weight: 700; margin: .15rem 0 .3rem; }
 
 /* 今日やること */
@@ -70,7 +70,7 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
 /* バッジ */
 .badge {
   display: inline-block; padding: .1rem .55rem; border-radius: 999px;
-  font-size: .75rem; font-weight: 700; vertical-align: middle;
+  font-size: 1.02rem; font-weight: 700; vertical-align: middle;
 }
 .pri-A { background: #fee2e2; color: #b91c1c; }
 .pri-B { background: #dbeafe; color: #1d4ed8; }
@@ -84,8 +84,8 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
 .topic-card { border-left: 6px solid #e5e7eb; }
 .topic-card.pA { border-left-color: #dc2626; background: #fffbfb; }
 .topic-card.pB { border-left-color: #2563eb; }
-.topic-card .nums { font-size: .82rem; color: #6b7280; margin: .2rem 0 .4rem; }
-.topic-card .action { font-size: .9rem; background: #f6f8fb; border-radius: 8px; padding: .5rem .7rem; margin-top: .4rem; }
+.topic-card .nums { font-size: 1.02rem; color: #6b7280; margin: .2rem 0 .4rem; }
+.topic-card .action { font-size: 1.02rem; background: #f6f8fb; border-radius: 8px; padding: .5rem .7rem; margin-top: .4rem; }
 
 /* 折りたたみ */
 details { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; margin: .6rem 0; }
@@ -102,7 +102,7 @@ details.plain { border: none; background: transparent; }
 .tabs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .8rem; }
 .tabs button {
   border: 1px solid #d1d5db; background: #ffffff; color: #374151;
-  padding: .45rem .9rem; border-radius: 999px; font-size: .9rem; cursor: pointer;
+  padding: .45rem .9rem; border-radius: 999px; font-size: 1.02rem; cursor: pointer;
 }
 .tabs button.active { background: #2563eb; border-color: #2563eb; color: #fff; font-weight: 700; }
 .tab-panel { display: none; }
@@ -113,7 +113,7 @@ details.plain { border: none; background: transparent; }
 .checklist li { margin: .3rem 0; }
 .checklist label {
   display: flex; gap: .6rem; align-items: flex-start; background: #ffffff;
-  border: 1px solid #e5e7eb; border-radius: 10px; padding: .55rem .8rem; cursor: pointer; font-size: .92rem;
+  border: 1px solid #e5e7eb; border-radius: 10px; padding: .55rem .8rem; cursor: pointer; font-size: 1.02rem;
 }
 .checklist input { margin-top: .25rem; flex: none; }
 .checklist input:checked + span { color: #9ca3af; text-decoration: line-through; }
@@ -122,31 +122,31 @@ details.plain { border: none; background: transparent; }
 .filter-bar { display: flex; gap: .5rem; flex-wrap: wrap; margin: .6rem 0 1rem; }
 .filter-bar input[type="search"], .filter-bar select {
   padding: .5rem .7rem; border: 1px solid #d1d5db; border-radius: 10px;
-  font-size: .95rem; background: #fff; color: #1f2937;
+  font-size: 1.02rem; background: #fff; color: #1f2937;
 }
 .filter-bar input[type="search"] { flex: 1 1 220px; min-width: 0; }
-.count-note { font-size: .85rem; color: #6b7280; margin: .2rem 0 .6rem; }
+.count-note { font-size: 1.02rem; color: #6b7280; margin: .2rem 0 .6rem; }
 
 /* 演習モード */
 .practice-shell { max-width: 820px; }
 .practice-tabs { display: flex; gap: .45rem; margin-bottom: .8rem; }
 .practice-tabs button {
   flex: 1; border: 1px solid #bfdbfe; background: #eff6ff; color: #1d4ed8;
-  padding: .6rem .8rem; border-radius: 10px; font-size: .95rem; cursor: pointer;
+  padding: .6rem .8rem; border-radius: 10px; font-size: 1.02rem; cursor: pointer;
 }
 .practice-tabs button.active { background: #2563eb; border-color: #2563eb; color: #fff; font-weight: 700; }
 .practice-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: .5rem; margin-bottom: .8rem; }
 .practice-stat { background: #fff; border: 1px solid #dbeafe; border-radius: 10px; padding: .5rem .7rem; }
-.practice-stat-label { display: block; color: #64748b; font-size: .75rem; }
+.practice-stat-label { display: block; color: #64748b; font-size: 1.02rem; }
 .practice-stat-value { display: block; color: #1e3a8a; font-size: 1.05rem; line-height: 1.35; }
 .practice-home h3 { margin-top: 0; }
 .practice-config { display: grid; grid-template-columns: 1fr; gap: .55rem; margin: .7rem 0; }
-.practice-config label { color: #475569; font-size: .82rem; font-weight: 700; }
+.practice-config label { color: #475569; font-size: 1.02rem; font-weight: 700; }
 .practice-config select {
   display: block; width: 100%; margin-top: .15rem; padding: .52rem .65rem;
   border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; color: #1f2937; font: inherit;
 }
-.quiz-data-note { color: #64748b; font-size: .8rem; margin: .35rem 0 .8rem; }
+.quiz-data-note { color: #64748b; font-size: 1.02rem; margin: .35rem 0 .8rem; }
 .primary-btn, .secondary-btn, .text-btn {
   font: inherit; cursor: pointer; transition: background .15s, border-color .15s, transform .15s;
 }
@@ -160,16 +160,16 @@ details.plain { border: none; background: transparent; }
   padding: .55rem .9rem; margin: .55rem .4rem .1rem 0;
 }
 .secondary-btn:hover { background: #f8fafc; }
-.text-btn { border: none; padding: .15rem; background: transparent; color: #64748b; font-size: .82rem; }
+.text-btn { border: none; padding: .15rem; background: transparent; color: #64748b; font-size: 1.02rem; }
 .text-btn:hover { color: #1d4ed8; text-decoration: underline; }
-.quiz-progress-row { display: flex; justify-content: space-between; align-items: center; gap: .8rem; color: #475569; font-size: .85rem; }
+.quiz-progress-row { display: flex; justify-content: space-between; align-items: center; gap: .8rem; color: #475569; font-size: 1.02rem; }
 .progress-track { height: 7px; overflow: hidden; background: #e2e8f0; border-radius: 999px; margin: .5rem 0 1rem; }
 .progress-bar { width: 0; height: 100%; background: #2563eb; border-radius: inherit; transition: width .18s ease; }
-.quiz-meta { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; margin-bottom: .65rem; font-size: .78rem; }
+.quiz-meta { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; margin-bottom: .65rem; font-size: 1.02rem; }
 .quiz-period { color: #475569; font-weight: 700; }
 .quiz-category { padding: .08rem .45rem; border-radius: 999px; background: #f1f5f9; color: #475569; }
 .quiz-question-text { white-space: pre-wrap; color: #0f172a; font-size: 1.02rem; font-weight: 700; line-height: 1.9; }
-.quiz-source { display: inline-block; margin-top: .65rem; font-size: .8rem; }
+.quiz-source { display: inline-block; margin-top: .65rem; font-size: 1.02rem; }
 .quiz-choices { display: grid; gap: .55rem; margin: 1rem 0; }
 .quiz-choice {
   display: flex; width: 100%; gap: .65rem; align-items: flex-start; text-align: left;
@@ -191,32 +191,32 @@ details.plain { border: none; background: transparent; }
 .quiz-feedback.correct .quiz-feedback-title { color: #15803d; }
 .quiz-feedback.wrong .quiz-feedback-title { color: #b91c1c; }
 .quiz-answer { font-weight: 700; margin: .5rem 0; }
-.quiz-explanation-title { margin: .7rem 0 .2rem; font-size: .9rem; color: #334155; }
-.quiz-explanation { white-space: pre-wrap; font-size: .9rem; line-height: 1.75; }
+.quiz-explanation-title { margin: .7rem 0 .2rem; font-size: 1.02rem; color: #334155; }
+.quiz-explanation { white-space: pre-wrap; font-size: 1.02rem; line-height: 1.75; }
 .quiz-result { text-align: center; }
 .quiz-result-title { margin: 0; color: #1e3a8a; }
 .quiz-result-score { margin: .45rem 0 .8rem; color: #1e3a8a; font-size: 1.15rem; font-weight: 700; }
-.quiz-missed-list { display: inline-block; max-width: 100%; margin: .3rem auto .8rem; text-align: left; font-size: .86rem; }
+.quiz-missed-list { display: inline-block; max-width: 100%; margin: .3rem auto .8rem; text-align: left; font-size: 1.02rem; }
 .card-player { text-align: center; }
-.card-category-label { display: inline-block; margin-top: .5rem; padding: .12rem .55rem; border-radius: 999px; background: #e0e7ff; color: #4338ca; font-size: .78rem; font-weight: 700; }
+.card-category-label { display: inline-block; margin-top: .5rem; padding: .12rem .55rem; border-radius: 999px; background: #e0e7ff; color: #4338ca; font-size: 1.02rem; font-weight: 700; }
 .card-term { margin: .9rem 0 .3rem; color: #1e3a8a; font-size: 1.4rem; }
-.card-answer { margin: 1rem 0; padding: .8rem; border-radius: 10px; background: #f8fafc; text-align: left; white-space: pre-wrap; font-size: .9rem; line-height: 1.75; }
+.card-answer { margin: 1rem 0; padding: .8rem; border-radius: 10px; background: #f8fafc; text-align: left; white-space: pre-wrap; font-size: 1.02rem; line-height: 1.75; }
 .card-ratings { margin-top: 1rem; }
-.card-ratings p { margin: 0 0 .45rem; font-size: .85rem; color: #475569; }
-.card-ratings button { border: 1px solid; border-radius: 999px; margin: 0 .15rem; padding: .45rem .72rem; background: #fff; font: inherit; font-size: .85rem; cursor: pointer; }
+.card-ratings p { margin: 0 0 .45rem; font-size: 1.02rem; color: #475569; }
+.card-ratings button { border: 1px solid; border-radius: 999px; margin: 0 .15rem; padding: .45rem .72rem; background: #fff; font: inherit; font-size: 1.02rem; cursor: pointer; }
 .card-ratings [data-card-rating="known"] { border-color: #86efac; color: #15803d; background: #f0fdf4; }
 .card-ratings [data-card-rating="uncertain"] { border-color: #fcd34d; color: #a16207; background: #fffbeb; }
 .card-ratings [data-card-rating="forgot"] { border-color: #fca5a5; color: #b91c1c; background: #fef2f2; }
 
 /* 暗記カード */
 .fcards details { margin: 0; }
-.fcards summary .term { font-size: .98rem; }
-.fcards .cat-tag { font-size: .72rem; background: #eef2ff; color: #4338ca; border-radius: 6px; padding: .05rem .45rem; }
-.fcards dl { margin: 0; font-size: .9rem; }
-.fcards dt { font-weight: 700; color: #2563eb; margin-top: .5rem; font-size: .8rem; }
+.fcards summary .term { font-size: 1.02rem; }
+.fcards .cat-tag { font-size: 1.02rem; background: #eef2ff; color: #4338ca; border-radius: 6px; padding: .05rem .45rem; }
+.fcards dl { margin: 0; font-size: 1.02rem; }
+.fcards dt { font-weight: 700; color: #2563eb; margin-top: .5rem; font-size: 1.02rem; }
 .fcards dd { margin: 0; }
 .fcards .learned-toggle {
-  margin-left: auto; font-size: .72rem; border: 1px solid #d1d5db; background: #fff;
+  margin-left: auto; font-size: 1.02rem; border: 1px solid #d1d5db; background: #fff;
   border-radius: 999px; padding: .15rem .6rem; cursor: pointer; color: #6b7280; flex: none;
 }
 .fcards details.learned summary .term { color: #9ca3af; text-decoration: line-through; }
@@ -224,25 +224,25 @@ details.plain { border: none; background: transparent; }
 
 /* 用語の違い */
 .diff-card .vs { display: grid; gap: .5rem; margin-top: .5rem; }
-.diff-card .vs > div { background: #f6f8fb; border-radius: 8px; padding: .5rem .7rem; font-size: .9rem; }
+.diff-card .vs > div { background: #f6f8fb; border-radius: 8px; padding: .5rem .7rem; font-size: 1.02rem; }
 .diff-card .vs b { color: #1d4ed8; }
-.diff-card .memo { margin-top: .5rem; font-size: .85rem; color: #b45309; background: #fffbeb; border-radius: 8px; padding: .4rem .7rem; }
+.diff-card .memo { margin-top: .5rem; font-size: 1.02rem; color: #b45309; background: #fffbeb; border-radius: 8px; padding: .4rem .7rem; }
 
 /* 週カード */
-.week-card .aim { font-size: .88rem; background: #eef2ff; border-radius: 8px; padding: .4rem .7rem; margin: .3rem 0 .5rem; }
-.week-card ul { font-size: .9rem; }
+.week-card .aim { font-size: 1.02rem; background: #eef2ff; border-radius: 8px; padding: .4rem .7rem; margin: .3rem 0 .5rem; }
+.week-card ul { font-size: 1.02rem; }
 
 /* 問題一覧 */
 .q-item {
   background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
-  padding: .55rem .8rem; margin: .45rem 0; font-size: .9rem;
+  padding: .55rem .8rem; margin: .45rem 0; font-size: 1.02rem;
 }
-.q-item .meta { color: #6b7280; font-size: .8rem; display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+.q-item .meta { color: #6b7280; font-size: 1.02rem; display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
 .q-item .theme { margin: .15rem 0 0; }
-.q-item .sub { color: #2563eb; font-size: .8rem; }
+.q-item .sub { color: #2563eb; font-size: 1.02rem; }
 .more-btn, .top-btn {
   display: block; margin: 1rem auto; padding: .6rem 1.6rem; border-radius: 999px;
-  border: 1px solid #2563eb; color: #2563eb; background: #fff; font-size: .95rem; cursor: pointer;
+  border: 1px solid #2563eb; color: #2563eb; background: #fff; font-size: 1.02rem; cursor: pointer;
 }
 .more-btn:hover { background: #eff6ff; }
 
@@ -256,10 +256,10 @@ details.plain { border: none; background: transparent; }
 #toTop.show { display: block; }
 
 /* 注意ボックス */
-.note { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px; padding: .6rem .9rem; font-size: .88rem; }
+.note { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px; padding: .6rem .9rem; font-size: 1.02rem; }
 
 footer {
-  background: #1f2937; color: #d1d5db; padding: 1.5rem 1rem 2rem; margin-top: 2rem; font-size: .85rem;
+  background: #1f2937; color: #d1d5db; padding: 1.5rem 1rem 2rem; margin-top: 2rem; font-size: 1.02rem;
 }
 footer .inner { max-width: 1100px; margin: 0 auto; }
 footer a { color: #93c5fd; }
@@ -268,7 +268,7 @@ footer a { color: #93c5fd; }
 @media (max-width: 640px) {
   section { padding: 1.1rem .8rem; }
   .site-header h1 { font-size: 1.25rem; }
-  .quiz-question-text { font-size: .98rem; }
+  .quiz-question-text { font-size: 1.02rem; }
   .quiz-choice { padding: .65rem; }
 }
 @media (min-width: 641px) and (max-width: 1024px) {
