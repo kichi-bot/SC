@@ -4,6 +4,7 @@
   var TOPICS = window.SC_AM2_TOPICS || [];
   var QS = window.SC_AM2_QUESTIONS || [];
   var PROGRESS = window.SC_AM2_PROGRESS || null;
+  var FOCUS_PROGRESS = window.SC_FOCUS_TODO_PROGRESS || null;
   var LS = {
     get: function (k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } },
     set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -36,6 +37,52 @@
     card.appendChild(valueNode);
     card.appendChild(noteNode);
     return card;
+  }
+
+  function formatMinutes(minutes) {
+    var value = Math.max(0, Number(minutes) || 0);
+    var hours = Math.floor(value / 60);
+    var rest = value % 60;
+    if (!hours) return rest + "分";
+    return hours + "時間" + (rest ? rest + "分" : "");
+  }
+
+  function renderFocusProgress() {
+    var summary = document.getElementById("focus-progress-summary");
+    var updated = document.getElementById("focus-progress-updated");
+    var taskList = document.getElementById("focus-progress-tasks");
+    if (!summary || !updated || !taskList) return;
+    if (!FOCUS_PROGRESS) {
+      updated.textContent = "Focus To-Doの勉強時間データはまだありません。";
+      return;
+    }
+
+    updated.textContent = FOCUS_PROGRESS.project + " / データ取得: " +
+      String(FOCUS_PROGRESS.capturedAt).replace("T", " ").replace(/\+.*$/, "");
+    summary.appendChild(progressMetric("累計", formatMinutes(FOCUS_PROGRESS.totalMinutes), "Focus To-Doの実行済み時間"));
+    summary.appendChild(progressMetric("今月", formatMinutes(FOCUS_PROGRESS.monthMinutes), "当月の作業時間"));
+    summary.appendChild(progressMetric("今日", formatMinutes(FOCUS_PROGRESS.todayMinutes), "本日の作業時間"));
+    summary.appendChild(progressMetric("未完了タスク", FOCUS_PROGRESS.unfinishedTasks + "件", "完了 " + FOCUS_PROGRESS.completedTasks + "件"));
+
+    (FOCUS_PROGRESS.tasks || []).forEach(function (item) {
+      var li = document.createElement("li");
+      var head = el("div", "progress-item-head");
+      var label = document.createElement("span");
+      var value = document.createElement("strong");
+      label.textContent = item.name;
+      value.textContent = formatMinutes(item.minutes) + "（" + item.pomodoros + "回）";
+      head.appendChild(label);
+      head.appendChild(value);
+
+      var meter = el("div", "progress-meter focus-progress-meter");
+      var fill = document.createElement("span");
+      var ratio = FOCUS_PROGRESS.totalMinutes ? item.minutes / FOCUS_PROGRESS.totalMinutes * 100 : 0;
+      fill.style.width = Math.max(0, Math.min(100, ratio)) + "%";
+      meter.appendChild(fill);
+      li.appendChild(head);
+      li.appendChild(meter);
+      taskList.appendChild(li);
+    });
   }
 
   function progressListItem(item) {
@@ -296,6 +343,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    renderFocusProgress();
     renderProgress();
     renderTopics();
     initTabs();

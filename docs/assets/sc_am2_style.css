@@ -71,6 +71,9 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
 .progress-item-head strong { text-align: right; }
 .progress-meter { height: 10px; overflow: hidden; margin-top: .25rem; background: #e2e8f0; border-radius: 999px; }
 .progress-meter span { display: block; height: 100%; background: #2563eb; border-radius: inherit; }
+.focus-progress-summary .card { border-top-color: #db2777; }
+.focus-progress-summary .big { color: #9d174d; }
+.focus-progress-meter span { background: #db2777; }
 
 /* 今日やること */
 .today {
@@ -348,6 +351,9 @@ footer a { color: #93c5fd; }
   .progress-summary .big { color: #bae6fd; }
   .progress-meter { background: #334155; }
   .progress-meter span { background: #38bdf8; }
+  .focus-progress-summary .card { border-top-color: #f472b6; }
+  .focus-progress-summary .big { color: #fbcfe8; }
+  .focus-progress-meter span { background: #f472b6; }
   .summary-cards .card.warn { border-top-color: #f87171; }
   .today { border-color: var(--accent-strong); }
   .today .min { color: var(--accent); }

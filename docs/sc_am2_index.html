@@ -17,6 +17,7 @@
 
 <nav class="nav"><div class="nav-inner">
   <a href="#summary">結論</a>
+  <a href="#study-time">勉強時間</a>
   <a href="#progress">進捗</a>
   <a href="#today">今日やること</a>
   <a href="#practice">演習</a>
@@ -39,6 +40,17 @@
     <div class="card warn"><div class="label">最大の事実</div><div class="big">毎回3割が過去問と同一</div><p class="muted">直近10回平均33%が同一文面の再出題。類題込みで実質5〜6割</p></div>
     <div class="card"><div class="label">方針</div><div class="big">暗記カード → 過去問 → 間違い復習</div><p class="muted">直近10回分(250問)を2周が最短ルート</p></div>
     <div class="card"><div class="label">構成の型</div><div class="big">問1〜17がセキュリティ</div><p class="muted">問18〜20 NW / 問21 DB / 問22〜23 開発 / 問24 SM / 問25 監査で固定</p></div>
+  </div>
+</section>
+
+<!-- 2.25 Focus To-Doの勉強時間 -->
+<section id="study-time">
+  <h2>Focus To-Doの勉強時間</h2>
+  <p class="muted" id="focus-progress-updated">最新の勉強時間を読み込んでいます。</p>
+  <div class="cards c3 progress-summary focus-progress-summary" id="focus-progress-summary" aria-live="polite"></div>
+  <div class="card">
+    <h3>タスク別</h3>
+    <ul class="progress-list" id="focus-progress-tasks"></ul>
   </div>
 </section>
 
@@ -900,6 +912,7 @@
 
 <script src="./assets/sc_am2_data.js"></script>
 <script src="./assets/sc_am2_progress_data.js"></script>
+<script src="./assets/sc_focus_todo_progress_data.js"></script>
 <script src="./assets/sc_am2_app.js"></script>
 <script src="./assets/sc_am2_quiz_data.js"></script>
 <script src="./assets/sc_am2_quiz_app.js"></script>
