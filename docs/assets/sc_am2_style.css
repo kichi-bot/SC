@@ -60,6 +60,18 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
 .summary-cards .label { font-size: 1.02rem; color: #6b7280; }
 .summary-cards .big { font-size: 1.05rem; font-weight: 700; margin: .15rem 0 .3rem; }
 
+/* 過去問道場の進捗 */
+.progress-summary { margin-bottom: .8rem; }
+.progress-summary .card { border-top: 4px solid #2563eb; }
+.progress-summary .label { color: #6b7280; }
+.progress-summary .big { color: #1e3a8a; font-size: 1.2rem; font-weight: 700; margin: .15rem 0 .3rem; }
+.progress-list { list-style: none; margin: 0; padding: 0; }
+.progress-list li + li { margin-top: .8rem; }
+.progress-item-head { display: flex; justify-content: space-between; align-items: baseline; gap: .8rem; }
+.progress-item-head strong { text-align: right; }
+.progress-meter { height: 10px; overflow: hidden; margin-top: .25rem; background: #e2e8f0; border-radius: 999px; }
+.progress-meter span { display: block; height: 100%; background: #2563eb; border-radius: inherit; }
+
 /* 今日やること */
 .today {
   background: #ffffff; border: 2px solid #2563eb; border-radius: 12px; padding: 1rem 1.1rem;
@@ -326,11 +338,16 @@ footer a { color: #93c5fd; }
   .card { box-shadow: 0 8px 22px rgba(0,0,0,.18); }
   .muted,
   .summary-cards .label,
+  .progress-summary .label,
   .topic-card .nums,
   .count-note,
   .q-item .meta { color: var(--muted); }
 
   .summary-cards .card { border-top-color: var(--accent-strong); }
+  .progress-summary .card { border-top-color: var(--accent-strong); }
+  .progress-summary .big { color: #bae6fd; }
+  .progress-meter { background: #334155; }
+  .progress-meter span { background: #38bdf8; }
   .summary-cards .card.warn { border-top-color: #f87171; }
   .today { border-color: var(--accent-strong); }
   .today .min { color: var(--accent); }

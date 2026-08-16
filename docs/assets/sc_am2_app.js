@@ -3,6 +3,7 @@
   "use strict";
   var TOPICS = window.SC_AM2_TOPICS || [];
   var QS = window.SC_AM2_QUESTIONS || [];
+  var PROGRESS = window.SC_AM2_PROGRESS || null;
   var LS = {
     get: function (k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } },
     set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -19,6 +20,72 @@
   function esc(s) {
     return String(s).replace(/[&<>"]/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  /* ---------- 過去問道場の進捗 ---------- */
+  function progressMetric(label, value, note) {
+    var card = el("div", "card");
+    var labelNode = el("div", "label");
+    labelNode.textContent = label;
+    var valueNode = el("div", "big");
+    valueNode.textContent = value;
+    var noteNode = el("p", "muted");
+    noteNode.textContent = note;
+    card.appendChild(labelNode);
+    card.appendChild(valueNode);
+    card.appendChild(noteNode);
+    return card;
+  }
+
+  function progressListItem(item) {
+    var li = document.createElement("li");
+    var head = el("div", "progress-item-head");
+    var label = document.createElement("span");
+    label.textContent = item.label;
+    var value = document.createElement("strong");
+    value.textContent = item.correct + "/" + item.total + "問（" + item.accuracy + "%）";
+    head.appendChild(label);
+    head.appendChild(value);
+
+    var meter = el("div", "progress-meter");
+    meter.setAttribute("role", "progressbar");
+    meter.setAttribute("aria-label", item.label + "の正答率");
+    meter.setAttribute("aria-valuemin", "0");
+    meter.setAttribute("aria-valuemax", "100");
+    meter.setAttribute("aria-valuenow", String(item.accuracy));
+    var fill = document.createElement("span");
+    fill.style.width = Math.max(0, Math.min(100, item.accuracy)) + "%";
+    meter.appendChild(fill);
+    li.appendChild(head);
+    li.appendChild(meter);
+    return li;
+  }
+
+  function renderProgress() {
+    var summary = document.getElementById("progress-summary");
+    var updated = document.getElementById("progress-updated");
+    if (!summary || !updated) return;
+    if (!PROGRESS) {
+      updated.textContent = "進捗データはまだありません。";
+      return;
+    }
+
+    updated.textContent = "最終学習日: " + PROGRESS.lastStudyDate + " / データ取得: " +
+      String(PROGRESS.downloadedAt).replace("T", " ").replace(/\+.*$/, "");
+    summary.appendChild(progressMetric("総演習", PROGRESS.total + "問", "過去問道場の全学習履歴"));
+    summary.appendChild(progressMetric("正解", PROGRESS.correct + "問", "不正解 " + PROGRESS.wrong + "問"));
+    summary.appendChild(progressMetric("正答率", PROGRESS.accuracy + "%", "目標 60%以上"));
+    summary.appendChild(progressMetric("学習日数", PROGRESS.days.length + "日", "継続して記録された日数"));
+    summary.appendChild(progressMetric("挑戦した問題", PROGRESS.uniqueQuestions + "問", "重複を除いた問題数"));
+
+    var dayList = document.getElementById("progress-days");
+    PROGRESS.days.slice(0, 14).forEach(function (item) {
+      dayList.appendChild(progressListItem(item));
+    });
+    var categoryList = document.getElementById("progress-categories");
+    PROGRESS.categories.forEach(function (item) {
+      categoryList.appendChild(progressListItem(item));
     });
   }
 
@@ -229,6 +296,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    renderProgress();
     renderTopics();
     initTabs();
     initChecklist();
