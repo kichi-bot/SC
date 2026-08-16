@@ -27,7 +27,6 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
       - name: Prepare site
         shell: bash
         run: |
@@ -66,7 +65,6 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
