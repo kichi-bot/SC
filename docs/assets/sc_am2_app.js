@@ -48,6 +48,11 @@
     return hours + "時間" + (rest ? rest + "分" : "");
   }
 
+  function formatPoints(value) {
+    var number = Number(value);
+    return Number.isFinite(number) && Number.isInteger(number) ? String(number) : String(value);
+  }
+
   function renderFocusProgress() {
     var summary = document.getElementById("focus-progress-summary");
     var updated = document.getElementById("focus-progress-updated");
@@ -92,7 +97,7 @@
     var label = document.createElement("span");
     var value = document.createElement("strong");
     label.textContent = item.label;
-    value.textContent = item.questions + "問 / " + item.score + "点（" + item.accuracy + "%）";
+    value.textContent = item.questions + "問 / " + formatPoints(item.score) + "点（" + item.accuracy + "%）";
     head.appendChild(label);
     head.appendChild(value);
     var meter = el("div", "progress-meter");
@@ -122,10 +127,46 @@
     updated.textContent = "最終採点日: " + PM_PROGRESS.lastStudyDate + " / データ取得: " +
       String(PM_PROGRESS.exportedAt).replace("T", " ").replace(/\+.*$/, "");
     summary.appendChild(progressMetric("採点済み問題", PM_PROGRESS.questions + "問", "午後問題のセルフ採点"));
-    summary.appendChild(progressMetric("合計点", PM_PROGRESS.score + " / " + PM_PROGRESS.max + "点", "採点済み問題の配点合計"));
+    summary.appendChild(progressMetric("合計点", formatPoints(PM_PROGRESS.score) + " / " + formatPoints(PM_PROGRESS.max) + "点", "採点済み問題の配点合計"));
     summary.appendChild(progressMetric("得点率", PM_PROGRESS.accuracy + "%", "目標 70%以上"));
     (PM_PROGRESS.days || []).slice(0, 14).forEach(function (item) { dayList.appendChild(pmProgressListItem(item)); });
     (PM_PROGRESS.exams || []).forEach(function (item) { examList.appendChild(pmProgressListItem(item)); });
+  }
+
+  function renderExamMap(target, maps, labelForIndex) {
+    if (!target) return;
+    if (!maps || !maps.length) {
+      target.appendChild(el("p", "exam-map-empty", "まだ解いた問題が同期されていません。"));
+      return;
+    }
+    maps.forEach(function (map) {
+      var completed = new Set((map.completed || []).map(String));
+      var row = el("div", "exam-map-row");
+      var head = el("div", "exam-map-head");
+      var name = document.createElement("strong");
+      var status = document.createElement("span");
+      name.textContent = map.label;
+      status.textContent = completed.size + " / " + map.total + "問 完了";
+      head.appendChild(name);
+      head.appendChild(status);
+      var grid = el("div", "exam-map-grid");
+      for (var index = 1; index <= map.total; index += 1) {
+        var label = labelForIndex(index);
+        var isDone = completed.has(String(label)) || completed.has(String(index));
+        var cell = el("span", "exam-map-cell" + (isDone ? " done" : ""));
+        cell.textContent = isDone ? "✓" : String(index);
+        cell.setAttribute("aria-label", map.label + " " + label + (isDone ? " 解いた" : " 未着手"));
+        grid.appendChild(cell);
+      }
+      row.appendChild(head);
+      row.appendChild(grid);
+      target.appendChild(row);
+    });
+  }
+
+  function renderPastExamMaps() {
+    renderExamMap(document.getElementById("am2-exam-map"), PROGRESS && PROGRESS.examMaps, function (index) { return index; });
+    renderExamMap(document.getElementById("pm-exam-map"), PM_PROGRESS && PM_PROGRESS.questionMaps, function (index) { return "問" + index; });
   }
 
   function progressListItem(item) {
@@ -389,6 +430,7 @@
     renderFocusProgress();
     renderPmProgress();
     renderProgress();
+    renderPastExamMaps();
     renderTopics();
     initTabs();
     initChecklist();

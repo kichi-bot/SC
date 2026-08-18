@@ -1,3 +1,3 @@
 // 自動生成: scripts/update_sc_pm_progress.py
 // SC午後採点サイトの公開用集計値（答案本文・設問別結果は含まない）
-window.SC_PM_PROGRESS=null;
+window.SC_PM_PROGRESS={"exportedAt":"2026-08-18T22:48+09:00","lastStudyDate":"2026-08-17","questions":1,"score":3.0,"max":50.0,"accuracy":6.0,"days":[{"label":"2026-08-17","questions":1,"score":3.0,"max":50.0,"accuracy":6.0}],"exams":[{"label":"令和6年秋期","questions":1,"score":3.0,"max":50.0,"accuracy":6.0}],"questionMaps":[{"label":"令和6年秋期","total":4,"completed":["問3"]}]};

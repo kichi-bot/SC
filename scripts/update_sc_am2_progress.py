@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "docs" / "assets" / "sc_am2_progress_data.js"
 REQUIRED_COLUMNS = {"No.", "正誤", "分野名", "大分類", "中分類", "出典", "学習日"}
 URL_PATTERN = re.compile(r'https://www\.sc-siken\.com/kakomon/[^"\s,]+')
+QUESTION_URL_PATTERN = re.compile(r"/kakomon/(?P<exam>[^/]+)/am2_(?P<number>\d+)\.html$")
 
 
 def read_report(path: Path) -> list[dict[str, str]]:
@@ -43,6 +44,15 @@ def percentage(correct: int, answered: int) -> float:
     return round(correct / answered * 100, 1) if answered else 0.0
 
 
+def exam_label(exam_id: str) -> str:
+    year, season = exam_id.split("_", 1)
+    suffix = "春期" if season == "haru" else "秋期" if season == "aki" else "特別"
+    if year.isdigit() and int(year) <= 7:
+        era_year = "元" if int(year) == 1 else str(int(year))
+        return f"令和{era_year}年{suffix}"
+    return f"平成{int(year)}年{suffix}"
+
+
 def build_progress(rows: list[dict[str, str]], source_path: Path) -> dict[str, object]:
     status_counts = Counter(row["正誤"].strip() for row in rows)
     correct = status_counts["○"]
@@ -53,6 +63,7 @@ def build_progress(rows: list[dict[str, str]], source_path: Path) -> dict[str, o
     daily: dict[str, Counter[str]] = {}
     categories: dict[str, Counter[str]] = {}
     source_urls: set[str] = set()
+    exam_questions: dict[str, set[int]] = {}
 
     for row in rows:
         status = row["正誤"].strip()
@@ -62,7 +73,11 @@ def build_progress(rows: list[dict[str, str]], source_path: Path) -> dict[str, o
         categories.setdefault(category, Counter())[status] += 1
         match = URL_PATTERN.search(row["出典"])
         if match:
-            source_urls.add(match.group(0))
+            source_url = match.group(0)
+            source_urls.add(source_url)
+            question_match = QUESTION_URL_PATTERN.search(source_url)
+            if question_match:
+                exam_questions.setdefault(question_match.group("exam"), set()).add(int(question_match.group("number")))
 
     def summarize(label: str, counts: Counter[str]) -> dict[str, object]:
         item_correct = counts["○"]
@@ -79,6 +94,11 @@ def build_progress(rows: list[dict[str, str]], source_path: Path) -> dict[str, o
     daily_summary = [summarize(date, daily[date]) for date in sorted(daily, reverse=True)]
     category_summary = [summarize(name, counts) for name, counts in categories.items()]
     category_summary.sort(key=lambda item: (-int(item["total"]), str(item["label"])))
+    exam_maps = [
+        {"id": exam_id, "label": exam_label(exam_id), "total": 25, "completed": sorted(numbers)}
+        for exam_id, numbers in exam_questions.items()
+    ]
+    exam_maps.sort(key=lambda item: str(item["id"]), reverse=True)
 
     downloaded_at = datetime.fromtimestamp(source_path.stat().st_mtime).astimezone()
     return {
@@ -93,6 +113,7 @@ def build_progress(rows: list[dict[str, str]], source_path: Path) -> dict[str, o
         "uniqueQuestions": len(source_urls),
         "days": daily_summary,
         "categories": category_summary,
+        "examMaps": exam_maps,
     }
 
 

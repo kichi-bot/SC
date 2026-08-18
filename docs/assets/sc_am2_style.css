@@ -75,6 +75,23 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
 .focus-progress-summary .big { color: #9d174d; }
 .focus-progress-meter span { background: #db2777; }
 
+/* 解いた過去問マップ */
+.exam-map-legend { display: flex; align-items: center; gap: .45rem; flex-wrap: wrap; margin: -.25rem 0 .7rem; color: #64748b; font-size: .95rem; }
+.exam-map-list { display: grid; gap: .8rem; }
+.exam-map-row { display: grid; grid-template-columns: minmax(92px, 1fr) auto; gap: .65rem; align-items: center; }
+.exam-map-head { display: grid; gap: .05rem; }
+.exam-map-head strong { color: #1e3a8a; font-size: .98rem; }
+.exam-map-head span { color: #64748b; font-size: .88rem; }
+.exam-map-grid { display: grid; grid-template-columns: repeat(5, 1.75rem); gap: .28rem; }
+.exam-map-cell { display: grid; width: 1.75rem; height: 1.75rem; place-items: center; border: 1px solid #cbd5e1; border-radius: .38rem; background: #f8fafc; color: #94a3b8; font-size: .75rem; font-weight: 700; }
+.exam-map-cell.done { border-color: #16a34a; background: #16a34a; color: #fff; box-shadow: 0 1px 2px rgba(22,163,74,.25); }
+.exam-map-empty { color: #64748b; margin: 0; font-size: .95rem; }
+@media (max-width: 520px) {
+  .exam-map-row { grid-template-columns: 1fr; }
+  .exam-map-grid { grid-template-columns: repeat(5, 1.65rem); }
+  .exam-map-cell { width: 1.65rem; height: 1.65rem; }
+}
+
 /* 今日やること */
 .today {
   background: #ffffff; border: 2px solid #2563eb; border-radius: 12px; padding: 1rem 1.1rem;

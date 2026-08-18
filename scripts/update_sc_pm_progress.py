@@ -39,7 +39,7 @@ def build_progress(source: Path) -> dict[str, object]:
             raise ValueError("試験名または問題名が不正です。")
         if not isinstance(score, (int, float)) or not isinstance(maximum, (int, float)) or maximum <= 0 or not 0 <= score <= maximum:
             raise ValueError("得点が不正です。")
-        questions.append({"exam": exam, "score": score, "max": maximum, "gradedAt": graded_at})
+        questions.append({"exam": exam, "question": question, "score": score, "max": maximum, "gradedAt": graded_at})
 
     by_day: dict[str, list[dict[str, object]]] = defaultdict(list)
     by_exam: dict[str, list[dict[str, object]]] = defaultdict(list)
@@ -56,10 +56,15 @@ def build_progress(source: Path) -> dict[str, object]:
     days.sort(key=lambda item: str(item["label"]), reverse=True)
     exams = [summarize(label, items) for label, items in by_exam.items()]
     exams.sort(key=lambda item: (-int(item["questions"]), str(item["label"])))
+    question_maps = []
+    for label, items in by_exam.items():
+        completed = sorted({str(item["question"]) for item in items}, key=lambda value: int(value.removeprefix("問")))
+        question_maps.append({"label": label, "total": 4, "completed": completed})
+    question_maps.sort(key=lambda item: str(item["label"]), reverse=True)
     score = sum(float(item["score"]) for item in questions)
     maximum = sum(float(item["max"]) for item in questions)
     exported_at = parse_timestamp(payload.get("exportedAt")).astimezone()
-    return {"exportedAt": exported_at.isoformat(timespec="minutes"), "lastStudyDate": days[0]["label"] if days else None, "questions": len(questions), "score": score, "max": maximum, "accuracy": round(score / maximum * 100, 1) if maximum else 0.0, "days": days, "exams": exams}
+    return {"exportedAt": exported_at.isoformat(timespec="minutes"), "lastStudyDate": days[0]["label"] if days else None, "questions": len(questions), "score": score, "max": maximum, "accuracy": round(score / maximum * 100, 1) if maximum else 0.0, "days": days, "exams": exams, "questionMaps": question_maps}
 
 
 def main() -> None:
