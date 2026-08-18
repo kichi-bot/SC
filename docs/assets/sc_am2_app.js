@@ -5,6 +5,7 @@
   var QS = window.SC_AM2_QUESTIONS || [];
   var PROGRESS = window.SC_AM2_PROGRESS || null;
   var FOCUS_PROGRESS = window.SC_FOCUS_TODO_PROGRESS || null;
+  var PM_PROGRESS = window.SC_PM_PROGRESS || null;
   var LS = {
     get: function (k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } },
     set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -83,6 +84,48 @@
       li.appendChild(meter);
       taskList.appendChild(li);
     });
+  }
+
+  function pmProgressListItem(item) {
+    var li = document.createElement("li");
+    var head = el("div", "progress-item-head");
+    var label = document.createElement("span");
+    var value = document.createElement("strong");
+    label.textContent = item.label;
+    value.textContent = item.questions + "問 / " + item.score + "点（" + item.accuracy + "%）";
+    head.appendChild(label);
+    head.appendChild(value);
+    var meter = el("div", "progress-meter");
+    meter.setAttribute("role", "progressbar");
+    meter.setAttribute("aria-label", item.label + "の得点率");
+    meter.setAttribute("aria-valuemin", "0");
+    meter.setAttribute("aria-valuemax", "100");
+    meter.setAttribute("aria-valuenow", String(item.accuracy));
+    var fill = document.createElement("span");
+    fill.style.width = Math.max(0, Math.min(100, item.accuracy)) + "%";
+    meter.appendChild(fill);
+    li.appendChild(head);
+    li.appendChild(meter);
+    return li;
+  }
+
+  function renderPmProgress() {
+    var summary = document.getElementById("pm-progress-summary");
+    var updated = document.getElementById("pm-progress-updated");
+    var dayList = document.getElementById("pm-progress-days");
+    var examList = document.getElementById("pm-progress-exams");
+    if (!summary || !updated || !dayList || !examList) return;
+    if (!PM_PROGRESS) {
+      updated.textContent = "午後採点サイトの公開用集計はまだ同期されていません。";
+      return;
+    }
+    updated.textContent = "最終採点日: " + PM_PROGRESS.lastStudyDate + " / データ取得: " +
+      String(PM_PROGRESS.exportedAt).replace("T", " ").replace(/\+.*$/, "");
+    summary.appendChild(progressMetric("採点済み問題", PM_PROGRESS.questions + "問", "午後問題のセルフ採点"));
+    summary.appendChild(progressMetric("合計点", PM_PROGRESS.score + " / " + PM_PROGRESS.max + "点", "採点済み問題の配点合計"));
+    summary.appendChild(progressMetric("得点率", PM_PROGRESS.accuracy + "%", "目標 70%以上"));
+    (PM_PROGRESS.days || []).slice(0, 14).forEach(function (item) { dayList.appendChild(pmProgressListItem(item)); });
+    (PM_PROGRESS.exams || []).forEach(function (item) { examList.appendChild(pmProgressListItem(item)); });
   }
 
   function progressListItem(item) {
@@ -344,6 +387,7 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     renderFocusProgress();
+    renderPmProgress();
     renderProgress();
     renderTopics();
     initTabs();

@@ -54,6 +54,24 @@
   </div>
 </section>
 
+<!-- 2.4 午後採点サイトの進捗 -->
+<section id="pm-progress">
+  <h2>午後採点サイトの進捗</h2>
+  <p class="muted" id="pm-progress-updated">公開用の集計を読み込んでいます。</p>
+  <div class="cards c3 progress-summary" id="pm-progress-summary" aria-live="polite"></div>
+  <div class="cards c2 progress-details">
+    <div class="card">
+      <h3>日別</h3>
+      <ul class="progress-list" id="pm-progress-days"></ul>
+    </div>
+    <div class="card">
+      <h3>試験別</h3>
+      <ul class="progress-list" id="pm-progress-exams"></ul>
+    </div>
+  </div>
+  <p class="muted">答案本文・設問別の採点結果は公開せず、採点済み問題数と得点率のみを表示します。</p>
+</section>
+
 <!-- 2.5 過去問道場の進捗 -->
 <section id="progress">
   <h2>過去問道場の進捗</h2>
@@ -913,6 +931,7 @@
 <script src="./assets/sc_am2_data.js"></script>
 <script src="./assets/sc_am2_progress_data.js"></script>
 <script src="./assets/sc_focus_todo_progress_data.js"></script>
+<script src="./assets/sc_pm_progress_data.js"></script>
 <script src="./assets/sc_am2_app.js"></script>
 <script src="./assets/sc_am2_quiz_data.js"></script>
 <script src="./assets/sc_am2_quiz_app.js"></script>
