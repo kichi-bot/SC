@@ -18,6 +18,7 @@
 <nav class="nav"><div class="nav-inner">
   <a href="#summary">結論</a>
   <a href="#study-time">勉強時間</a>
+  <a href="#anki-progress">Anki</a>
   <a href="#progress">進捗</a>
   <a href="#past-exam-map">解いた過去問</a>
   <a href="#today">今日やること</a>
@@ -53,6 +54,20 @@
     <h3>タスク別</h3>
     <ul class="progress-list" id="focus-progress-tasks"></ul>
   </div>
+</section>
+
+<!-- 2.3 Anki学習記録 -->
+<section id="anki-progress">
+  <h2>Anki学習記録</h2>
+  <p class="muted">カード数と学習時間をこのブラウザに保存します。Focus To-Doの時間集計とは別の、自分用の記録です。</p>
+  <form class="anki-form" id="anki-form">
+    <label>日付<input id="anki-date" type="date" required></label>
+    <label>カード数<input id="anki-cards" type="number" min="1" step="1" required placeholder="例: 30"></label>
+    <label>学習分<input id="anki-minutes" type="number" min="1" step="1" required placeholder="例: 20"></label>
+    <button class="primary-btn" type="submit">記録を追加</button>
+  </form>
+  <div class="cards c3 progress-summary" id="anki-summary" aria-live="polite"></div>
+  <ul class="progress-list" id="anki-history"></ul>
 </section>
 
 <!-- 2.4 午後採点サイトの進捗 -->

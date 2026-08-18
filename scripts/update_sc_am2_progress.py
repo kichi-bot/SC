@@ -20,6 +20,12 @@ DEFAULT_OUTPUT = ROOT / "docs" / "assets" / "sc_am2_progress_data.js"
 REQUIRED_COLUMNS = {"No.", "正誤", "分野名", "大分類", "中分類", "出典", "学習日"}
 URL_PATTERN = re.compile(r'https://www\.sc-siken\.com/kakomon/[^"\s,]+')
 QUESTION_URL_PATTERN = re.compile(r"/kakomon/(?P<exam>[^/]+)/am2_(?P<number>\d+)\.html$")
+EXAM_ORDER = [
+    "07_aki", "07_haru", "06_aki", "06_haru", "05_aki", "05_haru", "04_aki", "04_haru",
+    "03_aki", "03_haru", "02_aki", "01_aki", "31_haru", "30_aki", "30_haru", "29_aki",
+    "29_haru", "28_aki", "28_haru", "27_aki", "27_haru", "26_aki", "26_haru", "25_aki",
+    "25_haru", "24_aki", "24_haru", "23_aki", "23_toku", "22_aki", "22_haru", "21_aki", "21_haru",
+]
 
 
 def read_report(path: Path) -> list[dict[str, str]]:
@@ -95,10 +101,9 @@ def build_progress(rows: list[dict[str, str]], source_path: Path) -> dict[str, o
     category_summary = [summarize(name, counts) for name, counts in categories.items()]
     category_summary.sort(key=lambda item: (-int(item["total"]), str(item["label"])))
     exam_maps = [
-        {"id": exam_id, "label": exam_label(exam_id), "total": 25, "completed": sorted(numbers)}
-        for exam_id, numbers in exam_questions.items()
+        {"id": exam_id, "label": exam_label(exam_id), "total": 25, "completed": sorted(exam_questions.get(exam_id, set()))}
+        for exam_id in EXAM_ORDER
     ]
-    exam_maps.sort(key=lambda item: str(item["id"]), reverse=True)
 
     downloaded_at = datetime.fromtimestamp(source_path.stat().st_mtime).astimezone()
     return {

@@ -75,6 +75,14 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
 .focus-progress-summary .big { color: #9d174d; }
 .focus-progress-meter span { background: #db2777; }
 
+/* Anki学習記録 */
+.anki-form { display: grid; grid-template-columns: repeat(3, minmax(120px, 1fr)) auto; gap: .6rem; align-items: end; margin: .7rem 0 .9rem; }
+.anki-form label { display: grid; gap: .2rem; color: #475569; font-size: .92rem; font-weight: 700; }
+.anki-form input { width: 100%; border: 1px solid #cbd5e1; border-radius: .5rem; padding: .48rem .6rem; background: #fff; color: #1f2937; font: inherit; }
+.anki-form .primary-btn { margin: 0; white-space: nowrap; }
+#anki-history { margin-top: .8rem; }
+@media (max-width: 700px) { .anki-form { grid-template-columns: 1fr 1fr; } .anki-form label:first-child { grid-column: 1 / -1; } }
+
 /* 解いた過去問マップ */
 .exam-map-legend { display: flex; align-items: center; gap: .45rem; flex-wrap: wrap; margin: -.25rem 0 .7rem; color: #64748b; font-size: .95rem; }
 .exam-map-list { display: grid; gap: .8rem; }
@@ -82,13 +90,18 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
 .exam-map-head { display: grid; gap: .05rem; }
 .exam-map-head strong { color: #1e3a8a; font-size: .98rem; }
 .exam-map-head span { color: #64748b; font-size: .88rem; }
-.exam-map-grid { display: grid; grid-template-columns: repeat(5, 1.75rem); gap: .28rem; }
+.exam-map-grid { display: grid; grid-template-columns: repeat(2, minmax(7.5rem, 1fr)); gap: .4rem; }
 .exam-map-cell { display: grid; width: 1.75rem; height: 1.75rem; place-items: center; border: 1px solid #cbd5e1; border-radius: .38rem; background: #f8fafc; color: #94a3b8; font-size: .75rem; font-weight: 700; }
 .exam-map-cell.done { border-color: #16a34a; background: #16a34a; color: #fff; box-shadow: 0 1px 2px rgba(22,163,74,.25); }
+.exam-map-check { display: flex; align-items: center; gap: .35rem; min-height: 2.1rem; padding: .35rem .45rem; border: 1px solid #cbd5e1; border-radius: .45rem; background: #f8fafc; color: #64748b; font-size: .88rem; font-weight: 700; cursor: pointer; }
+.exam-map-check:has(input:focus-visible) { outline: 3px solid #93c5fd; outline-offset: 2px; }
+.exam-map-check.done { border-color: #16a34a; background: #f0fdf4; color: #15803d; }
+.exam-map-check input { width: 1rem; height: 1rem; accent-color: #16a34a; }
+.exam-map-check input:disabled { cursor: default; }
 .exam-map-empty { color: #64748b; margin: 0; font-size: .95rem; }
 @media (max-width: 520px) {
   .exam-map-row { grid-template-columns: 1fr; }
-  .exam-map-grid { grid-template-columns: repeat(5, 1.65rem); }
+  .exam-map-grid { grid-template-columns: repeat(2, minmax(6.8rem, 1fr)); }
   .exam-map-cell { width: 1.65rem; height: 1.65rem; }
 }
 

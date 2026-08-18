@@ -6,6 +6,8 @@
   var PROGRESS = window.SC_AM2_PROGRESS || null;
   var FOCUS_PROGRESS = window.SC_FOCUS_TODO_PROGRESS || null;
   var PM_PROGRESS = window.SC_PM_PROGRESS || null;
+  var MAP_MANUAL_KEY = "sc_am2_exam_map_manual";
+  var ANKI_LOG_KEY = "sc_am2_anki_log";
   var LS = {
     get: function (k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } },
     set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -133,31 +135,62 @@
     (PM_PROGRESS.exams || []).forEach(function (item) { examList.appendChild(pmProgressListItem(item)); });
   }
 
-  function renderExamMap(target, maps, labelForIndex) {
+  function mapGroups(map, kind) {
+    var completed = new Set((map.completed || []).map(String));
+    if (kind === "am2") {
+      return [[1, 25]].map(function (range) {
+        var values = [];
+        for (var i = range[0]; i <= range[1]; i += 1) values.push(String(i));
+        return { key: range[0] + "-" + range[1], label: range[0] + "–" + range[1] + "問", total: values.length, done: values.filter(function (value) { return completed.has(value); }).length };
+      });
+    }
+    return Array.from({ length: map.total }, function (_, index) {
+      var label = "問" + (index + 1);
+      return { key: label, label: label, total: 1, done: completed.has(label) ? 1 : 0 };
+    });
+  }
+
+  function renderExamMap(target, maps, kind) {
     if (!target) return;
+    target.textContent = "";
+    var manual = LS.get(MAP_MANUAL_KEY, {});
     if (!maps || !maps.length) {
       target.appendChild(el("p", "exam-map-empty", "まだ解いた問題が同期されていません。"));
       return;
     }
     maps.forEach(function (map) {
-      var completed = new Set((map.completed || []).map(String));
       var row = el("div", "exam-map-row");
       var head = el("div", "exam-map-head");
       var name = document.createElement("strong");
       var status = document.createElement("span");
       name.textContent = map.label;
-      status.textContent = completed.size + " / " + map.total + "問 完了";
+      status.textContent = (map.completed || []).length + " / " + map.total + "問 自動記録";
       head.appendChild(name);
       head.appendChild(status);
       var grid = el("div", "exam-map-grid");
-      for (var index = 1; index <= map.total; index += 1) {
-        var label = labelForIndex(index);
-        var isDone = completed.has(String(label)) || completed.has(String(index));
-        var cell = el("span", "exam-map-cell" + (isDone ? " done" : ""));
-        cell.textContent = isDone ? "✓" : String(index);
-        cell.setAttribute("aria-label", map.label + " " + label + (isDone ? " 解いた" : " 未着手"));
-        grid.appendChild(cell);
-      }
+      mapGroups(map, kind).forEach(function (group) {
+        var storageKey = kind + ":" + (map.id || map.label) + ":" + group.key;
+        var automatic = group.done === group.total;
+        var checked = automatic || Boolean(manual[storageKey]);
+        var label = el("label", "exam-map-check" + (checked ? " done" : ""));
+        var input = document.createElement("input");
+        input.type = "checkbox";
+        input.checked = checked;
+        input.disabled = automatic;
+        input.setAttribute("aria-label", map.label + " " + group.label + "を解いたとして記録");
+        input.addEventListener("change", function () {
+          var next = LS.get(MAP_MANUAL_KEY, {});
+          if (input.checked) next[storageKey] = true;
+          else delete next[storageKey];
+          LS.set(MAP_MANUAL_KEY, next);
+          renderPastExamMaps();
+        });
+        var text = document.createElement("span");
+        text.textContent = checked ? "✓ " + group.label : group.label + "（" + group.done + "/" + group.total + "）";
+        label.appendChild(input);
+        label.appendChild(text);
+        grid.appendChild(label);
+      });
       row.appendChild(head);
       row.appendChild(grid);
       target.appendChild(row);
@@ -165,8 +198,45 @@
   }
 
   function renderPastExamMaps() {
-    renderExamMap(document.getElementById("am2-exam-map"), PROGRESS && PROGRESS.examMaps, function (index) { return index; });
-    renderExamMap(document.getElementById("pm-exam-map"), PM_PROGRESS && PM_PROGRESS.questionMaps, function (index) { return "問" + index; });
+    renderExamMap(document.getElementById("am2-exam-map"), PROGRESS && PROGRESS.examMaps, "am2");
+    renderExamMap(document.getElementById("pm-exam-map"), PM_PROGRESS && PM_PROGRESS.questionMaps, "pm");
+  }
+
+  function renderAnkiProgress() {
+    var form = document.getElementById("anki-form");
+    var date = document.getElementById("anki-date");
+    var summary = document.getElementById("anki-summary");
+    var history = document.getElementById("anki-history");
+    if (!form || !date || !summary || !history) return;
+    if (!date.value) date.value = new Date().toISOString().slice(0, 10);
+    function draw() {
+      var log = LS.get(ANKI_LOG_KEY, []).slice().sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); });
+      summary.textContent = "";
+      history.textContent = "";
+      var cards = log.reduce(function (total, item) { return total + Number(item.cards || 0); }, 0);
+      var minutes = log.reduce(function (total, item) { return total + Number(item.minutes || 0); }, 0);
+      summary.appendChild(progressMetric("学習回数", log.length + "回", "このブラウザの記録"));
+      summary.appendChild(progressMetric("復習カード", cards + "枚", "合計カード数"));
+      summary.appendChild(progressMetric("学習時間", formatMinutes(minutes), "合計時間"));
+      log.slice(0, 10).forEach(function (item) {
+        var line = el("li", "");
+        line.textContent = item.date + "　" + item.cards + "枚 / " + item.minutes + "分";
+        history.appendChild(line);
+      });
+    }
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var cards = Number(document.getElementById("anki-cards").value);
+      var minutes = Number(document.getElementById("anki-minutes").value);
+      if (!date.value || !Number.isInteger(cards) || !Number.isInteger(minutes) || cards < 1 || minutes < 1) return;
+      var log = LS.get(ANKI_LOG_KEY, []);
+      log.push({ date: date.value, cards: cards, minutes: minutes });
+      LS.set(ANKI_LOG_KEY, log);
+      document.getElementById("anki-cards").value = "";
+      document.getElementById("anki-minutes").value = "";
+      draw();
+    });
+    draw();
   }
 
   function progressListItem(item) {
@@ -428,6 +498,7 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     renderFocusProgress();
+    renderAnkiProgress();
     renderPmProgress();
     renderProgress();
     renderPastExamMaps();
