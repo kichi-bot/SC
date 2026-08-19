@@ -385,6 +385,8 @@ footer a { color: #93c5fd; }
   .focus-progress-summary .card { border-top-color: #f472b6; }
   .focus-progress-summary .big { color: #fbcfe8; }
   .focus-progress-meter span { background: #f472b6; }
+  .exam-map-head strong { color: #f8fafc; }
+  .exam-map-head span { color: #cbd5e1; }
   .summary-cards .card.warn { border-top-color: #f87171; }
   .today { border-color: var(--accent-strong); }
   .today .min { color: var(--accent); }
