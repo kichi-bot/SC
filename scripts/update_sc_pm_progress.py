@@ -15,6 +15,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "docs" / "assets" / "sc_pm_progress_data.js"
+PM_EXAM_ORDER = ["令和7年秋期", "令和7年春期", "令和6年秋期", "令和6年春期", "令和5年秋期"]
 
 
 def parse_timestamp(value: object) -> datetime:
@@ -57,10 +58,11 @@ def build_progress(source: Path) -> dict[str, object]:
     exams = [summarize(label, items) for label, items in by_exam.items()]
     exams.sort(key=lambda item: (-int(item["questions"]), str(item["label"])))
     question_maps = []
-    for label, items in by_exam.items():
+    labels = PM_EXAM_ORDER + sorted(set(by_exam).difference(PM_EXAM_ORDER), reverse=True)
+    for label in labels:
+        items = by_exam.get(label, [])
         completed = sorted({str(item["question"]) for item in items}, key=lambda value: int(value.removeprefix("問")))
         question_maps.append({"label": label, "total": 4, "completed": completed})
-    question_maps.sort(key=lambda item: str(item["label"]), reverse=True)
     score = sum(float(item["score"]) for item in questions)
     maximum = sum(float(item["max"]) for item in questions)
     exported_at = parse_timestamp(payload.get("exportedAt")).astimezone()
