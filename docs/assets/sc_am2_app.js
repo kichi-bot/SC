@@ -144,9 +144,10 @@
         return { key: range[0] + "-" + range[1], label: range[0] + "–" + range[1] + "問", total: values.length, done: values.filter(function (value) { return completed.has(value); }).length };
       });
     }
-    return Array.from({ length: map.total }, function (_, index) {
-      var label = "問" + (index + 1);
-      return { key: label, label: label, total: 1, done: completed.has(label) ? 1 : 0 };
+    return (map.items || Array.from({ length: map.total }, function (_, index) {
+      return { key: "問" + (index + 1), label: "問" + (index + 1) };
+    })).map(function (item) {
+      return { key: item.key, label: item.label, total: 1, done: completed.has(item.key) ? 1 : 0 };
     });
   }
 

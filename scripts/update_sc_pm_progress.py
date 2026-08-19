@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -15,13 +16,39 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "docs" / "assets" / "sc_pm_progress_data.js"
-PM_EXAM_ORDER = ["令和7年秋期", "令和7年春期", "令和6年秋期", "令和6年春期", "令和5年秋期"]
+PM_EXAM_IDS = [
+    "07_aki", "07_haru", "06_aki", "06_haru", "05_aki", "05_haru", "04_aki", "04_haru",
+    "03_aki", "03_haru", "02_aki", "01_aki", "31_haru", "30_aki", "30_haru", "29_aki",
+    "29_haru", "28_aki", "28_haru", "27_aki", "27_haru", "26_aki", "26_haru", "25_aki",
+    "25_haru", "24_aki", "24_haru", "23_aki", "23_toku", "22_aki", "22_haru", "21_aki", "21_haru",
+]
+UNIFIED_PM_EXAMS = {"07_aki", "07_haru", "06_aki", "06_haru", "05_aki"}
+NUMBER_PATTERN = re.compile(r"\d+")
 
 
 def parse_timestamp(value: object) -> datetime:
     if not isinstance(value, str):
         raise ValueError("採点日時が不正です。")
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def exam_label(exam_id: str) -> str:
+    year, season = exam_id.split("_", 1)
+    suffix = "春期" if season == "haru" else "秋期" if season == "aki" else "特別"
+    if int(year) <= 7:
+        era_year = "元" if int(year) == 1 else str(int(year))
+        return f"令和{era_year}年{suffix}"
+    return f"平成{int(year)}年{suffix}"
+
+
+def exam_items(exam_id: str) -> list[dict[str, str]]:
+    if exam_id in UNIFIED_PM_EXAMS:
+        return [{"key": f"問{number}", "label": f"問{number}"} for number in range(1, 5)]
+    return [
+        {"key": "問1", "label": "午後Ⅰ 問1"}, {"key": "問2", "label": "午後Ⅰ 問2"},
+        {"key": "問3", "label": "午後Ⅰ 問3"}, {"key": "問4", "label": "午後Ⅱ 問1"},
+        {"key": "問5", "label": "午後Ⅱ 問2"},
+    ]
 
 
 def build_progress(source: Path) -> dict[str, object]:
@@ -58,11 +85,13 @@ def build_progress(source: Path) -> dict[str, object]:
     exams = [summarize(label, items) for label, items in by_exam.items()]
     exams.sort(key=lambda item: (-int(item["questions"]), str(item["label"])))
     question_maps = []
-    labels = PM_EXAM_ORDER + sorted(set(by_exam).difference(PM_EXAM_ORDER), reverse=True)
-    for label in labels:
+    known_maps = [(exam_id, exam_label(exam_id)) for exam_id in PM_EXAM_IDS]
+    known_labels = {label for _, label in known_maps}
+    for exam_id, label in known_maps + [("custom", label) for label in sorted(set(by_exam).difference(known_labels), reverse=True)]:
         items = by_exam.get(label, [])
-        completed = sorted({str(item["question"]) for item in items}, key=lambda value: int(value.removeprefix("問")))
-        question_maps.append({"label": label, "total": 4, "completed": completed})
+        completed = sorted({str(item["question"]) for item in items}, key=lambda value: int(NUMBER_PATTERN.search(value).group()) if NUMBER_PATTERN.search(value) else 0)
+        map_items = exam_items(exam_id) if exam_id != "custom" else [{"key": f"問{number}", "label": f"問{number}"} for number in range(1, 5)]
+        question_maps.append({"label": label, "total": len(map_items), "items": map_items, "completed": completed})
     score = sum(float(item["score"]) for item in questions)
     maximum = sum(float(item["max"]) for item in questions)
     exported_at = parse_timestamp(payload.get("exportedAt")).astimezone()
