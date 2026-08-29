@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280">
+  <meta name="description" content="情報処理安全確保支援士の午後問題を、問題PDFを見ながら1問ずつ入力・採点できるデスクトップ学習サイトです。">
+  <title>SC午後｜記述式セルフ採点</title>
+  <link rel="stylesheet" href="sc_pm_grader.css?v=20260823-2">
+</head>
+<body>
+  <a class="skip-link" href="#answerPanel">答案入力へ移動</a>
+
+  <header class="app-header">
+    <a class="brand" href="sc_pm_grader.html" aria-label="SC午後 記述式セルフ採点 ホーム">
+      <span class="brand-mark" aria-hidden="true">SC</span>
+      <span class="brand-copy"><strong>SC午後</strong><small>記述式セルフ採点</small></span>
+    </a>
+
+    <div class="exam-picker">
+      <label for="examSelect">演習する試験</label>
+      <select id="examSelect" aria-label="試験年度を選択"></select>
+    </div>
+
+    <div class="header-spacer"></div>
+
+    <div class="timer-compact" aria-label="1問演習タイマー">
+      <span>1問タイマー</span>
+      <strong id="timer" aria-live="polite">75:00</strong>
+      <button id="timerToggle" type="button">開始</button>
+      <button id="timerReset" type="button" aria-label="タイマーを75分に戻す">↺</button>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="ダークモードに切り替える">
+      <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+      <span>ダーク</span>
+    </button>
+
+    <span class="save-status" id="saveStatus" role="status">
+      <span class="save-dot" aria-hidden="true"></span> 自動保存
+    </span>
+    <button class="progress-export" id="progressExport" type="button">公開用集計を保存</button>
+  </header>
+
+  <nav class="question-nav" aria-label="午後問題の選択">
+    <div class="question-context">
+      <span id="periodLabel">令和7年秋期</span>
+      <strong id="questionContextTitle">午後 問1</strong>
+    </div>
+    <div class="question-tabs" id="questionTabs" role="tablist" aria-label="問題を選択"></div>
+    <div class="official-links">
+      <a id="answerPdfLink" href="#" target="_blank" rel="noopener">公式解答例 ↗</a>
+      <a id="commentPdfLink" href="#" target="_blank" rel="noopener">採点講評 ↗</a>
+    </div>
+  </nav>
+
+  <main class="split-workspace">
+    <section class="workspace-pane problem-pane" aria-labelledby="pdfTitle">
+      <header class="pane-header">
+        <div>
+          <span class="pane-label">問題文</span>
+          <h1 id="pdfTitle">問1 コンサルティング業務で利用するSaaS</h1>
+        </div>
+        <div class="pane-tools">
+          <span id="pdfPages">問題冊子 2〜7ページ</span>
+          <select id="pageJump" aria-label="問題ページへ移動"></select>
+          <a id="openPdfLink" href="#" target="_blank" rel="noopener">PDFを別画面で開く ↗</a>
+        </div>
+      </header>
+      <div class="problem-scroll" id="problemScroll" aria-label="問題文ページ">
+        <div class="problem-pages" id="problemPages"></div>
+      </div>
+    </section>
+
+    <section class="workspace-pane answer-pane" id="answerPanel" aria-labelledby="answerTitle" tabindex="-1">
+      <header class="pane-header answer-pane-header">
+        <div>
+          <span class="pane-label">解答入力欄</span>
+          <h2 id="answerTitle">問1の答案</h2>
+        </div>
+        <div class="answer-stats">
+          <span id="answerProgressLabel">0 / 13 入力</span>
+          <strong id="currentScore">未採点</strong>
+        </div>
+      </header>
+
+      <div class="answer-scroll" id="answerScroll">
+        <div class="grading-note">
+          <span aria-hidden="true">i</span>
+          <p>配点は学習用の目安です。記述は要点ごとに部分点を表示し、公式解答例と見比べて仕上げます。</p>
+        </div>
+        <div class="score-summary" id="scoreSummary" hidden aria-live="polite"></div>
+        <form id="answerForm" novalidate></form>
+      </div>
+
+      <footer class="answer-footer">
+        <div class="progress-copy">
+          <strong id="footerProgress">未入力 13問</strong>
+          <span>この端末に自動保存</span>
+        </div>
+        <div class="footer-progress" aria-hidden="true"><span id="answerProgressBar"></span></div>
+        <button class="grade-button" id="gradeButton" type="button">この1問を採点する <span aria-hidden="true">→</span></button>
+      </footer>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="sc_pm_past_exam_data.js?v=20260823-2"></script>
+  <script src="sc_pm_legacy_exam_data.js?v=20260823-2"></script>
+  <script src="sc_pm_grader.js?v=20260823-2"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SC合格ロードマップ 2026</title>
+  <style>
+    :root {
+      --ink:#17231f; --muted:#66716c; --paper:#f5f2e9; --card:#fffdf7;
+      --green:#176b55; --green2:#d9eee5; --amber:#bd6b23; --amber2:#f8e5cd;
+      --blue:#315c89; --blue2:#dce8f3; --line:#d9d8ce; --danger:#ad4539;
+      --meter:#e8e6dd; --shadow:#243c3210; --phase-amber-ink:#86450e; --control:#fff;
+      color-scheme:light dark;
+    }
+    @media (prefers-color-scheme:dark){
+      :root{
+        --ink:#e7efe9; --muted:#b7c4bc; --paper:#101713; --card:#19231e;
+        --green:#77d4af; --green2:#1d493a; --amber:#ffba70; --amber2:#53371c;
+        --blue:#9bcaff; --blue2:#1c3c57; --line:#394a41; --danger:#ff9a8f;
+        --meter:#2c3932; --shadow:#00000042; --phase-amber-ink:#ffcf9d; --control:#101713;
+      }
+      header{background:linear-gradient(135deg,#0d3027,#14543f 58%,#1d6a53)}
+      .check{border-color:#92a49a}
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:"Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;line-height:1.7}
+    .wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+    header{padding:48px 0 34px;background:linear-gradient(135deg,#123f35,#176b55 58%,#2b7f68);color:white}
+    .eyebrow{font-size:.78rem;letter-spacing:.16em;font-weight:700;opacity:.8}.title{font-size:clamp(2rem,5vw,3.8rem);line-height:1.12;margin:8px 0 12px}
+    .lead{max-width:780px;margin:0;color:#e5f3ed}.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.chip{border:1px solid #ffffff55;border-radius:999px;padding:7px 13px;font-size:.84rem;background:#ffffff12}
+    main{padding:30px 0 70px}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(5,1fr);margin-top:-52px;position:relative}
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 8px 28px var(--shadow)}
+    .stat b{display:block;font-size:2rem;line-height:1.2;color:var(--green)}.stat small{color:var(--muted)}
+    h2{font-size:1.5rem;margin:34px 0 14px}h3{margin:0 0 8px;font-size:1.06rem}.sub{color:var(--muted);font-size:.9rem}
+    .roadmap-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.save-status{color:var(--muted);font-size:.82rem;font-weight:400;white-space:nowrap}
+    .now{grid-template-columns:1.25fr .75fr}.meter{height:12px;background:var(--meter);border-radius:20px;overflow:hidden;margin:10px 0}.meter span{display:block;height:100%;background:linear-gradient(90deg,var(--amber),#df9b4d);border-radius:inherit}
+    .goalrow{display:flex;justify-content:space-between;gap:12px;font-size:.9rem}.alert{border-left:5px solid var(--amber);background:var(--amber2)}
+    .next{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}.badge{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:var(--green);color:white;font-weight:800}
+    .timeline{display:grid;gap:14px}.week{display:grid;grid-template-columns:115px 1fr 155px;gap:18px;align-items:start}.week.current{border:2px solid var(--amber);box-shadow:0 8px 28px #bd6b2320}
+    .date{font-weight:800;color:var(--green)}.phase{display:inline-block;font-size:.72rem;font-weight:800;padding:3px 9px;border-radius:99px;margin-bottom:8px}.p1{background:var(--amber2);color:var(--phase-amber-ink)}.p2{background:var(--green2);color:var(--green)}.p3{background:var(--blue2);color:var(--blue)}
+    ul{margin:6px 0 0;padding-left:1.25em}.hours{text-align:right;font-weight:800;color:var(--green)}.hours small{display:block;font-weight:400;color:var(--muted)}
+    .check{appearance:none;width:20px;height:20px;border:2px solid #a5aaa6;border-radius:6px;vertical-align:-4px;margin-right:8px;background:var(--control);cursor:pointer}.check:checked{background:var(--green);border-color:var(--green);box-shadow:inset 0 0 0 4px white}
+    .targets{grid-template-columns:repeat(3,1fr)}.target{border-top:5px solid var(--green)}.target:nth-child(2){border-color:var(--amber)}.target:nth-child(3){border-color:var(--blue)}
+    table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--muted)}
+    footer{color:var(--muted);font-size:.78rem;padding:30px 0;border-top:1px solid var(--line)}
+    @media(max-width:800px){.stats,.now,.targets{grid-template-columns:1fr 1fr}.week{grid-template-columns:1fr}.hours{text-align:left}.stats{margin-top:-28px}}
+    @media(max-width:520px){.stats,.now,.targets{grid-template-columns:1fr}.wrap{width:min(100% - 20px,1120px)}header{padding-top:34px}.panel{padding:16px}.roadmap-heading{align-items:flex-start;flex-direction:column;gap:0}}
+    @media print{body{background:white;color:#111}.panel{background:white;border-color:#ccc;box-shadow:none;break-inside:avoid}header{background:white;color:#111;padding:10px 0}.lead{color:#333}.stats{margin-top:0}.chip{border-color:#aaa}.sub,footer,.stat small,.hours small,th{color:#555}}
+  </style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="eyebrow">INFORMATION SECURITY SPECIALIST · 2026</div>
+  <h1 class="title">SC 合格ロードマップ</h1>
+  <p class="lead">科目A-2の直近正答率60%を合格圏へ安定させながら、着手済みの科目Bを答案の型から積み上げる。2026年8月29日を基準に、11月末まで走り切る14週間の実行計画。</p>
+  <div class="chips"><span class="chip">更新日 8/29</span><span class="chip">科目A目標 10/24</span><span class="chip">科目B目標 11/21</span><span class="chip">残り 約58時間</span></div>
+</div></header>
+
+<main class="wrap">
+  <section class="grid stats" aria-label="進捗概要">
+    <div class="panel stat"><b id="am2-total">199問</b><small>科目A-2 演習済み</small></div>
+    <div class="panel stat"><b id="am2-accuracy">49.7%</b><small>科目A-2 全体正答率</small></div>
+    <div class="panel stat"><b>60.0%</b><small>直近75問の正答率</small></div>
+    <div class="panel stat"><b id="pm-questions">3問</b><small>科目B 演習済み</small></div>
+    <div class="panel stat"><b id="focus-total-time">20時間52分</b><small>Focus To-Do 累計</small></div>
+  </section>
+
+  <h2>現在地と、最初にやること</h2>
+  <section class="grid now">
+    <div class="panel">
+      <h3>科目A-2：あと2問で安定目標</h3>
+      <div class="goalrow"><span>直近75問 60%（15/25相当）</span><span>安定目標 68%（17/25）</span></div>
+      <div class="meter"><span style="width:60%"></span></div>
+      <p class="sub">全体は49.7%ですが、直近75問は60.0%まで上昇。新しい範囲を広げすぎず、弱点3分野の誤答を優先して17/25を狙います。</p>
+      <table><tr><th>弱点</th><th>正答率</th><th>対応</th></tr><tr><td>開発管理</td><td>25.0%</td><td>用語と手順を再整理</td></tr><tr><td>データベース</td><td>37.5%</td><td>定番問題を再演習</td></tr><tr><td>ネットワーク</td><td>41.7%</td><td>誤答の根拠を確認</td></tr></table>
+    </div>
+    <div class="panel alert">
+      <h3>最大のボトルネック</h3>
+      <p><strong>科目Bの答案精度</strong>です。3問に着手済みですが、得点率は13.7%。今後は学習時間の約70%を科目Bへ配分します。</p>
+      <div class="next"><span class="badge">1</span><div><strong>8/29–8/30にやること</strong><br><span class="sub">R6春 問1を解き、採点後に「根拠箇所」と「失点理由」を1行ずつ残す。</span></div></div>
+    </div>
+  </section>
+
+  <h2 class="roadmap-heading">14週間の実行ロードマップ（8/24–11/29） <span id="save-status" class="save-status" role="status" aria-live="polite">チェック状態はこの端末に保存されます</span></h2>
+  <div class="timeline">
+    <article class="panel week current"><div><span class="phase p1">NOW</span><div class="date">8/24–8/30</div></div><div><h3><input class="check" data-id="w1" type="checkbox">週末リセット：認可・API・JWT</h3><ul><li>科目B：R6春問1を採点・復習まで完了</li><li>科目A-2：ネットワーク／DBの誤答10問</li></ul></div><div class="hours">2h<small>A 0.5h / B 1.5h</small></div></article>
+    <article class="panel week"><div><span class="phase p1">基礎併走</span><div class="date">8/31–9/6</div></div><div><h3><input class="check" data-id="w2" type="checkbox">ログ・マルウェア・インシデント対応</h3><ul><li>科目B：R6秋問1、R4秋午後Ⅱ問2</li><li>科目A-2：25問模試＋誤答の根拠確認</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
+    <article class="panel week"><div><span class="phase p1">基礎併走</span><div class="date">9/7–9/13</div></div><div><h3><input class="check" data-id="w3" type="checkbox">暗号・証明書・認証</h3><ul><li>科目B：R7秋問2、R5秋問2</li><li>科目A-2：開発管理／DBの誤答を再試験</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
+    <article class="panel week"><div><span class="phase p2">科目B重点</span><div class="date">9/14–9/20</div></div><div><h3><input class="check" data-id="w4" type="checkbox">クラウド・SSRF・IMDS</h3><ul><li>科目B：R6春問3、R5秋問3</li><li>科目A-2：25問模試＋誤答だけ復習</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
+    <article class="panel week"><div><span class="phase p2">科目B重点</span><div class="date">9/21–9/27</div></div><div><h3><input class="check" data-id="w5" type="checkbox">サプライチェーンと委託先管理</h3><ul><li>科目B：R7秋問1＋答案の根拠確認</li><li>科目A-2：直近回25問模試</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
+    <article class="panel week"><div><span class="phase p2">科目B重点</span><div class="date">9/28–10/4</div></div><div><h3><input class="check" data-id="w6" type="checkbox">脆弱性管理・ASM</h3><ul><li>科目B：R7春問2・問4</li><li>科目A-2：17/25以上を1回達成</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
+    <article class="panel week"><div><span class="phase p2">科目B重点</span><div class="date">10/5–10/11</div></div><div><h3><input class="check" data-id="w7" type="checkbox">メール・セキュア開発＋弱点補強</h3><ul><li>科目B：R6秋問2、R6春問4</li><li>科目A-2：17/25以上を2回連続で達成</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
+    <article class="panel week"><div><span class="phase p3">科目A直前</span><div class="date">10/12–10/18</div></div><div><h3><input class="check" data-id="w8" type="checkbox">科目A-1・A-2最終確認</h3><ul><li>誤答だけを再確認し、新規問題は減らす</li><li>科目Bは答案テンプレートを短時間で反復</li></ul></div><div class="hours">4h<small>A 2h / B 2h</small></div></article>
+    <article class="panel week"><div><span class="phase p3">A受験</span><div class="date">10/19–10/25</div></div><div><h3><input class="check" data-id="w9" type="checkbox">科目A-1・A-2を受験</h3><ul><li>目標予約日：10/24前後</li><li>受験後は科目Bへ完全移行</li></ul></div><div class="hours">3h<small>A 1h / B 2h</small></div></article>
+    <article class="panel week"><div><span class="phase p3">通し演習</span><div class="date">10/26–11/1</div></div><div><h3><input class="check" data-id="w10" type="checkbox">科目B 150分演習①</h3><ul><li>新形式2問を時間内に完答</li><li>失点パターンP1〜P12で自己採点</li></ul></div><div class="hours">5h<small>B 5h</small></div></article>
+    <article class="panel week"><div><span class="phase p3">通し演習</span><div class="date">11/2–11/8</div></div><div><h3><input class="check" data-id="w11" type="checkbox">科目B 150分演習②</h3><ul><li>時間配分と設問の根拠箇所を固定</li><li>最も多い失点パターンを1つ潰す</li></ul></div><div class="hours">5h<small>B 5h</small></div></article>
+    <article class="panel week"><div><span class="phase p3">最終調整</span><div class="date">11/9–11/15</div></div><div><h3><input class="check" data-id="w12" type="checkbox">科目B 150分演習③</h3><ul><li>CBT画面で長文を読む練習</li><li>解答テンプレートと混同用語を総点検</li></ul></div><div class="hours">4h<small>B 4h</small></div></article>
+    <article class="panel week"><div><span class="phase p3">B受験</span><div class="date">11/16–11/22</div></div><div><h3><input class="check" data-id="w13" type="checkbox">科目Bを受験</h3><ul><li>目標予約日：11/21前後</li><li>前日は失点チェックリストのみ確認</li></ul></div><div class="hours">2h<small>軽い確認のみ</small></div></article>
+    <article class="panel week"><div><span class="phase p3">予備週</span><div class="date">11/23–11/29</div></div><div><h3><input class="check" data-id="w14" type="checkbox">受験予備日・振り返り</h3><ul><li>未受験なら科目Bの予備日に充てる</li><li>受験済みなら苦手答案と学習記録を整理</li></ul></div><div class="hours">3h<small>必要な場合のみ</small></div></article>
+  </div>
+
+  <h2>合格判定のゲート</h2>
+  <section class="grid targets">
+    <div class="panel target"><h3>9月13日</h3><p>科目Bを累計<strong>9問以上</strong>、採点・復習まで完了。科目A-2は60%以上。</p></div>
+    <div class="panel target"><h3>10月11日</h3><p>科目A-2で<strong>17/25以上を2回連続</strong>。科目Bは累計15問以上。</p></div>
+    <div class="panel target"><h3>11月15日</h3><p>科目B 150分演習を<strong>3回</strong>実施し、2問を時間内に完答。</p></div>
+  </section>
+</main>
+
+<footer><div class="wrap">ロードマップ更新日：2026年8月29日。表示値は公開用集計データ（Focus 8/24、科目B 8/23、科目A-2 8/18）に基づきます。実際の受験日は予約枠に合わせて調整してください。</div></footer>
+<script src="../docs/assets/sc_focus_todo_progress_data.js"></script>
+<script src="../docs/assets/sc_pm_progress_data.js"></script>
+<script src="../docs/assets/sc_am2_progress_data.js"></script>
+<script>
+  const focusData=window.SC_FOCUS_TODO_PROGRESS;
+  if(focusData){const h=Math.floor(focusData.totalMinutes/60),m=focusData.totalMinutes%60;document.getElementById('focus-total-time').textContent=h+'時間'+(m?m+'分':'');}
+  const pmData=window.SC_PM_PROGRESS;
+  if(pmData){document.getElementById('pm-questions').textContent=pmData.questions+'問';}
+  const am2Data=window.SC_AM2_PROGRESS;
+  if(am2Data){document.getElementById('am2-total').textContent=am2Data.total+'問';document.getElementById('am2-accuracy').textContent=am2Data.accuracy.toFixed(1)+'%';}
+  const key='sc-roadmap-2026-progress-20260829';
+  const windowNamePrefix=key+':';
+  const saveStatus=document.getElementById('save-status');
+
+  function readProgress(){
+    let raw='';
+    try{raw=localStorage.getItem(key)||'';}catch(error){/* file:// などで利用できない場合は下の予備保存を使う */}
+    if(!raw&&window.name.startsWith(windowNamePrefix)){raw=window.name.slice(windowNamePrefix.length);}
+    try{
+      const parsed=JSON.parse(raw||'{}');
+      return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};
+    }catch(error){return {};}
+  }
+
+  function writeProgress(progress){
+    const serialized=JSON.stringify(progress);
+    let savedToDevice=false;
+    try{localStorage.setItem(key,serialized);savedToDevice=true;}catch(error){window.name=windowNamePrefix+serialized;}
+    saveStatus.textContent=savedToDevice?'保存しました':'このタブに保存しました';
+  }
+
+  const saved=readProgress();
+  document.querySelectorAll('.check').forEach(check=>{
+    check.checked=saved[check.dataset.id]===true;
+    check.addEventListener('change',()=>{
+      saved[check.dataset.id]=check.checked;
+      writeProgress(saved);
+    });
+  });
+</script>
+</body>
+</html>
