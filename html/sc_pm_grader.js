@@ -461,17 +461,34 @@
       var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
       if (!saved) return base;
       var savedExam = findExam(saved.activeExam) ? saved.activeExam : base.activeExam;
+      var savedGrades = saved.grades && typeof saved.grades === 'object' ? saved.grades : {};
+      removeIncompatibleGrades(savedGrades);
       return {
         activeExam: savedExam,
         activeQuestion: findQuestionInExam(savedExam, saved.activeQuestion) ? saved.activeQuestion : base.activeQuestion,
         answers: saved.answers && typeof saved.answers === 'object' ? saved.answers : {},
-        grades: saved.grades && typeof saved.grades === 'object' ? saved.grades : {},
+        grades: savedGrades,
         theme: saved.theme === 'dark' || saved.theme === 'light' ? saved.theme : base.theme,
         timer: saved.timer && typeof saved.timer.remaining === 'number' ? { remaining: saved.timer.remaining, running: false } : base.timer
       };
     } catch (error) {
       return base;
     }
+  }
+
+  function removeIncompatibleGrades(grades) {
+    Object.keys(grades).forEach(function (key) {
+      var separator = key.indexOf('-');
+      var exam = separator > 0 && findExam(key.slice(0, separator));
+      var question = exam && exam.questions.find(function (item) { return item.id === key.slice(separator + 1); });
+      var grade = grades[key];
+      var results = grade && grade.results;
+      var fields = question ? flattenFields(question) : [];
+      var isCompatible = question && results && fields.every(function (item) {
+        return Object.prototype.hasOwnProperty.call(results, item.id);
+      });
+      if (!isCompatible) delete grades[key];
+    });
   }
 
   function scheduleSave() {
