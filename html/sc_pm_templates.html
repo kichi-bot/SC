@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06 用語別・解答テンプレート</title>
+<!-- 自前のライト／ダーク配色を持つため、Pages の dark.css 自動注入は不要: data-sc-dark-theme -->
+<style>
+:root{
+  --ink:#17231f;--muted:#66716c;--paper:#f5f2e9;--card:#fffdf7;
+  --green:#176b55;--green2:#d9eee5;--amber:#bd6b23;--amber2:#f8e5cd;
+  --blue:#315c89;--blue2:#dce8f3;--line:#d9d8ce;--shadow:#243c3210;--control:#fff;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ink:#e7efe9;--muted:#b7c4bc;--paper:#101713;--card:#19231e;
+    --green:#77d4af;--green2:#1d493a;--amber:#ffba70;--amber2:#53371c;
+    --blue:#9bcaff;--blue2:#1c3c57;--line:#394a41;--shadow:#00000042;--control:#101713;
+  }
+  header{background:linear-gradient(135deg,#0d3027,#14543f 58%,#1d6a53)}
+  .check{border-color:#92a49a}
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--paper);color:var(--ink);line-height:1.75;
+  font-family:"Yu Gothic UI","Yu Gothic",Meiryo,sans-serif}
+.wrap{width:min(980px,calc(100% - 32px));margin:auto}
+header{padding:34px 0 26px;background:linear-gradient(135deg,#123f35,#176b55 58%,#2b7f68);color:#fff}
+.eyebrow{font-size:.76rem;letter-spacing:.16em;font-weight:700;opacity:.82}
+h1{font-size:clamp(1.6rem,4vw,2.6rem);line-height:1.2;margin:8px 0 10px}
+.lead{margin:0;color:#e5f3ed;font-size:.95rem;max-width:70ch}
+.lead b{color:#fff}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{border:1px solid #ffffff55;border-radius:999px;padding:5px 12px;font-size:.8rem;background:#ffffff12}
+
+.bar{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 0}
+.bar-in{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input[type=search]{flex:1 1 220px;min-width:0;padding:9px 12px;border:1px solid var(--line);border-radius:10px;
+  background:var(--control);color:var(--ink);font:inherit;font-size:.94rem}
+button.toggle,button.mini{border:1px solid var(--line);border-radius:10px;background:var(--control);color:var(--ink);
+  font:inherit;font-size:.86rem;padding:9px 12px;cursor:pointer}
+button.mini{padding:3px 10px;font-size:.8rem;margin-left:6px}
+button.toggle[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff;font-weight:700}
+.count{color:var(--muted);font-size:.82rem;margin-left:auto}
+
+main{padding:18px 0 60px}
+nav.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(224px,1fr));gap:8px;margin:0 0 22px}
+.nav-item{display:flex;gap:8px;align-items:center;text-decoration:none;color:var(--ink);background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:8px 11px;font-size:.88rem}
+.nav-item:hover{border-color:var(--green)}
+.nav-item .n{font-weight:800;color:var(--green);font-variant-numeric:tabular-nums}
+.nav-item .tick{margin-left:auto;color:var(--green);opacity:0;font-weight:800}
+.nav-item.read .tick{opacity:1}
+.nav-item.read{background:var(--green2)}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 8px 28px var(--shadow);margin:0 0 16px}
+.ch h2{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:1.18rem;margin:0 0 12px;
+  padding-bottom:10px;border-bottom:1px solid var(--line)}
+.ch h2 .num{font-size:.82rem;font-weight:800;color:#fff;background:var(--green);border-radius:8px;padding:3px 8px}
+.tag{font-size:.72rem;color:var(--blue);background:var(--blue2);border-radius:999px;padding:2px 9px;font-weight:700}
+.done{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--muted);cursor:pointer;font-weight:400}
+.check{appearance:none;width:19px;height:19px;border:2px solid #a5aaa6;border-radius:6px;background:var(--control);cursor:pointer}
+.check:checked{background:var(--green);border-color:var(--green);box-shadow:inset 0 0 0 4px var(--card)}
+.term{margin:0 0 14px}
+.term h3{margin:0 0 6px;font-size:1rem;color:var(--green)}
+.gloss{font-size:.82rem;font-weight:400;color:var(--muted)}
+.block{margin:0 0 12px}
+.term>ul,.term>ol,.block>ul,.block>ol{margin:4px 0 0;padding-left:1.3em}
+li{margin:3px 0}
+li ul,li ol{margin:3px 0 4px;padding-left:1.25em}
+code{background:var(--green2);color:var(--ink);border-radius:5px;padding:1px 5px;font-size:.88em}
+.tmpl{background:var(--amber2);border-radius:5px;padding:1px 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.note{margin:8px 0 0;padding:9px 13px;border-left:4px solid var(--amber);background:var(--amber2);border-radius:0 10px 10px 0;font-size:.9rem}
+.sub{color:var(--muted);font-size:.84rem;margin:0 0 10px}
+.table-wrap{overflow-x:auto;margin:6px 0 0}
+table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:min(560px,100%)}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:.82rem;white-space:nowrap}
+
+.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.pair{display:flex;flex-wrap:wrap;align-items:center;gap:6px;text-align:left;font:inherit;font-size:.9rem;
+  background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;cursor:pointer;color:var(--ink)}
+.pair:hover{border-color:var(--green)}
+.grp{display:inline-flex;align-items:baseline;gap:6px;min-width:0}
+.side{font-weight:700;min-width:0}
+.hint{font-weight:400;color:var(--muted);transition:opacity .12s}
+.vs{color:var(--green);font-weight:800}
+.pairs.hide-hints .pair:not(.reveal) .hint{opacity:0}
+
+body.reading main{font-size:1.14rem}
+body.reading .term h3{font-size:1.1rem}
+body.reading li{margin:8px 0}
+body.reading .panel{line-height:2}
+body.templates-only li.top:not([data-t]){display:none}
+body.templates-only .table-wrap,body.templates-only .note{display:none}
+.hidden{display:none!important}
+footer{color:var(--muted);font-size:.8rem;padding:24px 0 40px;border-top:1px solid var(--line)}
+footer a{color:var(--green)}
+@media(max-width:560px){
+  .ch h2{font-size:1.05rem}.panel{padding:15px}.done{margin-left:0;width:100%}
+  nav.toc{grid-template-columns:1fr 1fr}.nav-item span:not(.n):not(.tick){font-size:.8rem}
+}
+@media print{
+  body{background:#fff;color:#111}header{background:#fff;color:#111;padding:0 0 10px}
+  .lead{color:#333}.bar,nav.toc,.done,.chips,.mini{display:none}
+  .panel{box-shadow:none;border-color:#ccc;break-inside:avoid;background:#fff}
+  .pairs.hide-hints .hint{opacity:1}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="eyebrow">SC 午後 · 音読用テンプレート集</div>
+  <h1>06 用語別・解答テンプレート</h1>
+  <p class="lead"><strong>目的</strong>：午後問題で「そのまま骨格として使える解答文」と「混同しやすい用語の区別」を一冊に。<br><strong>使い方</strong>：□には本文の固有名詞(システム名・機能名・パラメータ名・IPアドレス)を入れる。テンプレは&quot;型&quot;であり、本文条件への当てはめ(<code>03</code>のP1対策)を必ず行うこと。<br><strong>初学者向け</strong>：難しい用語には（かっこ書き）で短い説明を付けています。</p>
+  <div class="chips"><span class="chip">12章</span><span class="chip">テンプレ文 48本</span><span class="chip">月曜 22:00 の音読30分</span><span class="chip">§12 は試験直前に音読</span></div>
+</div></header>
+
+<div class="bar"><div class="wrap bar-in">
+  <input type="search" id="q" placeholder="検索（例：DKIM、CSRFトークン、KEV）　/ キーで移動" aria-label="本文を検索">
+  <button type="button" class="toggle" id="t-tmpl" aria-pressed="false">テンプレ文だけ</button>
+  <button type="button" class="toggle" id="t-read" aria-pressed="false">音読モード</button>
+  <span class="count" id="count"></span>
+</div></div>
+
+<main class="wrap">
+  <nav class="toc" id="toc"><a class="nav-item" href="#ch1" data-nav="1"><span class="n">01</span><span>Webアプリ脆弱性</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch2" data-nav="2"><span class="n">02</span><span>認証・認可・API</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch3" data-nav="3"><span class="n">03</span><span>マルウェア・ログ・インシデント対応</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch4" data-nav="4"><span class="n">04</span><span>暗号・鍵・証明書</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch5" data-nav="5"><span class="n">05</span><span>リモートワーク・VPN・多要素認証</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch6" data-nav="6"><span class="n">06</span><span>クラウド・SaaS</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch7" data-nav="7"><span class="n">07</span><span>メールセキュリティ</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch8" data-nav="8"><span class="n">08</span><span>委託先・サプライチェーン・脆弱性管理</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch9" data-nav="9"><span class="n">09</span><span>セキュアコーディング・開発プロセス</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch10" data-nav="10"><span class="n">10</span><span>リスクアセスメント・体制</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch11" data-nav="11"><span class="n">11</span><span>ネットワーク基盤</span><span class="tick" aria-hidden="true">✓</span></a><a class="nav-item" href="#ch12" data-nav="12"><span class="n">12</span><span>混同ペア・最終確認カード</span><span class="tick" aria-hidden="true">✓</span></a></nav>
+  <section class="ch panel" id="ch1" data-ch="1"><h2><span class="num">01</span><span>Webアプリ脆弱性</span><span class="tag">SC-ST-001</span><label class="done"><input type="checkbox" class="check" data-ch="1"><span>読了</span></label></h2><div class="term unit" data-t="1"><h3>XSS <span class="gloss">（クロスサイトスクリプティング＝他人のブラウザで悪意のスクリプトを実行させる攻撃）</span></h3><ul class="items"><li class="top"><strong>3類型の区別</strong>：<ul><li><strong>格納型</strong>：スクリプトがサーバに保存され、閲覧者全員で実行される（掲示板・レビュー等）。被害大</li><li><strong>反射型</strong>：URLパラメータ等のスクリプトがその場で返って実行される。攻撃はリンクを踏ませる</li><li><strong>DOMベース</strong>：サーバを介さず、ブラウザ内のJavaScriptがDOMを書き換えて実行。※DOMを使う＝DOMベース、ではない（R5秋の頻出誤答）</li></ul></li><li class="top" data-t="1"><strong>対策テンプレ</strong>：<span class="tmpl">「□(出力箇所)にデータを出力する前にエスケープ処理を施す。」</span></li><li class="top" data-t="1"><strong>緩和テンプレ</strong>：<span class="tmpl">「CSP(Content Security Policy＝読み込み元を制限する仕組み)を設定し、許可した配信元以外のスクリプト実行を禁止する。」</span></li><li class="top" data-t="1"><strong>cookie保護</strong>：<span class="tmpl">「cookieにHttpOnly属性を付与し、スクリプトからの読み取りを防ぐ。」</span>/<span class="tmpl">「スクリプトから別ドメインのURLへcookieが送られない仕組みにする。」</span></li></ul></div><div class="term unit" data-t="1"><h3>SQLインジェクション</h3><ul class="items"><li class="top" data-t="1"><strong>対策テンプレ</strong>：<span class="tmpl">「□の処理を、プレースホルダを用いたPreparedStatementで実装する。」</span><ul><li>※Statement(文字列連結)ではダメ。PreparedStatement＝値を後から安全にはめ込む仕組み（R4春・R5春の頻出誤答）</li></ul></li><li class="top" data-t="1"><strong>保険的対策</strong>：<span class="tmpl">「入力値を想定した文字種・長さに制限し、抽出条件に□を追加する。」</span></li></ul></div><div class="term unit" data-t="1"><h3>CSRF <span class="gloss">（クロスサイトリクエストフォージェリ＝利用者に意図しない操作を送信させる攻撃）</span></h3><ul class="items"><li class="top" data-t="1"><strong>攻撃テンプレ</strong>：<span class="tmpl">「攻撃者が用意したわなフォームに利用者を誘導し、利用者の権限で□(操作)を実行させる。」</span></li><li class="top" data-t="1"><strong>対策テンプレ</strong>：<span class="tmpl">「リクエストにCSRFトークンを付与し、サーバ側で照合する。」</span></li></ul></div><div class="term unit" data-t="1"><h3>SSRF <span class="gloss">（サーバサイドリクエストフォージェリ＝サーバに攻撃者指定の宛先へ通信させる攻撃）</span></h3><ul class="items"><li class="top" data-t="1"><strong>攻撃テンプレ</strong>：<span class="tmpl">「パラメータ□の値をIMDS(クラウドのメタデータ提供機能)のURLに変更し、クレデンシャル(認証情報)を取得する。」</span></li><li class="top" data-t="1"><strong>対策テンプレ</strong>：<span class="tmpl">「パラメータ□の値が許可した□以外のURLならエラーにする。」</span></li></ul></div><div class="term unit" data-t="1"><h3>その他Webヘッダ系</h3><ul class="items"><li class="top" data-t="1"><strong>HSTS</strong>：<span class="tmpl">「□への接続をHTTPSに強制する。」</span></li><li class="top" data-t="1"><strong>X-Content-Type-Options</strong>：<span class="tmpl">「Content-Typeで指定したMIMEタイプを強制適用する。」</span></li><li class="top" data-t="1"><strong>クリックジャッキング対策</strong>：<span class="tmpl">「X-Frame-Options / CSPのframe-ancestorsでフレーム埋め込みを制限する。」</span></li></ul></div></section><section class="ch panel" id="ch2" data-ch="2"><h2><span class="num">02</span><span>認証・認可・API</span><span class="tag">SC-ST-002</span><label class="done"><input type="checkbox" class="check" data-ch="2"><span>読了</span></label></h2><div class="term unit" data-t="1"><h3>認証 vs 認可 <span class="gloss">（最重要の区別）</span></h3><div class="table-wrap"><table><thead><tr><th></th><th>認証(Authentication)</th><th>認可(Authorization)</th></tr></thead><tbody><tr><td>問い</td><td>「あなたは誰か」</td><td>「あなたは何をしてよいか」</td></tr><tr><td>例</td><td>ログイン、MFA</td><td>ロール、アクセス制御、スコープ</td></tr><tr><td>崩れると</td><td>なりすまし</td><td>他人のデータにアクセス(IDOR)</td></tr></tbody></table></div><ul class="items"><li class="top" data-t="1"><strong>認可不備(IDOR/BOLA)対策テンプレ</strong>：<span class="tmpl">「リクエストの利用者IDと□(資源)の所有者が一致するかをサーバ側で検証する。」</span></li><li class="top" data-t="1"><strong>推測困難化テンプレ</strong>：<span class="tmpl">「□(ID)を推測困難な値になるよう生成方法を変更する。」</span></li></ul></div><div class="term unit" data-t="1"><h3>JWT <span class="gloss">（JSON Web Token＝署名付きのトークン）</span></h3><ul class="items"><li class="top" data-t="1"><strong>alg=none攻撃対策</strong>：<span class="tmpl">「JWTヘッダのalgの値がNONEでないことを検証する。」</span></li><li class="top" data-t="1"><strong>改ざん対策</strong>：<span class="tmpl">「JWTに含まれる利用者IDが□(セッションの利用者)と一致するか検証する。」</span></li></ul></div><div class="term unit" data-t="1"><h3>OAuth 2.0 / OpenID Connect</h3><ul class="items"><li class="top"><strong>OAuth</strong>：認可の仕組み（アクセス権の委譲）。<strong>OIDC</strong>：OAuthの上で認証を行う仕組み</li><li class="top" data-t="1"><strong>PKCE</strong>（認可コード横取り対策）：<span class="tmpl">「認可リクエスト時にcode_verifierのハッシュ(code_challenge)を送り、トークン交換時にcode_verifierを検証する。」</span></li><li class="top" data-t="1"><strong>redirect_uri</strong>：<span class="tmpl">「登録済みリダイレクトURIと完全一致する場合のみ許可する。」</span></li><li class="top"><strong>state/nonce</strong>：CSRF/リプレイ対策の値</li></ul></div></section><section class="ch panel" id="ch3" data-ch="3"><h2><span class="num">03</span><span>マルウェア・ログ・インシデント対応</span><span class="tag">SC-ST-004</span><label class="done"><input type="checkbox" class="check" data-ch="3"><span>読了</span></label></h2><div class="term unit" data-t="1"><h3>ログ調査テンプレ</h3><ul class="items"><li class="top" data-t="1"><strong>検出テンプレ</strong>：<span class="tmpl">「□のログから、□(条件)に該当する□(ホスト/利用者)を検出する。」</span><ul><li>例：<span class="tmpl">「マルウェア対策サービスのログから、対策ソフトが停止したホストを検出する。」</span></li></ul></li><li class="top"><strong>調査の観点</strong>：プロセスの<strong>親子関係</strong>（不審プロセスがどこから起動されたか）、通信先URL、タスク登録、認証(RDP)ログ、タイムライン整理</li></ul></div><div class="term unit" data-t="1"><h3>対策製品の役割 <span class="gloss">（混同注意）</span></h3><div class="table-wrap"><table><thead><tr><th>製品</th><th>守る層</th><th>役割</th></tr></thead><tbody><tr><td><strong>WAF</strong></td><td>Web境界</td><td>Webアプリへの攻撃を検知・遮断</td></tr><tr><td><strong>IDS/IPS</strong></td><td>ネットワーク</td><td>侵入を検知(IDS)/防御(IPS)</td></tr><tr><td><strong>EDR</strong></td><td>エンドポイント</td><td>端末の不審挙動を検知し対応(隔離等)</td></tr><tr><td><strong>DLP</strong></td><td>データ</td><td>情報の持ち出しを検知・制限</td></tr><tr><td><strong>SIEM</strong></td><td>横断</td><td>各種ログを相関分析</td></tr></tbody></table></div><ul class="items"><li class="top" data-t="1"><strong>持ち出し対策テンプレ</strong>：<span class="tmpl">「□にDLPを導入し、ファイルの持ち出しを制限する。」</span>（※「アクセス権最小化」では持ち出しは防げない＝R6秋の誤答）</li><li class="top" data-t="1"><strong>横展開対策</strong>：<span class="tmpl">「仮想PC/サーバへのRDP接続に対し、接続元IPアドレスによる制限を行う。」</span></li></ul></div></section><section class="ch panel" id="ch4" data-ch="4"><h2><span class="num">04</span><span>暗号・鍵・証明書</span><span class="tag">SC-ST-007</span><label class="done"><input type="checkbox" class="check" data-ch="4"><span>読了</span></label></h2><div class="term unit" data-t="1"><h3>暗号技術の使い分け <span class="gloss">（最頻出の混同ポイント）</span></h3><div class="table-wrap"><table><thead><tr><th>守りたい性質</th><th>使う技術</th><th>補足</th></tr></thead><tbody><tr><td>機密性(見られない)</td><td>暗号化(共通鍵/公開鍵)</td><td>AES等</td></tr><tr><td>完全性(改ざん検知)＋当事者間の真正性</td><td><strong>MAC(メッセージ認証符号)</strong></td><td>共通鍵を共有する相手同士</td></tr><tr><td>完全性＋第三者に送信者を証明</td><td><strong>デジタル署名</strong></td><td>公開鍵ペア。否認防止</td></tr><tr><td>データの同一性確認</td><td>ハッシュ(SHA-2)</td><td>鍵なし</td></tr></tbody></table></div><ul class="items"><li class="top"><strong>注意</strong>：改ざん検知＝反射的に「デジタル署名」と書かない。共通鍵共有の文脈なら<strong>MAC</strong>（R7秋の頻出誤答）</li><li class="top" data-t="1"><strong>HSM(Hardware Security Module)の利点テンプレ</strong>：<span class="tmpl">「秘密鍵がHSMの外部に出ないため、鍵の漏えいを防げる。」</span>（※「署名を暗号化できる」等は誤り）</li></ul></div><div class="term unit" data-t="1"><h3>証明書・PKI</h3><ul class="items"><li class="top"><strong>サーバ証明書の検証項目</strong>（列挙できるように）：<ol><li>信頼された認証局(CA)が発行したものか</li><li>証明書のサーバ名(CN/SAN)が接続先と一致するか</li><li>有効期限内か</li><li>失効していないか（<strong>OCSP</strong>＝オンラインで失効確認/<strong>CRL</strong>＝失効リスト）</li></ol></li><li class="top" data-t="1"><strong>偽サイト検知テンプレ</strong>：<span class="tmpl">「HTTPSでアクセスするため、偽サイトのサーバ証明書は検証に失敗する。」</span></li><li class="top" data-t="1"><strong>無線LAN(EAP-TLS)</strong>：<span class="tmpl">「EAP-TLSに必要な認証情報(秘密鍵)は業務PCから取り出せないようにし、業務PCにしか格納できないようにする。」</span></li></ul></div></section><section class="ch panel" id="ch5" data-ch="5"><h2><span class="num">05</span><span>リモートワーク・VPN・多要素認証</span><span class="tag">SC-ST-008</span><label class="done"><input type="checkbox" class="check" data-ch="5"><span>読了</span></label></h2><div class="block unit" data-t="1"><ul class="items"><li class="top" data-t="1"><strong>リアルタイム型(中間者)フィッシングの手順テンプレ</strong>：<span class="tmpl">「攻撃者が偽サイトに入力された利用者ID/パスワードを正規サイトへ中継し、正規利用者に送られたMFAコード(ワンタイム)を偽サイトで受け取って正規サイトに入力し、認証を突破する。」</span></li><li class="top" data-t="1"><strong>フィッシング耐性の説明</strong>：<span class="tmpl">「FIDO/WebAuthn(パスキー)は、認証情報にオリジン(接続先)と署名を含めサーバが検証するため、偽サイトでは認証が成立せずフィッシング耐性がある。」</span></li><li class="top" data-t="1"><strong>入力先の限定テンプレ</strong>：<span class="tmpl">「認証情報は、メール内のリンクから開いた画面には入力せず、正規の□(VPNダイアログ等)にだけ入力する。」</span></li><li class="top" data-t="1"><strong>接続元制限</strong>：<span class="tmpl">「□サイトへのアクセスを許可する接続元IPアドレスを□に制限する。」</span></li><li class="top"><strong>MFA代替(故障時)</strong>：セキュリティ強度を落とさない代替（別のFIDO認証器登録、バックアップコードの安全な管理等）を、認証基盤の仕様に沿って書く</li></ul></div></section><section class="ch panel" id="ch6" data-ch="6"><h2><span class="num">06</span><span>クラウド・SaaS</span><span class="tag">SC-ST-006</span><label class="done"><input type="checkbox" class="check" data-ch="6"><span>読了</span></label></h2><div class="block unit" data-t="1"><ul class="items"><li class="top"><strong>通信経路</strong>：移行前後で「どこを経由するか」を図で追い、変化点を答える（R5春Ⅰ問3）</li><li class="top"><strong>フィルタリング</strong>：「ルールは適用順序で動作が変わる」ため番号順に注意（R5春Ⅰ問3 設問5）</li><li class="top"><strong>IMDS/SSRF</strong>：4章のSSRFテンプレ参照。IMDSv2はトークン必須で緩和</li><li class="top" data-t="1"><strong>最小権限テンプレ</strong>：<span class="tmpl">「□(利用者/API)に必要最小限の権限だけを付与する。」</span></li><li class="top"><strong>コンテナ</strong>：権限・仕組みを理解（どの権限で実行されるか）。RBAC、イメージスキャン、Secrets管理</li></ul></div></section><section class="ch panel" id="ch7" data-ch="7"><h2><span class="num">07</span><span>メールセキュリティ</span><span class="tag">SC-ST-003</span><label class="done"><input type="checkbox" class="check" data-ch="7"><span>読了</span></label></h2><div class="term unit" data-t="1"><h3>SPF / DKIM / DMARC の判定対象 <span class="gloss">（丸暗記）</span></h3><div class="table-wrap"><table><thead><tr><th>方式</th><th>何を見るか</th><th>一言</th></tr></thead><tbody><tr><td><strong>SPF</strong></td><td>送信元IPアドレス と エンベロープFromのドメイン</td><td>Subjectは見ない</td></tr><tr><td><strong>DKIM</strong></td><td>電子署名（hタグで対象ヘッダを指定、Subjectを含むこともある）</td><td>署名対象を変えると検証失敗</td></tr><tr><td><strong>DMARC</strong></td><td>SPF/DKIMの結果＋Fromドメインの整合(アライメント)</td><td>ポリシー(none/quarantine/reject)とレポート</td></tr></tbody></table></div><ul class="items"><li class="top" data-t="1"><strong>SPF設定テンプレ</strong>：<span class="tmpl">「SPFレコードに、□(新サービス)のメール送信元IPアドレスを追加する。」</span></li><li class="top" data-t="1"><strong>DKIM失敗の因果テンプレ</strong>：<span class="tmpl">「DKIMのhタグにSubjectが含まれるのに、□(ML等)でSubjectが変わるため、署名検証が失敗する。」</span></li><li class="top"><strong>SMTPS</strong>：SMTP通信自体の暗号化（※S/MIMEは本文/添付の暗号化・署名であって、SMTP暗号化ではない＝R6秋の誤答）</li></ul></div></section><section class="ch panel" id="ch8" data-ch="8"><h2><span class="num">08</span><span>委託先・サプライチェーン・脆弱性管理</span><span class="tag">SC-ST-005 / 009</span><label class="done"><input type="checkbox" class="check" data-ch="8"><span>読了</span></label></h2><div class="term unit" data-t="1"><h3>サプライチェーン</h3><ul class="items"><li class="top" data-t="1"><strong>再委託テンプレ</strong>：<span class="tmpl">「委託先に要求する対策と同等のセキュリティ対策を、再委託先にも要求させる。」</span></li><li class="top" data-t="1"><strong>セキュリティバイデザイン</strong>：<span class="tmpl">「企画・設計工程からセキュリティ対策を組み込む考え方。」</span></li><li class="top" data-t="1"><strong>SBOM(ソフトウェア部品表)の利点テンプレ</strong>：<span class="tmpl">「利用しているソフトウェアやバージョンが明確になり、脆弱性の影響有無を容易に把握できるから。」</span>（※定義だけはNG）</li></ul></div><div class="term unit"><h3>テストツールの区別</h3><div class="table-wrap"><table><thead><tr><th>略語</th><th>名称</th><th>特徴</th></tr></thead><tbody><tr><td><strong>SAST</strong></td><td>静的解析</td><td>ソースコードを解析。実行不要、早期発見</td></tr><tr><td><strong>DAST</strong></td><td>動的解析</td><td>稼働中アプリに攻撃を送り検出</td></tr><tr><td><strong>IAST</strong></td><td>対話型</td><td>実行時にコード内部も観測、両者の中間</td></tr></tbody></table></div></div><div class="term unit" data-t="1"><h3>脆弱性管理の指標</h3><div class="table-wrap"><table><thead><tr><th>指標</th><th>何を表すか</th><th>使いどころ</th></tr></thead><tbody><tr><td><strong>CVSS基本値</strong></td><td>脆弱性そのものの深刻度</td><td>技術的特性。AC=攻撃条件の複雑さ(※機密性影響Cと混同注意)</td></tr><tr><td><strong>CVSS現状値</strong></td><td>攻撃コードの有無等の&quot;今&quot;の状況</td><td>公開情報から自分で評価する手間がある</td></tr><tr><td><strong>EPSS</strong></td><td>悪用される確率(予測)</td><td>FIRSTの公開値をそのまま使える</td></tr><tr><td><strong>KEVカタログ</strong></td><td>実際に悪用が確認された脆弱性リスト</td><td>「実際に悪用された」→優先度を上げる根拠</td></tr></tbody></table></div><ul class="items"><li class="top" data-t="1"><strong>優先度テンプレ</strong>：<span class="tmpl">「KEVカタログに掲載され実際に悪用されているため、対応優先度を上げる。」</span></li></ul></div><div class="term unit" data-t="1"><h3>ASM <span class="gloss">（アタックサーフェスマネジメント）</span></h3><ul class="items"><li class="top" data-t="1"><strong>サブドメインテイクオーバー対策</strong>：<span class="tmpl">「終了したサブドメインのCNAMEレコードを(権威DNSサーバから)削除する。」</span></li><li class="top" data-t="1"><strong>稼働調査</strong>：<span class="tmpl">「ポートスキャンで公開ポートを確認し、脆弱性スキャナーで脆弱性の有無を確認する。」</span></li><li class="top" data-t="1"><strong>廃止判断</strong>：<span class="tmpl">「継続しない場合は速やかにネットワークから切り離し、機器を廃棄する。」</span></li></ul></div></section><section class="ch panel" id="ch9" data-ch="9"><h2><span class="num">09</span><span>セキュアコーディング・開発プロセス</span><span class="tag">SC-ST-010</span><label class="done"><input type="checkbox" class="check" data-ch="9"><span>読了</span></label></h2><div class="block unit" data-t="1"><ul class="items"><li class="top"><strong>PreparedStatement</strong>：3章SQLi参照</li><li class="top" data-t="1"><strong>例外処理(Java)</strong>：<span class="tmpl">「例外発生時でも必ず実行される<code>finally</code>でリソースを解放する。」</span>/<span class="tmpl">「捕捉した例外は握りつぶさず再throwする。」</span></li><li class="top" data-t="1"><strong>パスワード保存</strong>：<span class="tmpl">「SHA-256等のハッシュ(＋ソルト)で保存する。」</span>（可逆な暗号化ではない）</li><li class="top"><strong>最小権限</strong>：DBアクセス権を機能ごとに必要最小限に</li><li class="top"><strong>「開発プロセスの対策」を問われたら</strong>：設計/実装/テスト/レビュー/専門家による脆弱性検査など<strong>プロセス上の施策</strong>に限定。運用対策(ログ分析・棚卸)や製品導入(WAF)を書かない（R7秋の頻出誤答）</li></ul></div></section><section class="ch panel" id="ch10" data-ch="10"><h2><span class="num">10</span><span>リスクアセスメント・体制</span><span class="tag">SC-ST-013</span><label class="done"><input type="checkbox" class="check" data-ch="10"><span>読了</span></label></h2><div class="block unit" data-t="1"><ul class="items"><li class="top"><strong>リスク対応4分類</strong>：回避／移転／低減(軽減)／保有(受容)</li><li class="top" data-t="1"><strong>攻撃シナリオテンプレ</strong>：<span class="tmpl">「攻撃者が□(手口)により□(初期侵入)し、□(横展開)して、最終的に□(被害)する。」</span><ul><li>リスクは<strong>具体的</strong>に、<strong>被害の大きさ・発生頻度</strong>まで踏み込む（R5秋の失点対策）</li></ul></li><li class="top"><strong>権限マトリクス</strong>：所属組織×(読込/書込/権限変更)を最小権限で設計</li><li class="top" data-t="1"><strong>レジリエンス(復旧優先)テンプレ</strong>：<span class="tmpl">「被害発生時に迅速復旧するため、平常時にバックアップを取得しておく。」</span>（※復旧を問われて攻撃阻止を書かない＝R7秋の誤答）</li></ul></div></section><section class="ch panel" id="ch11" data-ch="11"><h2><span class="num">11</span><span>ネットワーク基盤</span><span class="tag">SC-ST-011</span><label class="done"><input type="checkbox" class="check" data-ch="11"><span>読了</span></label></h2><div class="block unit" data-t="1"><ul class="items"><li class="top" data-t="1"><strong>DNSSEC</strong>：<span class="tmpl">「DNS応答にデジタル署名を付け、改ざん(キャッシュポイズニング)を検知する。」</span></li><li class="top" data-t="1"><strong>DoH/DoT</strong>：<span class="tmpl">「DNS通信をHTTPS/TLSで暗号化し、盗聴・改ざんを防ぐ。」</span></li><li class="top" data-t="1"><strong>ゾーン転送制限</strong>：<span class="tmpl">「ゾーン転送要求を許可するホストを必要最小限(□)に制限する。」</span></li><li class="top"><strong>IEEE802.1X/RADIUS</strong>：認証後にネットワーク接続を許可。EAP-TLSは証明書認証</li><li class="top"><strong>不正DHCP検出</strong>（※不正AP検出と混同注意）：DHCP応答を監視し、許可外のDHCPサーバを検知</li></ul></div></section><section class="ch panel" id="ch12" data-ch="12"><h2><span class="num">12</span><span>混同ペア・最終確認カード</span><span class="tag">試験直前に音読</span><label class="done"><input type="checkbox" class="check" data-ch="12"><span>読了</span></label></h2><p class="sub">カードをクリックすると、そのカードだけヒントを表示する。<button type="button" class="mini" id="hint-toggle">ヒントを隠す</button></p><div class="pairs" id="pairs"><button type="button" class="pair unit"><span class="grp"><span class="side">認証<span class="hint">（誰か）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">認可<span class="hint">（何してよいか）</span></span></span></button><button type="button" class="pair unit"><span class="grp"><span class="side">デジタル署名<span class="hint">（第三者に証明・公開鍵）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">MAC<span class="hint">（当事者間・共通鍵）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">ハッシュ<span class="hint">（鍵なし）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">暗号化<span class="hint">（機密性）</span></span></span></button><button type="button" class="pair unit"><span class="grp"><span class="side">SPF<span class="hint">（送信元IP）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">DKIM<span class="hint">（署名・hタグ）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">DMARC<span class="hint">（ポリシー）</span></span></span></button><button type="button" class="pair unit"><span class="grp"><span class="side">WAF<span class="hint">（Web境界）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">IPS<span class="hint">（NW侵入）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">EDR<span class="hint">（端末）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">DLP<span class="hint">（データ持出）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">SIEM<span class="hint">（ログ相関）</span></span></span></button><button type="button" class="pair unit"><span class="grp"><span class="side">格納型XSS</span></span><span class="grp"><span class="vs">↔</span><span class="side">反射型XSS</span></span><span class="grp"><span class="vs">↔</span><span class="side">DOMベースXSS</span></span></button><button type="button" class="pair unit"><span class="grp"><span class="side">SAST<span class="hint">（静的）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">DAST<span class="hint">（動的）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">IAST<span class="hint">（対話型）</span></span></span></button><button type="button" class="pair unit"><span class="grp"><span class="side">CVSS基本値<span class="hint">（深刻度）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">現状値<span class="hint">（今の状況）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">EPSS<span class="hint">（悪用確率）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">KEV<span class="hint">（悪用実績）</span></span></span></button><button type="button" class="pair unit"><span class="grp"><span class="side">Statement<span class="hint">（危険）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">PreparedStatement<span class="hint">（安全・プレースホルダ）</span></span></span></button><button type="button" class="pair unit"><span class="grp"><span class="side">OAuth<span class="hint">（認可・権限委譲）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">OIDC<span class="hint">（認証）</span></span></span></button><button type="button" class="pair unit"><span class="grp"><span class="side">パスワードリスト<span class="hint">（漏えいID再利用）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">スプレー<span class="hint">（少数PWを多数IDへ）</span></span></span><span class="grp"><span class="vs">↔</span><span class="side">総当たり<span class="hint">（1IDに全PW）</span></span></span></button></div></section>
+  <p class="sub" id="empty" hidden>一致する項目がありません。</p>
+</main>
+
+<footer><div class="wrap">
+  <p>本テンプレは過去問(R3春〜R7秋)の解答例・採点講評から抽出。実戦では必ず本文の固有条件へ当てはめること（<code>03</code>のP1〜P12を回避）。</p>
+  <p><a href="./index.html">SC午後対策ダッシュボード（01〜06）</a>　/　<a href="./2026_SC_roadmap.html">SC合格ロードマップ 2026</a>　/　<a href="./sc_pm_grader.html">午後記述式セルフ採点</a></p>
+  <p>正本は <code>06_SC午後_用語別_解答テンプレート.md</code>。このページは <code>scripts/build_sc_pm_templates.py</code> で生成（2026-09-07 23:19）。読了チェックはこの端末にだけ保存されます。<button type="button" class="mini" id="reset">読了チェックを消す</button></p>
+</div></footer>
+
+<script>
+(function(){
+  'use strict';
+  var KEY='sc-pm-templates-read-v1', PREFIX=KEY+':';
+  var $=function(id){return document.getElementById(id);};
+  var checks=[].slice.call(document.querySelectorAll('.check'));
+  var units=[].slice.call(document.querySelectorAll('.unit'));
+  var sections=[].slice.call(document.querySelectorAll('.ch'));
+
+  function read(){
+    var raw='';
+    try{raw=localStorage.getItem(KEY)||'';}catch(e){}
+    if(!raw&&window.name.indexOf(PREFIX)===0)raw=window.name.slice(PREFIX.length);
+    try{var parsed=JSON.parse(raw||'{}');return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};}
+    catch(e){return {};}
+  }
+  function write(state){
+    var text=JSON.stringify(state);
+    try{localStorage.setItem(KEY,text);}catch(e){window.name=PREFIX+text;}
+  }
+  var state=read();
+  function paint(){
+    var done=0;
+    checks.forEach(function(box){
+      var on=state[box.dataset.ch]===true;
+      box.checked=on;
+      var nav=document.querySelector('[data-nav="'+box.dataset.ch+'"]');
+      if(nav)nav.classList.toggle('read',on);
+      if(on)done++;
+    });
+    $('count').textContent='読了 '+done+' / '+checks.length+'章';
+  }
+  checks.forEach(function(box){
+    box.addEventListener('change',function(){state[box.dataset.ch]=box.checked;write(state);paint();});
+  });
+  $('reset').addEventListener('click',function(){state={};write(state);paint();});
+  paint();
+
+  var box=$('q');
+  function apply(){
+    var query=box.value.trim().toLowerCase();
+    var only=document.body.classList.contains('templates-only');
+    var hits=0;
+    units.forEach(function(item){
+      var show=(!query||item.textContent.toLowerCase().indexOf(query)>=0)&&(!only||item.hasAttribute('data-t'));
+      item.classList.toggle('hidden',!show);
+      if(show)hits++;
+    });
+    sections.forEach(function(section){
+      section.classList.toggle('hidden',!section.querySelector('.unit:not(.hidden)'));
+    });
+    $('toc').classList.toggle('hidden',!!query||only);
+    $('empty').hidden=hits>0||(!query&&!only);
+    if(query)$('count').textContent=hits+'件';
+    else if(only)$('count').textContent='テンプレ '+hits+'件';
+    else paint();
+  }
+  function toggle(button,cls){
+    button.addEventListener('click',function(){
+      var on=button.getAttribute('aria-pressed')!=='true';
+      button.setAttribute('aria-pressed',String(on));
+      document.body.classList.toggle(cls,on);
+      apply();
+    });
+  }
+  toggle($('t-tmpl'),'templates-only');
+  toggle($('t-read'),'reading');
+
+  var hints=$('hint-toggle'), pairs=$('pairs');
+  if(hints&&pairs){
+    hints.addEventListener('click',function(){
+      var on=!pairs.classList.contains('hide-hints');
+      pairs.classList.toggle('hide-hints',on);
+      if(on)[].forEach.call(pairs.querySelectorAll('.reveal'),function(card){card.classList.remove('reveal');});
+      hints.textContent=on?'ヒントを表示':'ヒントを隠す';
+    });
+    [].forEach.call(pairs.querySelectorAll('.pair'),function(card){
+      card.addEventListener('click',function(){card.classList.toggle('reveal');});
+    });
+  }
+
+  box.addEventListener('input',apply);
+  document.addEventListener('keydown',function(event){
+    if(event.key==='/'&&document.activeElement!==box){event.preventDefault();box.focus();}
+    if(event.key==='Escape'&&document.activeElement===box){box.value='';box.blur();apply();}
+  });
+})();
+</script>
+</body>
+</html>
