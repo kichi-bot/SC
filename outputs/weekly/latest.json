@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-07T11:24+09:00",
+ "generatedAt": "2026-09-07T22:46+09:00",
  "today": "2026-09-07",
  "weekStart": "2026-08-31",
  "weekEnd": "2026-09-06",
@@ -8,20 +8,20 @@
  "summary": {
   "focus": {
    "weekMinutes": null,
-   "totalMinutes": 1615,
-   "monthMinutes": 13,
-   "capturedAt": "2026-09-01T04:03:42+09:00",
+   "totalMinutes": 1792,
+   "monthMinutes": 189,
+   "capturedAt": "2026-09-07T11:38:02+09:00",
    "previousSnapshot": null
   },
   "pm": {
    "weekQuestions": 4,
    "weekScore": 18.5,
    "weekMax": 200.0,
-   "distinct": 9,
-   "score": 80.5,
-   "max": 450.0,
-   "accuracy": 17.9,
-   "lastStudyDate": "2026-09-06",
+   "distinct": 10,
+   "score": 93.5,
+   "max": 500.0,
+   "accuracy": 18.7,
+   "lastStudyDate": "2026-09-07",
    "source": "export"
   },
   "am2": {
@@ -49,21 +49,21 @@
   {
    "date": "2026-09-13",
    "label": "採点済み累計10問",
-   "value": "9問",
-   "status": "次のゲート（未達）"
+   "value": "10問",
+   "status": "次のゲート（達成）"
   }
  ],
  "freshness": [
   {
    "name": "科目B 採点（sc_pm_progress_data.js）",
-   "when": "09/07 11:20",
+   "when": "09/07 15:09",
    "ageDays": 0,
    "judge": "OK",
-   "note": "最終採点日 2026-09-06"
+   "note": "最終採点日 2026-09-07"
   },
   {
    "name": "採点アプリ公開用集計JSON（Downloads）",
-   "when": "09/06 18:04",
+   "when": "09/07 15:08",
    "ageDays": 0,
    "judge": "OK",
    "note": "採点した日の最新"
@@ -77,9 +77,9 @@
   },
   {
    "name": "Focus To-Do（sc_focus_todo_progress_data.js）",
-   "when": "09/01 04:03",
-   "ageDays": 6,
-   "judge": "注意",
+   "when": "09/07 11:38",
+   "ageDays": 0,
+   "judge": "OK",
    "note": "更新は4:00のCodex自動化（アプリ表示要）"
   },
   {
