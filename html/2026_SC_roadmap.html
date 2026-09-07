@@ -28,125 +28,243 @@
     header{padding:48px 0 34px;background:linear-gradient(135deg,#123f35,#176b55 58%,#2b7f68);color:white}
     .eyebrow{font-size:.78rem;letter-spacing:.16em;font-weight:700;opacity:.8}.title{font-size:clamp(2rem,5vw,3.8rem);line-height:1.12;margin:8px 0 12px}
     .lead{max-width:780px;margin:0;color:#e5f3ed}.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.chip{border:1px solid #ffffff55;border-radius:999px;padding:7px 13px;font-size:.84rem;background:#ffffff12}
-    main{padding:30px 0 70px}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(5,1fr);margin-top:-52px;position:relative}
+    main{padding:30px 0 70px}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-top:-52px;position:relative}
     .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 8px 28px var(--shadow)}
     .stat b{display:block;font-size:2rem;line-height:1.2;color:var(--green)}.stat small{color:var(--muted)}
     h2{font-size:1.5rem;margin:34px 0 14px}h3{margin:0 0 8px;font-size:1.06rem}.sub{color:var(--muted);font-size:.9rem}
     .roadmap-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.save-status{color:var(--muted);font-size:.82rem;font-weight:400;white-space:nowrap}
-    .now{grid-template-columns:1.25fr .75fr}.meter{height:12px;background:var(--meter);border-radius:20px;overflow:hidden;margin:10px 0}.meter span{display:block;height:100%;background:linear-gradient(90deg,var(--amber),#df9b4d);border-radius:inherit}
-    .goalrow{display:flex;justify-content:space-between;gap:12px;font-size:.9rem}.alert{border-left:5px solid var(--amber);background:var(--amber2)}
-    .next{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}.badge{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:var(--green);color:white;font-weight:800}
-    .timeline{display:grid;gap:14px}.week{display:grid;grid-template-columns:115px 1fr 155px;gap:18px;align-items:start}.week.current{border:2px solid var(--amber);box-shadow:0 8px 28px #bd6b2320}
+    .now{grid-template-columns:1.25fr .75fr}.alert{border-left:5px solid var(--amber);background:var(--amber2)}
+    .timeline{display:grid;gap:14px}.week{display:grid;grid-template-columns:115px 1fr 90px;gap:18px;align-items:start}.week.current{border:2px solid var(--amber);box-shadow:0 8px 28px #bd6b2320}
     .date{font-weight:800;color:var(--green)}.phase{display:inline-block;font-size:.72rem;font-weight:800;padding:3px 9px;border-radius:99px;margin-bottom:8px}.p1{background:var(--amber2);color:var(--phase-amber-ink)}.p2{background:var(--green2);color:var(--green)}.p3{background:var(--blue2);color:var(--blue)}
-    ul{margin:6px 0 0;padding-left:1.25em}.hours{text-align:right;font-weight:800;color:var(--green)}.hours small{display:block;font-weight:400;color:var(--muted)}
+    ul{margin:6px 0 0;padding-left:1.25em}.hours{text-align:right;font-weight:800;color:var(--green)}
+    .item-list{margin:6px 0 0;padding-left:0;list-style:none;font-size:.92rem}.item-list li{padding:3px 0;border-bottom:1px dashed var(--line)}.item-list li:last-child{border-bottom:0}.item-list .d{display:inline-block;min-width:96px;color:var(--muted)}
     .check{appearance:none;width:20px;height:20px;border:2px solid #a5aaa6;border-radius:6px;vertical-align:-4px;margin-right:8px;background:var(--control);cursor:pointer}.check:checked{background:var(--green);border-color:var(--green);box-shadow:inset 0 0 0 4px white}
-    .targets{grid-template-columns:repeat(3,1fr)}.target{border-top:5px solid var(--green)}.target:nth-child(2){border-color:var(--amber)}.target:nth-child(3){border-color:var(--blue)}
-    table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--muted)}
+    .targets{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.target{border-top:5px solid var(--line)}.target.ok{border-top-color:var(--green)}.target.ng{border-top-color:var(--danger)}.target.wait{border-top-color:var(--amber)}
+    .gate-status{display:inline-block;margin-top:6px;font-size:.84rem;font-weight:800}
+    .ok{color:var(--green);font-weight:800}.ng{color:var(--danger);font-weight:800}.wait{color:var(--muted);font-weight:700}
+    .review-text{white-space:pre-wrap;font-size:.95rem}
+    table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted)}
     footer{color:var(--muted);font-size:.78rem;padding:30px 0;border-top:1px solid var(--line)}
+    [hidden]{display:none!important}
     @media(max-width:800px){.stats,.now,.targets{grid-template-columns:1fr 1fr}.week{grid-template-columns:1fr}.hours{text-align:left}.stats{margin-top:-28px}}
     @media(max-width:520px){.stats,.now,.targets{grid-template-columns:1fr}.wrap{width:min(100% - 20px,1120px)}header{padding-top:34px}.panel{padding:16px}.roadmap-heading{align-items:flex-start;flex-direction:column;gap:0}}
-    @media print{body{background:white;color:#111}.panel{background:white;border-color:#ccc;box-shadow:none;break-inside:avoid}header{background:white;color:#111;padding:10px 0}.lead{color:#333}.stats{margin-top:0}.chip{border-color:#aaa}.sub,footer,.stat small,.hours small,th{color:#555}}
+    @media print{body{background:white;color:#111}.panel{background:white;border-color:#ccc;box-shadow:none;break-inside:avoid}header{background:white;color:#111;padding:10px 0}.lead{color:#333}.stats{margin-top:0}.chip{border-color:#aaa}.sub,footer,.stat small,th{color:#555}}
   </style>
 </head>
 <body>
 <header><div class="wrap">
   <div class="eyebrow">INFORMATION SECURITY SPECIALIST · 2026</div>
   <h1 class="title">SC 合格ロードマップ</h1>
-  <p class="lead">科目A-2の直近正答率60%を合格圏へ安定させながら、着手済みの科目Bを答案の型から積み上げる。2026年8月29日を基準に、11月末まで走り切る14週間の実行計画。</p>
-  <div class="chips"><span class="chip">更新日 8/29</span><span class="chip">科目A目標 10/24</span><span class="chip">科目B目標 11/21</span><span class="chip">残り 約58時間</span></div>
+  <p class="lead">科目A-1は免除。柱②（管理・委託・リスク・脆弱性管理）を先に固め、Web脆弱性は「1問だけ選ぶ前提で50%」を狙う。毎週月曜5:00に先週の実績を取り込み、ゲートで計画を見直す。</p>
+  <div class="chips" id="chips"><span class="chip">読み込み中</span></div>
 </div></header>
 
 <main class="wrap">
   <section class="grid stats" aria-label="進捗概要">
-    <div class="panel stat"><b id="am2-total">199問</b><small>科目A-2 演習済み</small></div>
-    <div class="panel stat"><b id="am2-accuracy">49.7%</b><small>科目A-2 全体正答率</small></div>
-    <div class="panel stat"><b>60.0%</b><small>直近75問の正答率</small></div>
-    <div class="panel stat"><b id="pm-questions">3問</b><small>科目B 演習済み</small></div>
-    <div class="panel stat"><b id="focus-total-time">20時間52分</b><small>Focus To-Do 累計</small></div>
+    <div class="panel stat"><b id="am2-total">—</b><small>科目A-2 演習済み</small></div>
+    <div class="panel stat"><b id="am2-accuracy">—</b><small>科目A-2 全体正答率</small></div>
+    <div class="panel stat"><b id="am2-recent">—</b><small id="am2-recent-label">直近の正答率</small></div>
+    <div class="panel stat"><b id="pm-questions">—</b><small>科目B 採点済み</small></div>
+    <div class="panel stat"><b id="pm-accuracy">—</b><small>科目B 得点率</small></div>
+    <div class="panel stat"><b id="focus-total-time">—</b><small>Focus To-Do 累計</small></div>
   </section>
 
-  <h2>現在地と、最初にやること</h2>
+  <h2 class="roadmap-heading"><span>週次レビュー</span> <span class="save-status" id="review-generated"></span></h2>
   <section class="grid now">
     <div class="panel">
-      <h3>科目A-2：あと2問で安定目標</h3>
-      <div class="goalrow"><span>直近75問 60%（15/25相当）</span><span>安定目標 68%（17/25）</span></div>
-      <div class="meter"><span style="width:60%"></span></div>
-      <p class="sub">全体は49.7%ですが、直近75問は60.0%まで上昇。新しい範囲を広げすぎず、弱点3分野の誤答を優先して17/25を狙います。</p>
-      <table><tr><th>弱点</th><th>正答率</th><th>対応</th></tr><tr><td>開発管理</td><td>25.0%</td><td>用語と手順を再整理</td></tr><tr><td>データベース</td><td>37.5%</td><td>定番問題を再演習</td></tr><tr><td>ネットワーク</td><td>41.7%</td><td>誤答の根拠を確認</td></tr></table>
+      <h3 id="review-week">対象週 —</h3>
+      <table id="review-summary"><tr><th>指標</th><th>先週</th><th>累計</th></tr></table>
+      <p class="sub">学習時間は Focus To-Do の累計差分。先週分は前週のスナップショットが揃うと表示される。</p>
     </div>
     <div class="panel alert">
-      <h3>最大のボトルネック</h3>
-      <p><strong>科目Bの答案精度</strong>です。3問に着手済みですが、得点率は13.7%。今後は学習時間の約70%を科目Bへ配分します。</p>
-      <div class="next"><span class="badge">1</span><div><strong>8/29–8/30にやること</strong><br><span class="sub">R6春 問1を解き、採点後に「根拠箇所」と「失点理由」を1行ずつ残す。</span></div></div>
+      <h3>今週の重点</h3><div class="review-text" id="review-focus">（まだありません）</div>
+      <h3 style="margin-top:14px">要対応（自分でやること）</h3><div class="review-text" id="review-todo">（まだありません）</div>
     </div>
   </section>
+  <section class="grid now">
+    <div class="panel"><h3>ゲート判定</h3><table id="review-gates"><tr><th>期限</th><th>判定</th><th>現在値</th><th>結果</th></tr></table></div>
+    <div class="panel"><h3>判断と変更</h3><div class="review-text" id="review-judgment">（まだありません）</div><p class="sub" id="review-calendar"></p></div>
+  </section>
 
-  <h2 class="roadmap-heading">14週間の実行ロードマップ（8/24–11/29） <span id="save-status" class="save-status" role="status" aria-live="polite">チェック状態はこの端末に保存されます</span></h2>
-  <div class="timeline">
-    <article class="panel week current"><div><span class="phase p1">NOW</span><div class="date">8/24–8/30</div></div><div><h3><input class="check" data-id="w1" type="checkbox">週末リセット：認可・API・JWT</h3><ul><li>科目B：R6春問1を採点・復習まで完了</li><li>科目A-2：ネットワーク／DBの誤答10問</li></ul></div><div class="hours">2h<small>A 0.5h / B 1.5h</small></div></article>
-    <article class="panel week"><div><span class="phase p1">基礎併走</span><div class="date">8/31–9/6</div></div><div><h3><input class="check" data-id="w2" type="checkbox">ログ・マルウェア・インシデント対応</h3><ul><li>科目B：R6秋問1、R4秋午後Ⅱ問2</li><li>科目A-2：25問模試＋誤答の根拠確認</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
-    <article class="panel week"><div><span class="phase p1">基礎併走</span><div class="date">9/7–9/13</div></div><div><h3><input class="check" data-id="w3" type="checkbox">暗号・証明書・認証</h3><ul><li>科目B：R7秋問2、R5秋問2</li><li>科目A-2：開発管理／DBの誤答を再試験</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
-    <article class="panel week"><div><span class="phase p2">科目B重点</span><div class="date">9/14–9/20</div></div><div><h3><input class="check" data-id="w4" type="checkbox">クラウド・SSRF・IMDS</h3><ul><li>科目B：R6春問3、R5秋問3</li><li>科目A-2：25問模試＋誤答だけ復習</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
-    <article class="panel week"><div><span class="phase p2">科目B重点</span><div class="date">9/21–9/27</div></div><div><h3><input class="check" data-id="w5" type="checkbox">サプライチェーンと委託先管理</h3><ul><li>科目B：R7秋問1＋答案の根拠確認</li><li>科目A-2：直近回25問模試</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
-    <article class="panel week"><div><span class="phase p2">科目B重点</span><div class="date">9/28–10/4</div></div><div><h3><input class="check" data-id="w6" type="checkbox">脆弱性管理・ASM</h3><ul><li>科目B：R7春問2・問4</li><li>科目A-2：17/25以上を1回達成</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
-    <article class="panel week"><div><span class="phase p2">科目B重点</span><div class="date">10/5–10/11</div></div><div><h3><input class="check" data-id="w7" type="checkbox">メール・セキュア開発＋弱点補強</h3><ul><li>科目B：R6秋問2、R6春問4</li><li>科目A-2：17/25以上を2回連続で達成</li></ul></div><div class="hours">5h<small>A 1.5h / B 3.5h</small></div></article>
-    <article class="panel week"><div><span class="phase p3">科目A直前</span><div class="date">10/12–10/18</div></div><div><h3><input class="check" data-id="w8" type="checkbox">科目A-1・A-2最終確認</h3><ul><li>誤答だけを再確認し、新規問題は減らす</li><li>科目Bは答案テンプレートを短時間で反復</li></ul></div><div class="hours">4h<small>A 2h / B 2h</small></div></article>
-    <article class="panel week"><div><span class="phase p3">A受験</span><div class="date">10/19–10/25</div></div><div><h3><input class="check" data-id="w9" type="checkbox">科目A-1・A-2を受験</h3><ul><li>目標予約日：10/24前後</li><li>受験後は科目Bへ完全移行</li></ul></div><div class="hours">3h<small>A 1h / B 2h</small></div></article>
-    <article class="panel week"><div><span class="phase p3">通し演習</span><div class="date">10/26–11/1</div></div><div><h3><input class="check" data-id="w10" type="checkbox">科目B 150分演習①</h3><ul><li>新形式2問を時間内に完答</li><li>失点パターンP1〜P12で自己採点</li></ul></div><div class="hours">5h<small>B 5h</small></div></article>
-    <article class="panel week"><div><span class="phase p3">通し演習</span><div class="date">11/2–11/8</div></div><div><h3><input class="check" data-id="w11" type="checkbox">科目B 150分演習②</h3><ul><li>時間配分と設問の根拠箇所を固定</li><li>最も多い失点パターンを1つ潰す</li></ul></div><div class="hours">5h<small>B 5h</small></div></article>
-    <article class="panel week"><div><span class="phase p3">最終調整</span><div class="date">11/9–11/15</div></div><div><h3><input class="check" data-id="w12" type="checkbox">科目B 150分演習③</h3><ul><li>CBT画面で長文を読む練習</li><li>解答テンプレートと混同用語を総点検</li></ul></div><div class="hours">4h<small>B 4h</small></div></article>
-    <article class="panel week"><div><span class="phase p3">B受験</span><div class="date">11/16–11/22</div></div><div><h3><input class="check" data-id="w13" type="checkbox">科目Bを受験</h3><ul><li>目標予約日：11/21前後</li><li>前日は失点チェックリストのみ確認</li></ul></div><div class="hours">2h<small>軽い確認のみ</small></div></article>
-    <article class="panel week"><div><span class="phase p3">予備週</span><div class="date">11/23–11/29</div></div><div><h3><input class="check" data-id="w14" type="checkbox">受験予備日・振り返り</h3><ul><li>未受験なら科目Bの予備日に充てる</li><li>受験済みなら苦手答案と学習記録を整理</li></ul></div><div class="hours">3h<small>必要な場合のみ</small></div></article>
-  </div>
+  <h2>先週の計画×実績</h2>
+  <section class="panel">
+    <table id="review-plan"><tr><th>日</th><th>時刻</th><th>計画</th><th>実績の痕跡</th></tr></table>
+    <p class="sub" id="review-plan-note">痕跡は採点記録・過去問道場の学習日・Anki の学習日から機械的に判定。音読や紙上の作業は検出できない。</p>
+  </section>
+
+  <h2>保存した午後問題の進捗</h2>
+  <section class="panel" aria-live="polite">
+    <p id="pm-manual-summary"><strong>手動チェックを読み込んでいます。</strong></p>
+    <ul id="pm-manual-items"><li>保存済みデータを確認中です。</li></ul>
+    <h3>問題別の点数（演習回ごと）</h3>
+    <ul id="pm-question-results"><li>採点済みデータを確認中です。</li></ul>
+    <p class="sub">同じ試験回の点数は演習回ごとに分けて集計。答案本文・設問別の結果は公開しない。</p>
+  </section>
+
+  <h2 class="roadmap-heading"><span id="schedule-heading">学習スケジュール</span> <span id="save-status" class="save-status" role="status" aria-live="polite">チェック状態はこの端末に保存されます</span></h2>
+  <p class="sub" id="schedule-note"></p>
+  <div class="timeline" id="timeline"></div>
 
   <h2>合格判定のゲート</h2>
-  <section class="grid targets">
-    <div class="panel target"><h3>9月13日</h3><p>科目Bを累計<strong>9問以上</strong>、採点・復習まで完了。科目A-2は60%以上。</p></div>
-    <div class="panel target"><h3>10月11日</h3><p>科目A-2で<strong>17/25以上を2回連続</strong>。科目Bは累計15問以上。</p></div>
-    <div class="panel target"><h3>11月15日</h3><p>科目B 150分演習を<strong>3回</strong>実施し、2問を時間内に完答。</p></div>
-  </section>
+  <section class="grid targets" id="gates"></section>
+
+  <h2>節目</h2>
+  <section class="panel"><table id="milestones"><tr><th>日付</th><th>内容</th></tr></table></section>
+
+  <h2 id="changelog-heading" hidden>計画の変更履歴（週次レビュー）</h2>
+  <section class="panel" id="changelog" hidden><table id="changelog-table"><tr><th>週</th><th>操作</th><th>日付</th><th>内容</th><th>理由</th></tr></table></section>
 </main>
 
-<footer><div class="wrap">ロードマップ更新日：2026年8月29日。表示値は公開用集計データ（Focus 8/24、科目B 8/23、科目A-2 8/18）に基づきます。実際の受験日は予約枠に合わせて調整してください。</div></footer>
+<footer><div class="wrap" id="footer-note">表示値は公開用集計データに基づきます。</div></footer>
+<!-- データは GitHub Pages では am2/assets/、ローカル（file://）では ../docs/assets/ にある。両方を読み、存在する方が有効になる。 -->
 <script src="am2/assets/sc_focus_todo_progress_data.js"></script>
 <script src="am2/assets/sc_pm_progress_data.js"></script>
 <script src="am2/assets/sc_am2_progress_data.js"></script>
+<script src="am2/assets/sc_anki_progress_data.js"></script>
+<script src="am2/assets/sc_schedule_data.js"></script>
+<script src="am2/assets/sc_weekly_review_data.js"></script>
+<script src="../docs/assets/sc_focus_todo_progress_data.js"></script>
+<script src="../docs/assets/sc_pm_progress_data.js"></script>
+<script src="../docs/assets/sc_am2_progress_data.js"></script>
+<script src="../docs/assets/sc_anki_progress_data.js"></script>
+<script src="../docs/assets/sc_schedule_data.js"></script>
+<script src="../docs/assets/sc_weekly_review_data.js"></script>
 <script>
-  const focusData=window.SC_FOCUS_TODO_PROGRESS;
-  if(focusData){const h=Math.floor(focusData.totalMinutes/60),m=focusData.totalMinutes%60;document.getElementById('focus-total-time').textContent=h+'時間'+(m?m+'分':'');}
-  const pmData=window.SC_PM_PROGRESS;
-  if(pmData){document.getElementById('pm-questions').textContent=pmData.questions+'問';}
-  const am2Data=window.SC_AM2_PROGRESS;
-  if(am2Data){document.getElementById('am2-total').textContent=am2Data.total+'問';document.getElementById('am2-accuracy').textContent=am2Data.accuracy.toFixed(1)+'%';}
-  const key='sc-roadmap-2026-progress-20260829';
-  const windowNamePrefix=key+':';
-  const saveStatus=document.getElementById('save-status');
+(function(){
+  'use strict';
+  const JW='月火水木金土日';
+  const $=id=>document.getElementById(id);
+  const focusData=window.SC_FOCUS_TODO_PROGRESS||null, pmData=window.SC_PM_PROGRESS||null, am2Data=window.SC_AM2_PROGRESS||null;
+  const schedule=window.SC_SCHEDULE||null, wr=window.SC_WEEKLY_REVIEW||null, rv=wr&&wr.review||null, sm=rv&&rv.summary||{};
+  const todayIso=new Date(Date.now()+9*3600*1000).toISOString().slice(0,10);
+  function d2(iso){const d=new Date(iso+'T00:00:00');return (d.getMonth()+1)+'/'+d.getDate();}
+  function dlabel(iso){const d=new Date(iso+'T00:00:00');return d2(iso)+'('+JW[(d.getDay()+6)%7]+')';}
+  function hm(min){if(min==null)return '—';const h=Math.floor(min/60),m=Math.round(min%60);return h+'時間'+(m?m+'分':'');}
+  function hrs(min){return min==null?'—':(min/60).toFixed(1)+'h';}
+  function txt(id,v){const n=$(id);if(n)n.textContent=v;}
+  function row(table,cells,cls){const tr=document.createElement('tr');cells.forEach(c=>{const td=document.createElement('td');if(c&&typeof c==='object'){td.textContent=c.text;if(c.cls)td.className=c.cls;}else td.textContent=(c==null?'—':c);tr.appendChild(td);});if(cls)tr.className=cls;table.appendChild(tr);}
+  function daysUntil(iso){return Math.ceil((new Date(iso+'T00:00:00')-new Date(todayIso+'T00:00:00'))/86400000);}
+  function statusCls(s){return /^未達/.test(s)?'ng':(/^達成/.test(s)?'ok':'wait');}
 
-  function readProgress(){
-    let raw='';
-    try{raw=localStorage.getItem(key)||'';}catch(error){/* file:// などで利用できない場合は下の予備保存を使う */}
-    if(!raw&&window.name.startsWith(windowNamePrefix)){raw=window.name.slice(windowNamePrefix.length);}
+  // ヘッダーのチップ
+  const chips=$('chips');chips.textContent='';
+  const chipList=[];
+  if(rv)chipList.push('更新 '+String(rv.generatedAt).slice(5,16).replace('T',' '));
+  chipList.push('科目A-2 受験 10/24','科目B 受験 11/21','科目Bまで '+daysUntil('2026-11-21')+'日');
+  if(schedule)chipList.push('計画 合計 '+Math.round(schedule.totalHours)+'h');
+  chipList.forEach(t=>{const s=document.createElement('span');s.className='chip';s.textContent=t;chips.appendChild(s);});
+
+  // 上段の数字
+  if(am2Data){txt('am2-total',am2Data.total+'問');txt('am2-accuracy',Number(am2Data.accuracy).toFixed(1)+'%');}
+  if(sm.am2&&sm.am2.recentAccuracy!=null){txt('am2-recent',sm.am2.recentAccuracy+'%');txt('am2-recent-label','直近'+sm.am2.recentTotal+'問の正答率');}
+  if(sm.pm){txt('pm-questions',sm.pm.distinct+'問');txt('pm-accuracy',sm.pm.accuracy+'%');}
+  else if(pmData){txt('pm-questions',pmData.questions+'問');txt('pm-accuracy',pmData.accuracy+'%');}
+  if(focusData)txt('focus-total-time',hm(focusData.totalMinutes));
+
+  // 週次レビュー
+  if(rv){
+    txt('review-week','対象週 '+dlabel(rv.weekStart)+'〜'+dlabel(rv.weekEnd));
+    txt('review-generated','生成 '+String(rv.generatedAt).replace('T',' ').replace(/\+.*$/,''));
+    const t=$('review-summary');const f=sm.focus||{},p=sm.pm||{},a=sm.am2||{},k=sm.anki||{};
+    row(t,['学習時間（Focus To-Do）',f.weekMinutes==null?'未取得':hrs(f.weekMinutes),hrs(f.totalMinutes)+'（当月 '+(f.monthMinutes==null?'—':f.monthMinutes)+'分）']);
+    row(t,['科目B 採点',(p.weekQuestions==null?'—':p.weekQuestions)+'問 '+p.weekScore+'/'+p.weekMax+'点',p.distinct+'問 '+p.score+'/'+p.max+'点（'+p.accuracy+'%）']);
+    row(t,['科目A-2 過去問道場',a.weekTotal+'問 正答'+a.weekCorrect,a.answered+'問 '+a.accuracy+'%（直近'+a.recentTotal+'問 '+(a.recentAccuracy==null?'—':a.recentAccuracy)+'%）']);
+    row(t,['Anki',k.weekReviews+'回 '+k.weekMinutes+'分',(k.reviews==null?'—':k.reviews)+'回／'+(k.totalCards==null?'—':k.totalCards)+'枚']);
+    const g=$('review-gates');
+    (rv.gates||[]).forEach(x=>row(g,[x.date.slice(5).replace('-','/'),x.label,x.value,{text:x.status,cls:statusCls(x.status)}]));
+    if(!(rv.gates||[]).length)row(g,['—','直近1週間にゲートなし','—','—']);
+    const pl=$('review-plan');
+    (rv.planActual||[]).forEach(x=>row(pl,[dlabel(x.date),x.start+'〜'+x.end,String(x.title).replace('【SC】',''),{text:(x.status==='done'?'✅ ':(x.status==='none'?'⬜ ':''))+x.evidence,cls:x.status==='done'?'ok':(x.status==='none'?'ng':'')}]));
+    if(!(rv.planActual||[]).length)row(pl,['—','—','計画なし','—']);
+    txt('review-plan-note','計画 '+Number(rv.plannedHours||0).toFixed(1)+'h・'+(rv.planActual||[]).length+'枠、痕跡あり '+(rv.doneCount||0)+'枠。痕跡は採点記録・過去問道場の学習日・Anki の学習日から機械的に判定（音読や紙上の作業は検出できない）。');
+    const notes=wr.notes||{};
+    const fillNote=(id,v,fb)=>txt(id,v&&v.trim()?v:fb);
+    fillNote('review-focus',notes.focus,'今週の重点はまだ書かれていません。');
+    fillNote('review-todo',notes.todo,'要対応はありません。');
+    fillNote('review-judgment',notes.judgment,'判断と変更はまだ書かれていません（初回の自動実行後に入ります）。');
+    txt('review-calendar',notes.calendarLog?'カレンダー変更ログ：'+notes.calendarLog:'');
+    const fr=(rv.freshness||[]).map(x=>String(x.name).replace(/（.*$/,'')+' '+x.when).join('、');
+    txt('footer-note','表示値は公開用集計データに基づきます（'+fr+'）。正本は C:\\SC\\10_学習スケジュール_20260906.md と 11_週次レビュー.md。');
+  } else {
+    txt('review-week','週次レビューのデータはまだありません（毎週月曜 5:00 に生成されます）。');
+  }
+
+  // 保存した午後問題の進捗（採点済み＋手動チェック）
+  function readManualPmMap(){
+    const combined=Object.assign({},pmData&&pmData.manualMap||{});
     try{
-      const parsed=JSON.parse(raw||'{}');
-      return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};
-    }catch(error){return {};}
+      const local=JSON.parse(localStorage.getItem('sc_am2_exam_map_manual')||'{}');
+      if(local&&typeof local==='object'){Object.keys(local).forEach(key=>{if(key.startsWith('pm:')&&typeof local[key]==='boolean')combined[key]=local[key];});}
+    }catch(error){}
+    return combined;
+  }
+  function manualLabel(key){const value=key.slice(3),separator=value.lastIndexOf(':');return separator>0?value.slice(0,separator)+' '+value.slice(separator+1):value;}
+  if(pmData){
+    const manualMap=readManualPmMap();
+    const manualKeys=Object.keys(manualMap).filter(key=>key.startsWith('pm:')&&manualMap[key]===true);
+    const graded=new Set();
+    (pmData.questionMaps||[]).forEach(map=>(map.completed||[]).forEach(question=>graded.add(map.label+':'+question)));
+    const combined=new Set(graded);
+    manualKeys.forEach(key=>combined.add(key.slice(3)));
+    $('pm-manual-summary').innerHTML='<strong>採点済み '+pmData.questions+'問／手動チェック '+manualKeys.length+'問／重複除外後 '+combined.size+'問</strong>';
+    const list=$('pm-manual-items');list.textContent='';
+    if(manualKeys.length){manualKeys.sort().forEach(key=>{const li=document.createElement('li');li.textContent=manualLabel(key);list.appendChild(li);});}
+    else{const li=document.createElement('li');li.textContent='保存済みの手動チェックはまだありません。';list.appendChild(li);}
+    const qList=$('pm-question-results');qList.textContent='';
+    const results=pmData.questionResults||[];
+    if(results.length){results.forEach(r=>{const li=document.createElement('li');li.textContent=r.exam+' '+r.question+'（'+r.attempt+'回目・'+String(r.gradedAt).slice(0,10)+'）'+r.score+' / '+r.max+'点（'+r.accuracy+'%）';qList.appendChild(li);});}
+    else{const li=document.createElement('li');li.textContent='問ごとの点数はまだ同期されていません。';qList.appendChild(li);}
+  } else {
+    $('pm-manual-summary').innerHTML='<strong>午後の集計データ（sc_pm_progress_data.js）が読み込めません。</strong>';
   }
 
-  function writeProgress(progress){
-    const serialized=JSON.stringify(progress);
-    let savedToDevice=false;
-    try{localStorage.setItem(key,serialized);savedToDevice=true;}catch(error){window.name=windowNamePrefix+serialized;}
-    saveStatus.textContent=savedToDevice?'保存しました':'このタブに保存しました';
-  }
-
-  const saved=readProgress();
-  document.querySelectorAll('.check').forEach(check=>{
-    check.checked=saved[check.dataset.id]===true;
-    check.addEventListener('change',()=>{
-      saved[check.dataset.id]=check.checked;
-      writeProgress(saved);
+  // 学習スケジュール（10_学習スケジュール の内容。sc_schedule_data.js）
+  const tl=$('timeline');
+  if(schedule){
+    txt('schedule-heading','学習スケジュール（'+d2(schedule.period.start)+'〜'+d2(schedule.period.end)+'・計 '+Math.round(schedule.totalHours)+'h）');
+    txt('schedule-note','平日 '+schedule.template.weekday+'／'+schedule.template.weekend+'／週約'+schedule.template.weeklyHours+'h。生成 '+String(schedule.generatedAt).replace('T',' ').replace(/\+.*$/,'')+'。変更は毎週月曜の週次レビューで反映。');
+    const key='sc-roadmap-2026-progress-20260907';const prefix=key+':';const saveStatus=$('save-status');
+    function readProgress(){let raw='';try{raw=localStorage.getItem(key)||'';}catch(error){}if(!raw&&window.name.startsWith(prefix))raw=window.name.slice(prefix.length);try{const parsed=JSON.parse(raw||'{}');return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};}catch(error){return {};}}
+    function writeProgress(progress){const serialized=JSON.stringify(progress);let saved=false;try{localStorage.setItem(key,serialized);saved=true;}catch(error){window.name=prefix+serialized;}saveStatus.textContent=saved?'保存しました':'このタブに保存しました';}
+    const saved=readProgress();
+    (schedule.weeks||[]).forEach(w=>{
+      const isNow=w.start<=todayIso&&todayIso<=w.end;
+      const phase=isNow?'NOW':(w.start<='2026-10-24'&&'2026-10-24'<=w.end?'A受験':(w.start<='2026-11-21'&&'2026-11-21'<=w.end?'B受験':(w.items.some(i=>/通し演習/.test(i.title))?'通し演習':(w.start<'2026-10-19'?'科目B重点':'最終調整'))));
+      const pcls=phase==='NOW'?'p1':(/受験|最終/.test(phase)?'p3':'p2');
+      const art=document.createElement('article');art.className='panel week'+(isNow?' current':'');
+      const left=document.createElement('div');
+      const badge=document.createElement('span');badge.className='phase '+pcls;badge.textContent=phase;
+      const date=document.createElement('div');date.className='date';date.textContent=d2(w.start)+'–'+d2(w.end);
+      left.appendChild(badge);left.appendChild(date);
+      const mid=document.createElement('div');
+      const h3=document.createElement('h3');
+      const cb=document.createElement('input');cb.type='checkbox';cb.className='check';cb.dataset.id='w-'+w.start;cb.checked=saved[cb.dataset.id]===true;
+      cb.addEventListener('change',()=>{saved[cb.dataset.id]=cb.checked;writeProgress(saved);});
+      const main=w.items.find(i=>/^科目B /.test(i.title))||w.items[0];
+      const theme=main?String(main.title).replace(/^科目B /,'').replace(/ ?(解答（65分・紙なし）|解答＋採点|採点・講評照合・P分類)$/,''):'—';
+      h3.appendChild(cb);h3.appendChild(document.createTextNode(theme));mid.appendChild(h3);
+      const ul=document.createElement('ul');ul.className='item-list';
+      w.items.forEach(i=>{const li=document.createElement('li');const d=document.createElement('span');d.className='d';d.textContent=dlabel(i.date)+' '+i.start;li.appendChild(d);li.appendChild(document.createTextNode(' '+i.title));ul.appendChild(li);});
+      mid.appendChild(ul);
+      const right=document.createElement('div');right.className='hours';right.textContent=Number(w.hours).toFixed(1)+'h';
+      art.appendChild(left);art.appendChild(mid);art.appendChild(right);tl.appendChild(art);
     });
-  });
+    const gs=$('gates');const gateStatus={};(rv&&rv.gates||[]).forEach(x=>{gateStatus[x.date]=x;});
+    (schedule.gates||[]).forEach(g=>{
+      const st=gateStatus[g.date];const cls=st?statusCls(st.status):(g.date<todayIso?'wait':'wait');
+      const div=document.createElement('div');div.className='panel target '+cls;
+      const h3=document.createElement('h3');const gd=new Date(g.date+'T00:00:00');h3.textContent=(gd.getMonth()+1)+'月'+gd.getDate()+'日';
+      const p=document.createElement('p');p.textContent=g.label;
+      const fb=document.createElement('p');fb.className='sub';fb.textContent='未達なら：'+g.fallback;
+      const b=document.createElement('span');b.className='gate-status '+cls;b.textContent=st?(st.status+'（'+st.value+'）'):(g.date<todayIso?'判定待ち（次回レビュー）':'まだ先');
+      div.appendChild(h3);div.appendChild(p);div.appendChild(fb);div.appendChild(b);gs.appendChild(div);
+    });
+    const ms=$('milestones');(schedule.milestones||[]).forEach(m=>row(ms,[m.start+(m.end&&m.end!==m.start?'〜'+m.end:''),m.title]));
+    if(schedule.changelog&&schedule.changelog.length){$('changelog-heading').hidden=false;$('changelog').hidden=false;const ct=$('changelog-table');schedule.changelog.forEach(c=>row(ct,[c.week,c.op,c.date,c.what,c.reason]));}
+  } else {
+    const art=document.createElement('article');art.className='panel';art.textContent='学習スケジュールのデータ（sc_schedule_data.js）が見つかりません。outputs/schedule/build_schedule.py を実行してください。';tl.appendChild(art);
+  }
+})();
 </script>
 </body>
 </html>

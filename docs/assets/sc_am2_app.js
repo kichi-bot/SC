@@ -6,12 +6,119 @@
   var PROGRESS = window.SC_AM2_PROGRESS || null;
   var FOCUS_PROGRESS = window.SC_FOCUS_TODO_PROGRESS || null;
   var PM_PROGRESS = window.SC_PM_PROGRESS || null;
+  var ANKI_PROGRESS = window.SC_ANKI_PROGRESS || null;
   var MAP_MANUAL_KEY = "sc_am2_exam_map_manual";
-  var ANKI_LOG_KEY = "sc_am2_anki_log";
+  var FALLBACK_STORAGE_KEY = "sc_am2_window_storage";
+  var PROGRESS_DB_NAME = "sc-study-progress";
+  var PROGRESS_DB_STORE = "progress";
+  function readFallbackStorage() {
+    try {
+      var value = JSON.parse(window.name || "{}");
+      return value && typeof value === "object" ? value : {};
+    } catch (e) {
+      return {};
+    }
+  }
+  function writeFallbackStorage(k, v) {
+    try {
+      var storage = readFallbackStorage();
+      storage[FALLBACK_STORAGE_KEY] = storage[FALLBACK_STORAGE_KEY] || {};
+      storage[FALLBACK_STORAGE_KEY][k] = v;
+      window.name = JSON.stringify(storage);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
   var LS = {
-    get: function (k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } },
-    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    get: function (k, d) {
+      try {
+        var raw = localStorage.getItem(k);
+        if (raw !== null) return JSON.parse(raw) || d;
+      } catch (e) {}
+      var fallback = readFallbackStorage()[FALLBACK_STORAGE_KEY];
+      return fallback && Object.prototype.hasOwnProperty.call(fallback, k) ? fallback[k] : d;
+    },
+    set: function (k, v) {
+      var serialized = JSON.stringify(v);
+      try {
+        localStorage.setItem(k, serialized);
+        if (localStorage.getItem(k) === serialized) return;
+      } catch (e) {}
+      writeFallbackStorage(k, v);
+    }
   };
+
+  function openProgressDb() {
+    return new Promise(function (resolve, reject) {
+      if (!window.indexedDB) {
+        reject(new Error("IndexedDBを利用できません"));
+        return;
+      }
+      var request = window.indexedDB.open(PROGRESS_DB_NAME, 1);
+      request.onupgradeneeded = function () {
+        if (!request.result.objectStoreNames.contains(PROGRESS_DB_STORE)) {
+          request.result.createObjectStore(PROGRESS_DB_STORE);
+        }
+      };
+      request.onsuccess = function () { resolve(request.result); };
+      request.onerror = function () { reject(request.error || new Error("保存領域を開けません")); };
+    });
+  }
+
+  function writeProgressDb(key, value) {
+    return openProgressDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction(PROGRESS_DB_STORE, "readwrite");
+        tx.objectStore(PROGRESS_DB_STORE).put(value, key);
+        tx.oncomplete = function () { db.close(); resolve(); };
+        tx.onerror = function () { db.close(); reject(tx.error || new Error("保存できません")); };
+      });
+    });
+  }
+
+  function readProgressDb(key) {
+    return openProgressDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction(PROGRESS_DB_STORE, "readonly");
+        var request = tx.objectStore(PROGRESS_DB_STORE).get(key);
+        request.onsuccess = function () { resolve(request.result); };
+        request.onerror = function () { reject(request.error || new Error("読込できません")); };
+        tx.oncomplete = function () { db.close(); };
+      });
+    });
+  }
+
+  function sanitizeManualMap(value) {
+    var result = {};
+    if (!value || typeof value !== "object" || Array.isArray(value)) return result;
+    Object.keys(value).forEach(function (key) {
+      if (/^(am2|pm):/.test(key) && typeof value[key] === "boolean") result[key] = value[key];
+    });
+    return result;
+  }
+
+  function publishedManualMap() {
+    return sanitizeManualMap(PM_PROGRESS && PM_PROGRESS.manualMap);
+  }
+
+  function currentManualMap() {
+    var combined = publishedManualMap();
+    var local = sanitizeManualMap(LS.get(MAP_MANUAL_KEY, {}));
+    Object.keys(local).forEach(function (key) { combined[key] = local[key]; });
+    return combined;
+  }
+
+  function persistManualMap(value) {
+    var clean = sanitizeManualMap(value);
+    LS.set(MAP_MANUAL_KEY, clean);
+    setMapSaveStatus("ブラウザに保存しました");
+    writeProgressDb(MAP_MANUAL_KEY, clean).then(function () {
+      setMapSaveStatus("ブラウザに二重保存しました");
+    }).catch(function () {
+      setMapSaveStatus("ブラウザ保存済み。念のためJSONも保存してください");
+    });
+  }
   var PRI_NAME = { A: "最優先", B: "重要", C: "余力", D: "低頻度" };
   var PM_NAME = { high: "午後関連:高", middle: "午後関連:中", low: "午後関連:低" };
 
@@ -116,11 +223,35 @@
     return li;
   }
 
+  function pmQuestionListItem(item) {
+    var li = document.createElement("li");
+    var head = el("div", "progress-item-head");
+    var label = document.createElement("span");
+    var value = document.createElement("strong");
+    label.textContent = item.exam + " " + item.question + "（" + item.attempt + "回目・" + String(item.gradedAt).slice(0, 10) + "）";
+    value.textContent = formatPoints(item.score) + " / " + formatPoints(item.max) + "点（" + item.accuracy + "%）";
+    head.appendChild(label);
+    head.appendChild(value);
+    var meter = el("div", "progress-meter");
+    meter.setAttribute("role", "progressbar");
+    meter.setAttribute("aria-label", item.exam + " " + item.question + " " + item.attempt + "回目の得点率");
+    meter.setAttribute("aria-valuemin", "0");
+    meter.setAttribute("aria-valuemax", "100");
+    meter.setAttribute("aria-valuenow", String(item.accuracy));
+    var fill = document.createElement("span");
+    fill.style.width = Math.max(0, Math.min(100, item.accuracy)) + "%";
+    meter.appendChild(fill);
+    li.appendChild(head);
+    li.appendChild(meter);
+    return li;
+  }
+
   function renderPmProgress() {
     var summary = document.getElementById("pm-progress-summary");
     var updated = document.getElementById("pm-progress-updated");
     var dayList = document.getElementById("pm-progress-days");
     var examList = document.getElementById("pm-progress-exams");
+    var questionList = document.getElementById("pm-progress-questions");
     if (!summary || !updated || !dayList || !examList) return;
     if (!PM_PROGRESS) {
       updated.textContent = "午後採点サイトの公開用集計はまだ同期されていません。";
@@ -133,6 +264,16 @@
     summary.appendChild(progressMetric("得点率", PM_PROGRESS.accuracy + "%", "目標 70%以上"));
     (PM_PROGRESS.days || []).slice(0, 14).forEach(function (item) { dayList.appendChild(pmProgressListItem(item)); });
     (PM_PROGRESS.exams || []).forEach(function (item) { examList.appendChild(pmProgressListItem(item)); });
+    if (questionList) {
+      var results = PM_PROGRESS.questionResults || [];
+      if (!results.length) {
+        var empty = document.createElement("li");
+        empty.className = "muted";
+        empty.textContent = "問ごとの点数はまだ同期されていません。";
+        questionList.appendChild(empty);
+      }
+      results.forEach(function (item) { questionList.appendChild(pmQuestionListItem(item)); });
+    }
   }
 
   function mapGroups(map, kind) {
@@ -154,7 +295,7 @@
   function renderExamMap(target, maps, kind) {
     if (!target) return;
     target.textContent = "";
-    var manual = LS.get(MAP_MANUAL_KEY, {});
+    var manual = currentManualMap();
     if (!maps || !maps.length) {
       target.appendChild(el("p", "exam-map-empty", "まだ解いた問題が同期されていません。"));
       return;
@@ -180,10 +321,9 @@
         input.disabled = automatic;
         input.setAttribute("aria-label", map.label + " " + group.label + "を解いたとして記録");
         input.addEventListener("change", function () {
-          var next = LS.get(MAP_MANUAL_KEY, {});
-          if (input.checked) next[storageKey] = true;
-          else delete next[storageKey];
-          LS.set(MAP_MANUAL_KEY, next);
+          var next = sanitizeManualMap(LS.get(MAP_MANUAL_KEY, {}));
+          next[storageKey] = input.checked;
+          persistManualMap(next);
           renderPastExamMaps();
         });
         var text = document.createElement("span");
@@ -203,41 +343,91 @@
     renderExamMap(document.getElementById("pm-exam-map"), PM_PROGRESS && PM_PROGRESS.questionMaps, "pm");
   }
 
+  function setMapSaveStatus(message) {
+    var status = document.getElementById("map-save-status");
+    if (status) status.textContent = message;
+  }
+
+  function saveManualMap() {
+    var manualMap = currentManualMap();
+    persistManualMap(manualMap);
+    var payload = {
+      schemaVersion: 2,
+      savedAt: new Date().toISOString(),
+      source: "SC午前Ⅱ 傾向と対策",
+      manualMap: manualMap
+    };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement("a");
+    link.href = url;
+    link.download = "sc_am2_manual_progress.json";
+    link.click();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    setMapSaveStatus("保存しました。JSONファイルを保管してください。");
+  }
+
+  function loadManualMap(file) {
+    if (!file) return;
+    file.text().then(function (text) {
+      var payload = JSON.parse(text);
+      if (!payload || (payload.schemaVersion !== 1 && payload.schemaVersion !== 2) || !payload.manualMap || typeof payload.manualMap !== "object") {
+        throw new Error("形式が違います");
+      }
+      var manualMap = sanitizeManualMap(payload.manualMap);
+      persistManualMap(manualMap);
+      renderPastExamMaps();
+      setMapSaveStatus("保存データを読み込みました。");
+    }).catch(function () {
+      setMapSaveStatus("読み込みに失敗しました。保存したJSONを選んでください。");
+    });
+  }
+
+  function initMapStorageControls() {
+    var save = document.getElementById("map-save");
+    var load = document.getElementById("map-load");
+    var file = document.getElementById("map-load-file");
+    if (!save || !load || !file) return;
+    save.addEventListener("click", saveManualMap);
+    load.addEventListener("click", function () { file.click(); });
+    file.addEventListener("change", function () {
+      loadManualMap(file.files && file.files[0]);
+      file.value = "";
+    });
+
+    readProgressDb(MAP_MANUAL_KEY).then(function (stored) {
+      var restored = sanitizeManualMap(stored);
+      if (!Object.keys(restored).length) return;
+      var local = sanitizeManualMap(LS.get(MAP_MANUAL_KEY, {}));
+      Object.keys(local).forEach(function (key) { restored[key] = local[key]; });
+      LS.set(MAP_MANUAL_KEY, restored);
+      renderPastExamMaps();
+      setMapSaveStatus("保存済みの午後進捗を復元しました");
+    }).catch(function () {});
+  }
+
   function renderAnkiProgress() {
-    var form = document.getElementById("anki-form");
-    var date = document.getElementById("anki-date");
+    var updated = document.getElementById("anki-progress-updated");
     var summary = document.getElementById("anki-summary");
     var history = document.getElementById("anki-history");
-    if (!form || !date || !summary || !history) return;
-    if (!date.value) date.value = new Date().toISOString().slice(0, 10);
-    function draw() {
-      var log = LS.get(ANKI_LOG_KEY, []).slice().sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); });
-      summary.textContent = "";
-      history.textContent = "";
-      var cards = log.reduce(function (total, item) { return total + Number(item.cards || 0); }, 0);
-      var minutes = log.reduce(function (total, item) { return total + Number(item.minutes || 0); }, 0);
-      summary.appendChild(progressMetric("学習回数", log.length + "回", "このブラウザの記録"));
-      summary.appendChild(progressMetric("復習カード", cards + "枚", "合計カード数"));
-      summary.appendChild(progressMetric("学習時間", formatMinutes(minutes), "合計時間"));
-      log.slice(0, 10).forEach(function (item) {
-        var line = el("li", "");
-        line.textContent = item.date + "　" + item.cards + "枚 / " + item.minutes + "分";
-        history.appendChild(line);
-      });
+    if (!updated || !summary || !history) return;
+    if (!ANKI_PROGRESS) {
+      updated.textContent = "Ankiアプリの学習記録はまだ同期されていません。";
+      return;
     }
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      var cards = Number(document.getElementById("anki-cards").value);
-      var minutes = Number(document.getElementById("anki-minutes").value);
-      if (!date.value || !Number.isInteger(cards) || !Number.isInteger(minutes) || cards < 1 || minutes < 1) return;
-      var log = LS.get(ANKI_LOG_KEY, []);
-      log.push({ date: date.value, cards: cards, minutes: minutes });
-      LS.set(ANKI_LOG_KEY, log);
-      document.getElementById("anki-cards").value = "";
-      document.getElementById("anki-minutes").value = "";
-      draw();
+
+    var captured = String(ANKI_PROGRESS.capturedAt || "").replace("T", " ").replace(/\+.*$/, "");
+    updated.textContent = "最終学習日: " + (ANKI_PROGRESS.lastStudyDate || "記録なし") +
+      " / Ankiから取得: " + captured + (ANKI_PROGRESS.readMode === "snapshot" ? "（アプリ起動中）" : "");
+    summary.appendChild(progressMetric("学習日数", ANKI_PROGRESS.studyDays + "日", "Ankiの復習履歴がある日"));
+    summary.appendChild(progressMetric("復習回数", ANKI_PROGRESS.reviews + "回", "学習済み " + ANKI_PROGRESS.reviewedCards + " / " + ANKI_PROGRESS.totalCards + "枚"));
+    summary.appendChild(progressMetric("学習時間", formatMinutes(ANKI_PROGRESS.minutes), "Ankiが記録した回答時間の合計"));
+    (ANKI_PROGRESS.days || []).slice(0, 14).forEach(function (item) {
+      var line = document.createElement("li");
+      var dayTime = item.minutes ? formatMinutes(item.minutes) : "1分未満";
+      line.textContent = item.label + "　" + item.reviews + "回（" + item.cards + "枚） / " + dayTime;
+      history.appendChild(line);
     });
-    draw();
   }
 
   function progressListItem(item) {
@@ -503,6 +693,7 @@
     renderPmProgress();
     renderProgress();
     renderPastExamMaps();
+    initMapStorageControls();
     renderTopics();
     initTabs();
     initChecklist();

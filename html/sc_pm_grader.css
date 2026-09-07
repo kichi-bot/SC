@@ -445,6 +445,22 @@ select:focus-visible {
 .answer-stats strong { min-width: 86px; padding: 6px 10px; border-radius: 999px; background: var(--surface-soft); color: var(--ink-soft); font-size: 14px; text-align: center; }
 .answer-stats strong.scored { background: var(--brand-soft); color: var(--brand-dark); }
 
+.attempt-tools { flex: 0 0 auto; display: flex; align-items: center; gap: 7px; }
+.attempt-tools label { color: var(--ink-soft); font-size: 14px; font-weight: 800; }
+.attempt-tools select,
+.attempt-tools button {
+  height: 36px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+}
+.attempt-tools select { min-width: 78px; padding: 0 24px 0 9px; }
+.attempt-tools button { padding: 0 10px; color: var(--brand-dark); }
+.attempt-tools button:hover { border-color: var(--brand); background: var(--brand-soft); }
+
 .answer-scroll {
   min-width: 0;
   min-height: 0;
@@ -477,6 +493,26 @@ select:focus-visible {
   font-weight: 700;
 }
 
+.attempt-summary {
+  margin: 8px 18px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-soft);
+}
+.attempt-summary h3 { margin: 0 0 7px; font-size: 14px; }
+.attempt-summary-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.attempt-summary-item {
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+.attempt-summary-item strong { color: var(--ink); }
+.attempt-summary-item.active { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-dark); }
+
 .grading-note p { margin: 0; font-size: 14px; line-height: 1.65; }
 
 #answerForm { padding: 0 18px 28px; }
@@ -485,6 +521,19 @@ select:focus-visible {
 .answer-group:last-child { border-bottom: 0; }
 .answer-group > h4 { margin: 0 0 3px; font-size: 16px; }
 .answer-group > p { margin: 0 0 12px; color: var(--ink-soft); font-size: 14px; }
+
+.legacy-answer-archive {
+  margin: 16px 0 2px;
+  padding: 11px 12px;
+  border: 1px solid var(--warn);
+  border-radius: 9px;
+  background: var(--warn-soft);
+}
+.legacy-answer-archive summary { cursor: pointer; font-size: 14px; font-weight: 900; }
+.legacy-answer-note { margin: 8px 0; color: var(--ink-soft); font-size: 14px; line-height: 1.65; }
+.legacy-answer-item { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line-strong); }
+.legacy-answer-item strong { display: block; margin-bottom: 4px; font-size: 14px; }
+.legacy-answer-item pre { margin: 0; color: var(--ink-soft); font: inherit; font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
 
 .field-block { margin-bottom: 13px; }
 .field-block:last-child { margin-bottom: 4px; }
@@ -562,6 +611,7 @@ textarea.answer-control { min-height: 86px; padding: 9px 11px; resize: vertical;
 .score-ring small { display: block; color: var(--ink-soft); font-size: 14px; }
 .score-summary h4 { margin: 0 0 4px; font-size: 16px; }
 .score-summary p { margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.75; }
+.score-summary .score-schema-note { margin-bottom: 10px; padding: 8px 10px; border: 1px solid var(--warn); border-radius: 7px; background: var(--surface); color: var(--ink); }
 .score-summary-actions { margin-top: 8px; display: flex; gap: 7px; }
 .score-summary-actions button { padding: 7px 10px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--surface); color: var(--ink-soft); font-size: 14px; font-weight: 800; }
 .question-guide { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(8, 115, 93, .28); }
@@ -625,7 +675,7 @@ textarea.answer-control { min-height: 86px; padding: 9px 11px; resize: vertical;
 
 @media print {
   body { min-width: 0; height: auto; overflow: visible; }
-  .app-header, .question-nav, .problem-pane, .answer-footer, .grading-note, .toast { display: none !important; }
+  .app-header, .question-nav, .problem-pane, .answer-footer, .grading-note, .attempt-summary, .toast { display: none !important; }
   .split-workspace { height: auto; display: block; }
   .answer-pane { display: block; }
   .pane-header { position: static; }

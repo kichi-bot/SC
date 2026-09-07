@@ -136,6 +136,27 @@ def build_progress(sources: list[Path]) -> dict[str, object]:
         )
         map_items = exam_items(exam_id) if exam_id != "custom" else [{"key": f"問{number}", "label": f"問{number}"} for number in range(1, 5)]
         question_maps.append({"label": label, "total": len(map_items), "items": map_items, "completed": completed})
+    exam_order = {label: index for index, (_, label) in enumerate(known_maps)}
+
+    def question_sort_key(item: dict[str, object]) -> tuple[int, str, int, int]:
+        label = str(item["exam"])
+        match = NUMBER_PATTERN.search(str(item["question"]))
+        return (exam_order.get(label, len(exam_order)), label, int(match.group()) if match else 0, int(item["attempt"]))
+
+    # 問ごとの得点（設問別の採点結果や答案本文は含まない）。演習回ごとに1件。
+    question_results = []
+    for item in sorted(question_attempts, key=question_sort_key):
+        score_value = float(item["score"])
+        max_value = float(item["max"])
+        question_results.append({
+            "exam": item["exam"],
+            "question": item["question"],
+            "attempt": int(item["attempt"]),
+            "score": score_value,
+            "max": max_value,
+            "accuracy": round(score_value / max_value * 100, 1) if max_value else 0.0,
+            "gradedAt": item["gradedAt"].astimezone().isoformat(timespec="minutes"),
+        })
     score = sum(float(item["score"]) for item in questions)
     maximum = sum(float(item["max"]) for item in questions)
     exported_at = max(exported_times).astimezone()
@@ -148,6 +169,7 @@ def build_progress(sources: list[Path]) -> dict[str, object]:
         "accuracy": round(score / maximum * 100, 1) if maximum else 0.0,
         "attemptRecords": len(question_attempts),
         "attempts": attempts,
+        "questionResults": question_results,
         "days": days,
         "exams": exams,
         "questionMaps": question_maps,

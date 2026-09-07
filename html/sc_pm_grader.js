@@ -446,10 +446,12 @@
 
   function defaultState() {
     return {
+      schemaVersion: 3,
       activeExam: 'r7a',
       activeQuestion: 'q1',
       answers: {},
       grades: {},
+      activeAttempts: {},
       theme: preferredTheme(),
       timer: { remaining: TIMER_SECONDS, running: false }
     };
@@ -461,13 +463,16 @@
       var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
       if (!saved) return base;
       var savedExam = findExam(saved.activeExam) ? saved.activeExam : base.activeExam;
-      var savedGrades = saved.grades && typeof saved.grades === 'object' ? saved.grades : {};
+      var savedAnswers = migrateAttemptCollection(saved.answers, 'answers');
+      var savedGrades = migrateAttemptCollection(saved.grades, 'grades');
       removeIncompatibleGrades(savedGrades);
       return {
+        schemaVersion: 3,
         activeExam: savedExam,
         activeQuestion: findQuestionInExam(savedExam, saved.activeQuestion) ? saved.activeQuestion : base.activeQuestion,
-        answers: saved.answers && typeof saved.answers === 'object' ? saved.answers : {},
+        answers: savedAnswers,
         grades: savedGrades,
+        activeAttempts: normalizeActiveAttempts(saved.activeAttempts),
         theme: saved.theme === 'dark' || saved.theme === 'light' ? saved.theme : base.theme,
         timer: saved.timer && typeof saved.timer.remaining === 'number' ? { remaining: saved.timer.remaining, running: false } : base.timer
       };
@@ -476,18 +481,55 @@
     }
   }
 
+  function migrateAttemptCollection(collection, kind) {
+    if (!collection || typeof collection !== 'object') return {};
+    var migrated = {};
+    Object.keys(collection).forEach(function (key) {
+      var value = collection[key];
+      if (!value || typeof value !== 'object' || Array.isArray(value)) return;
+      var valueKeys = Object.keys(value);
+      var isAttemptMap = valueKeys.length > 0 && valueKeys.every(function (attempt) {
+        return /^[1-9]\d*$/.test(attempt) && value[attempt] && typeof value[attempt] === 'object' && !Array.isArray(value[attempt]);
+      });
+      if (isAttemptMap) {
+        migrated[key] = value;
+      } else if (valueKeys.length || kind === 'answers') {
+        migrated[key] = { 1: value };
+      }
+    });
+    return migrated;
+  }
+
+  function normalizeActiveAttempts(activeAttempts) {
+    var normalized = {};
+    if (!activeAttempts || typeof activeAttempts !== 'object') return normalized;
+    Object.keys(activeAttempts).forEach(function (examId) {
+      var attempt = Number(activeAttempts[examId]);
+      if (findExam(examId) && Number.isInteger(attempt) && attempt > 0) normalized[examId] = attempt;
+    });
+    return normalized;
+  }
+
   function removeIncompatibleGrades(grades) {
     Object.keys(grades).forEach(function (key) {
       var separator = key.indexOf('-');
       var exam = separator > 0 && findExam(key.slice(0, separator));
       var question = exam && exam.questions.find(function (item) { return item.id === key.slice(separator + 1); });
-      var grade = grades[key];
-      var results = grade && grade.results;
       var fields = question ? flattenFields(question) : [];
-      var isCompatible = question && results && fields.every(function (item) {
-        return Object.prototype.hasOwnProperty.call(results, item.id);
+      Object.keys(grades[key]).forEach(function (attempt) {
+        var grade = grades[key][attempt];
+        if (!grade || typeof grade !== 'object') {
+          delete grades[key][attempt];
+          return;
+        }
+        var results = grade && grade.results;
+        var isCompatible = question && results && fields.every(function (item) {
+          return Object.prototype.hasOwnProperty.call(results, item.id);
+        });
+        if (isCompatible) delete grade.schemaMismatch;
+        else grade.schemaMismatch = true;
       });
-      if (!isCompatible) delete grades[key];
+      if (!Object.keys(grades[key]).length) delete grades[key];
     });
   }
 
@@ -516,6 +558,10 @@
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
     document.getElementById('gradeButton').addEventListener('click', gradeActiveQuestion);
     document.getElementById('progressExport').addEventListener('click', exportPublicProgress);
+    document.getElementById('attemptSelect').addEventListener('change', function (event) {
+      setActiveAttempt(Number(event.target.value));
+    });
+    document.getElementById('newAttemptButton').addEventListener('click', startNewAttempt);
     document.getElementById('pageJump').addEventListener('change', function (event) {
       var page = document.querySelector('[data-page="' + event.target.value + '"]');
       var scroller = document.getElementById('problemScroll');
@@ -582,6 +628,46 @@
     return state.activeExam + '-' + question.id;
   }
 
+  function activeAttemptNumber(examId) {
+    return state.activeAttempts[examId || state.activeExam] || 1;
+  }
+
+  function answerFor(question, attempt) {
+    var key = questionKey(question);
+    var attempts = state.answers[key];
+    return attempts && attempts[String(attempt || activeAttemptNumber())] || {};
+  }
+
+  function gradeFor(question, attempt) {
+    var key = questionKey(question);
+    var attempts = state.grades[key];
+    return attempts && attempts[String(attempt || activeAttemptNumber())] || null;
+  }
+
+  function maxAttemptForExam(examId) {
+    var maximum = state.activeAttempts[examId] || 1;
+    [state.answers, state.grades].forEach(function (collection) {
+      Object.keys(collection).forEach(function (key) {
+        if (key.indexOf(examId + '-') !== 0) return;
+        Object.keys(collection[key]).forEach(function (attempt) {
+          maximum = Math.max(maximum, Number(attempt) || 1);
+        });
+      });
+    });
+    return maximum;
+  }
+
+  function attemptHasWork(examId, attempt) {
+    return Object.keys(state.answers).some(function (key) {
+      return key.indexOf(examId + '-') === 0 && Object.keys(state.answers[key][String(attempt)] || {}).some(function (fieldId) {
+        var value = state.answers[key][String(attempt)][fieldId];
+        return Array.isArray(value) ? value.some(function (row) { return row.some(Boolean); }) : typeof value === 'string' && value.trim().length > 0;
+      });
+    }) || Object.keys(state.grades).some(function (key) {
+      return key.indexOf(examId + '-') === 0 && Boolean(state.grades[key][String(attempt)]);
+    });
+  }
+
   function questionGuide(question) {
     return QUESTION_GUIDES[questionKey(question)] || (question.guide ? {
       text: question.guide,
@@ -622,9 +708,49 @@
     });
   }
 
+  function renderAttemptControls() {
+    var select = document.getElementById('attemptSelect');
+    var maximum = maxAttemptForExam(state.activeExam);
+    var active = activeAttemptNumber();
+    select.textContent = '';
+    for (var attempt = 1; attempt <= maximum; attempt++) {
+      var option = textEl('option', '', attempt + '回目');
+      option.value = String(attempt);
+      select.append(option);
+    }
+    select.value = String(active);
+    document.getElementById('newAttemptButton').textContent = (maximum + 1) + '回目を始める';
+  }
+
+  function setActiveAttempt(attempt) {
+    if (!Number.isInteger(attempt) || attempt < 1 || attempt > maxAttemptForExam(state.activeExam)) return;
+    state.activeAttempts[state.activeExam] = attempt;
+    resetTimer(false);
+    scheduleSave();
+    renderQuestionTabs();
+    renderActiveQuestion();
+  }
+
+  function startNewAttempt() {
+    var current = activeAttemptNumber();
+    if (!attemptHasWork(state.activeExam, current)) {
+      showToast(current + '回目はまだ未入力です。この回を使って答案を入力してください。');
+      return;
+    }
+    var next = maxAttemptForExam(state.activeExam) + 1;
+    state.activeAttempts[state.activeExam] = next;
+    state.activeQuestion = activeExam().questions[0].id;
+    resetTimer(false);
+    scheduleSave();
+    renderQuestionTabs();
+    renderActiveQuestion();
+    showToast(activeExam().period + 'の' + next + '回目を開始しました。前回までの答案と点数は保存されています。');
+  }
+
   function setActiveExam(examId) {
     if (!findExam(examId) || state.activeExam === examId) return;
     state.activeExam = examId;
+    if (!state.activeAttempts[examId]) state.activeAttempts[examId] = 1;
     state.activeQuestion = activeExam().questions[0].id;
     resetTimer(false);
     scheduleSave();
@@ -657,8 +783,10 @@
     setResourceLink(document.getElementById('answerPdfLink'), answerPdf);
     setResourceLink(document.getElementById('commentPdfLink'), commentPdf);
     renderProblemPages(exam, question);
+    renderAttemptControls();
     renderAnswerForm(question);
     renderProgress(question);
+    renderAttemptSummary();
     renderScoreSummary(question);
     document.getElementById('answerScroll').scrollTop = 0;
   }
@@ -694,8 +822,9 @@
 
   function renderAnswerForm(question) {
     var form = document.getElementById('answerForm');
-    var isGraded = Boolean(state.grades[questionKey(question)]);
+    var isGraded = Boolean(gradeFor(question));
     form.textContent = '';
+    renderLegacyAnswers(question, form);
     question.groups.forEach(function (group) {
       var section = el('section', 'answer-group');
       section.append(textEl('h4', '', group.title));
@@ -710,6 +839,28 @@
       form.append(section);
     });
     applyGradeVisuals(question);
+  }
+
+  function renderLegacyAnswers(question, form) {
+    var answers = answerFor(question);
+    var archived = (question.legacyFields || []).map(function (item) {
+      return { label: item.label, value: answers[item.id] };
+    }).filter(function (item) {
+      if (Array.isArray(item.value)) return item.value.some(function (row) { return row.some(Boolean); });
+      return typeof item.value === 'string' && item.value.trim().length > 0;
+    });
+    if (!archived.length) return;
+
+    var details = el('details', 'legacy-answer-archive');
+    details.append(textEl('summary', '', '入力欄修正前のまとめ答案（' + archived.length + '件）'));
+    details.append(textEl('p', 'legacy-answer-note', '旧形式で保存した答案です。内容を確認しながら、下の新しい設問別入力欄へ移してください。'));
+    archived.forEach(function (item) {
+      var block = el('div', 'legacy-answer-item');
+      block.append(textEl('strong', '', item.label));
+      block.append(textEl('pre', '', Array.isArray(item.value) ? JSON.stringify(item.value) : item.value));
+      details.append(block);
+    });
+    form.append(details);
   }
 
   function renderField(question, item) {
@@ -802,26 +953,28 @@
   }
 
   function answerValue(question, fieldId) {
-    var key = questionKey(question);
-    var questionAnswers = state.answers[key] || {};
+    var questionAnswers = answerFor(question);
     var value = questionAnswers[fieldId];
     return typeof value === 'string' ? value : '';
   }
 
   function matrixValue(question, item) {
-    var key = questionKey(question);
-    var existing = state.answers[key] && state.answers[key][item.id];
+    var existing = answerFor(question)[item.id];
     if (Array.isArray(existing)) return existing.map(function (row) { return row.slice(); });
     return item.rows.map(function () { return item.columns.map(function () { return ''; }); });
   }
 
   function setAnswer(question, fieldId, value) {
     var key = questionKey(question);
+    var attempt = String(activeAttemptNumber());
     if (!state.answers[key]) state.answers[key] = {};
-    state.answers[key][fieldId] = value;
-    if (state.grades[key]) {
-      delete state.grades[key];
+    if (!state.answers[key][attempt]) state.answers[key][attempt] = {};
+    state.answers[key][attempt][fieldId] = value;
+    if (state.grades[key] && state.grades[key][attempt]) {
+      delete state.grades[key][attempt];
+      if (!Object.keys(state.grades[key]).length) delete state.grades[key];
       clearGradeVisuals();
+      renderAttemptSummary();
       renderScoreSummary(activeQuestion());
     }
     scheduleSave();
@@ -838,9 +991,9 @@
   }
 
   function countAnswered(question) {
-    var key = questionKey(question);
+    var answers = answerFor(question);
     return flattenFields(question).filter(function (item) {
-      var value = state.answers[key] && state.answers[key][item.id];
+      var value = answers[item.id];
       if (item.type === 'matrix') {
         return Array.isArray(value) && value.every(function (row) { return row.every(Boolean); });
       }
@@ -858,6 +1011,29 @@
     document.getElementById('footerProgress').textContent = answered === fields.length ? 'すべて入力済み' : '未入力 ' + (fields.length - answered) + '問';
   }
 
+  function renderAttemptSummary() {
+    var container = document.getElementById('attemptSummary');
+    var exam = activeExam();
+    var active = activeAttemptNumber();
+    var maximum = maxAttemptForExam(exam.id);
+    container.textContent = '';
+    container.append(textEl('h3', '', exam.period + 'の回別集計'));
+    var list = el('div', 'attempt-summary-list');
+    for (var attempt = 1; attempt <= maximum; attempt++) {
+      var scores = exam.questions.map(function (question) { return gradeFor(question, attempt); }).filter(Boolean);
+      var score = scores.reduce(function (sum, grade) { return sum + grade.score; }, 0);
+      var max = scores.reduce(function (sum, grade) { return sum + grade.max; }, 0);
+      var item = el('button', 'attempt-summary-item' + (attempt === active ? ' active' : ''));
+      item.type = 'button';
+      item.dataset.attempt = String(attempt);
+      item.append(textEl('strong', '', attempt + '回目'));
+      item.append(document.createTextNode(scores.length ? '　' + scores.length + '問　' + formatScore(score) + ' / ' + formatScore(max) + '点' : '　未採点'));
+      item.addEventListener('click', function (event) { setActiveAttempt(Number(event.currentTarget.dataset.attempt)); });
+      list.append(item);
+    }
+    container.append(list);
+  }
+
   function gradeActiveQuestion() {
     var question = activeQuestion();
     var results = {};
@@ -867,7 +1043,10 @@
       results[item.id] = result;
       total += result.score;
     });
-    state.grades[questionKey(question)] = {
+    var key = questionKey(question);
+    var attempt = String(activeAttemptNumber());
+    if (!state.grades[key]) state.grades[key] = {};
+    state.grades[key][attempt] = {
       score: roundHalf(total),
       max: 50,
       results: results,
@@ -875,6 +1054,7 @@
     };
     scheduleSave();
     renderQuestionTabs();
+    renderAttemptSummary();
     renderScoreSummary(question);
     applyGradeVisuals(question);
     document.getElementById('scoreSummary').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -884,16 +1064,30 @@
   function exportPublicProgress() {
     var questions = [];
     Object.keys(state.grades).forEach(function (key) {
-      var grade = state.grades[key];
-      if (!grade || typeof grade.score !== 'number' || typeof grade.max !== 'number' || !grade.gradedAt) return;
       var separator = key.indexOf('-');
       var exam = findExam(key.slice(0, separator));
       var question = exam && exam.questions.find(function (item) { return item.id === key.slice(separator + 1); });
       if (!exam || !question) return;
-      questions.push({ exam: exam.period, question: question.number, score: grade.score, max: grade.max, gradedAt: grade.gradedAt });
+      Object.keys(state.grades[key]).forEach(function (attemptValue) {
+        var grade = state.grades[key][attemptValue];
+        var attempt = Number(attemptValue);
+        if (!grade || typeof grade.score !== 'number' || typeof grade.max !== 'number' || !grade.gradedAt || !Number.isInteger(attempt)) return;
+        questions.push({ exam: exam.period, question: question.number, attempt: attempt, score: grade.score, max: grade.max, gradedAt: grade.gradedAt });
+      });
     });
     questions.sort(function (a, b) { return String(a.gradedAt).localeCompare(String(b.gradedAt)); });
-    var payload = { schemaVersion: 1, exportedAt: new Date().toISOString(), source: 'SC午後記述式セルフ採点', questions: questions };
+    var attemptGroups = {};
+    questions.forEach(function (item) {
+      var key = item.exam + '|' + item.attempt;
+      if (!attemptGroups[key]) attemptGroups[key] = { exam: item.exam, attempt: item.attempt, questions: 0, score: 0, max: 0 };
+      attemptGroups[key].questions += 1;
+      attemptGroups[key].score += item.score;
+      attemptGroups[key].max += item.max;
+    });
+    var attempts = Object.keys(attemptGroups).map(function (key) { return attemptGroups[key]; }).sort(function (a, b) {
+      return a.exam.localeCompare(b.exam, 'ja') || a.attempt - b.attempt;
+    });
+    var payload = { schemaVersion: 2, exportedAt: new Date().toISOString(), source: 'SC午後記述式セルフ採点', questions: questions, attempts: attempts };
     var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     var url = URL.createObjectURL(blob);
     var link = document.createElement('a');
@@ -905,8 +1099,7 @@
   }
 
   function scoreField(question, item) {
-    var key = questionKey(question);
-    var value = state.answers[key] && state.answers[key][item.id];
+    var value = answerFor(question)[item.id];
     if (item.type === 'matrix') return scoreMatrix(value, item);
     var normalized = normalize(value || '');
     if (!normalized) return resultObject(0, item.points, [], rubricLabels(item), true);
@@ -979,14 +1172,14 @@
 
   function applyGradeVisuals(question) {
     clearGradeVisuals();
-    var grade = state.grades[questionKey(question)];
+    var grade = gradeFor(question);
     if (!grade) return;
     document.querySelectorAll('.answer-group-description').forEach(function (description) {
       description.hidden = false;
     });
     flattenFields(question).forEach(function (item) {
       var block = document.querySelector('[data-field-id="' + cssEscape(item.id) + '"]');
-      var result = grade.results[item.id];
+      var result = grade.results && grade.results[item.id];
       if (!block || !result) return;
       var ratio = result.max ? result.score / result.max : 0;
       block.classList.add('graded');
@@ -1030,13 +1223,17 @@
 
   function renderScoreSummary(question) {
     var container = document.getElementById('scoreSummary');
-    var grade = state.grades[questionKey(question)];
+    var grade = gradeFor(question);
     var currentScore = document.getElementById('currentScore');
     container.textContent = '';
     container.hidden = !grade;
-    currentScore.textContent = grade ? formatScore(grade.score) + ' / 50点' : '未採点';
+    currentScore.textContent = grade ? activeAttemptNumber() + '回目 ' + formatScore(grade.score) + ' / 50点' : activeAttemptNumber() + '回目 未採点';
     currentScore.classList.toggle('scored', Boolean(grade));
     if (!grade) return;
+
+    if (grade.schemaMismatch) {
+      container.append(textEl('p', 'score-schema-note', '入力欄修正前の採点結果です。点数は保持しています。新しい欄へ答案を移して再採点すると、設問別の結果に更新されます。'));
+    }
 
     var grid = el('div', 'score-summary-grid');
     var ring = el('div', 'score-ring');
@@ -1047,7 +1244,7 @@
     ring.append(ringScore);
 
     var copy = el('div');
-    var headline = grade.score >= 35 ? '合格圏の答案です' : grade.score >= 25 ? 'あと一歩。抜けた観点を補強' : '模範解答から型を吸収しよう';
+    var headline = activeAttemptNumber() + '回目：' + (grade.score >= 35 ? '合格圏の答案です' : grade.score >= 25 ? 'あと一歩。抜けた観点を補強' : '模範解答から型を吸収しよう');
     copy.append(textEl('h4', '', headline));
     copy.append(textEl('p', '', 'これは独自の学習用採点です。意味が同じ別表現は、解答例を見て自分の答案にも点を加えてください。'));
     var actions = el('div', 'score-summary-actions');

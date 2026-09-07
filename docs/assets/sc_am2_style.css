@@ -76,15 +76,13 @@ section { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
 .focus-progress-meter span { background: #db2777; }
 
 /* Anki学習記録 */
-.anki-form { display: grid; grid-template-columns: repeat(3, minmax(120px, 1fr)) auto; gap: .6rem; align-items: end; margin: .7rem 0 .9rem; }
-.anki-form label { display: grid; gap: .2rem; color: #475569; font-size: .92rem; font-weight: 700; }
-.anki-form input { width: 100%; border: 1px solid #cbd5e1; border-radius: .5rem; padding: .48rem .6rem; background: #fff; color: #1f2937; font: inherit; }
-.anki-form .primary-btn { margin: 0; white-space: nowrap; }
-#anki-history { margin-top: .8rem; }
-@media (max-width: 700px) { .anki-form { grid-template-columns: 1fr 1fr; } .anki-form label:first-child { grid-column: 1 / -1; } }
+#anki-history:empty::after { content: "まだ学習記録がありません。"; color: #64748b; }
 
 /* 解いた過去問マップ */
 .exam-map-legend { display: flex; align-items: center; gap: .45rem; flex-wrap: wrap; margin: -.25rem 0 .7rem; color: #64748b; font-size: .95rem; }
+.exam-map-actions { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; margin: 0 0 .9rem; }
+.exam-map-actions .secondary-btn { padding: .45rem .75rem; font-size: .92rem; }
+.exam-map-actions .muted { font-size: .88rem; }
 .exam-map-list { display: grid; gap: .8rem; }
 .exam-map-row { display: grid; grid-template-columns: minmax(92px, 1fr) auto; gap: .65rem; align-items: center; }
 .exam-map-head { display: grid; gap: .05rem; }
@@ -495,3 +493,8 @@ footer a { color: #93c5fd; }
   details .body { display: block; }
   body { background: #fff; color: #111827; }
 }
+
+/* 週次レビュー（sc_weekly_review_app.js） */
+.review-text { white-space: pre-wrap; font-size: 1.02rem; line-height: 1.7; margin: .3rem 0; }
+.review-next li { font-size: 1.02rem; }
+.review-next li + li { margin-top: .35rem; }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=1280">
   <meta name="description" content="情報処理安全確保支援士の午後問題を、問題PDFを見ながら1問ずつ入力・採点できるデスクトップ学習サイトです。">
   <title>SC午後｜記述式セルフ採点</title>
-  <link rel="stylesheet" href="sc_pm_grader.css?v=20260830-1">
+  <link rel="stylesheet" href="sc_pm_grader.css?v=20260901-4">
 </head>
 <body>
   <a class="skip-link" href="#answerPanel">答案入力へ移動</a>
@@ -77,6 +77,11 @@
           <span class="pane-label">解答入力欄</span>
           <h2 id="answerTitle">問1の答案</h2>
         </div>
+        <div class="attempt-tools" aria-label="演習回の選択">
+          <label for="attemptSelect">演習回</label>
+          <select id="attemptSelect" aria-label="表示する演習回"></select>
+          <button id="newAttemptButton" type="button">次の回を始める</button>
+        </div>
         <div class="answer-stats">
           <span id="answerProgressLabel">0 / 13 入力</span>
           <strong id="currentScore">未採点</strong>
@@ -88,6 +93,7 @@
           <span aria-hidden="true">i</span>
           <p>配点は学習用の目安です。記述は要点ごとに部分点を表示し、公式解答例と見比べて仕上げます。</p>
         </div>
+        <section class="attempt-summary" id="attemptSummary" aria-live="polite"></section>
         <div class="score-summary" id="scoreSummary" hidden aria-live="polite"></div>
         <form id="answerForm" novalidate></form>
       </div>
@@ -104,9 +110,10 @@
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="sc_pm_past_exam_data.js?v=20260830-1"></script>
-  <script src="sc_pm_legacy_exam_data.js?v=20260830-1"></script>
-  <script src="sc_pm_exam_overrides.js?v=20260830-1"></script>
-  <script src="sc_pm_grader.js?v=20260830-1"></script>
+  <script src="sc_pm_past_exam_data.js?v=20260901-4"></script>
+  <script src="sc_pm_legacy_exam_data.js?v=20260901-4"></script>
+  <script src="sc_pm_legacy_field_overrides.js?v=20260901-4"></script>
+  <script src="sc_pm_exam_overrides.js?v=20260901-4"></script>
+  <script src="sc_pm_grader.js?v=20260901-4"></script>
 </body>
 </html>
