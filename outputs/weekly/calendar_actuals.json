@@ -1,0 +1,20 @@
+{
+ "generatedAt": "2026-09-07T11:24+09:00",
+ "weekStart": "2026-08-31",
+ "weekEnd": "2026-09-06",
+ "rules": [
+  "対象は先週（weekStart〜weekEnd）の、タイトルが【SC】で始まる予定だけ。日付＋タイトル先頭一致（既存の ✅/⬜ 接頭辞は外して比較）。",
+  "status=done → summary を prefix+元タイトル に、description の先頭行を resultLine に置き換える（既に【実績】行があれば差し替え）。",
+  "status=none → prefix を ⬜ にし、resultLine を先頭行にする。status=unknown → 触らない。",
+  "月・木の繰り返し予定はそのインスタンス（id が _YYYYMMDD… で終わる）だけを更新し、繰り返し本体は触らない。",
+  "weeklySummary は weekEnd（日曜）の終日予定として作成。同じ日に【SC実績】で始まる終日予定があれば更新する。colorId 3、availability FREE。",
+  "開始・終了時刻は変えない。【SC】以外の予定は触らない。"
+ ],
+ "sessions": [],
+ "weeklySummary": {
+  "date": "2026-09-06",
+  "title": "【SC実績】学習 —・科目B 4問 18.5/200点・道場 0問・Anki 24回",
+  "description": "対象週 08/31(月)〜09/06(日)（毎週月曜 5:00 の自動集計）\n学習時間（Focus To-Do）：—（累計 26.9h）\n科目B：先週 4問 18.5/200点／累計 9問 80.5/450点（17.9%）\n科目A-2 過去問道場：先週 0問 正答0／累計 249問 54.2%（直近50問 72.0%）\nAnki：先週 24回 11分\n計画の実施痕跡：0/0 枠\n詳細は C:\\SC\\11_週次レビュー.md",
+  "colorId": "3"
+ }
+}

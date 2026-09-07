@@ -1,0 +1,14 @@
+[
+ {
+  "date": "2026-09-07",
+  "week_start": "2026-08-31",
+  "focus_total_min": 1615,
+  "focus_captured_at": "2026-09-01T04:03:42+09:00",
+  "pm_distinct": 9,
+  "pm_score": 80.5,
+  "pm_max": 450.0,
+  "am2_answered": 249,
+  "am2_correct": 135,
+  "anki_reviews": 576
+ }
+]
