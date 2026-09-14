@@ -1,27 +1,27 @@
 {
- "generatedAt": "2026-09-07T22:46+09:00",
- "today": "2026-09-07",
- "weekStart": "2026-08-31",
- "weekEnd": "2026-09-06",
- "nextStart": "2026-09-07",
- "nextEnd": "2026-09-13",
+ "generatedAt": "2026-09-14T20:29+09:00",
+ "today": "2026-09-14",
+ "weekStart": "2026-09-07",
+ "weekEnd": "2026-09-13",
+ "nextStart": "2026-09-14",
+ "nextEnd": "2026-09-20",
  "summary": {
   "focus": {
-   "weekMinutes": null,
+   "weekMinutes": 177,
    "totalMinutes": 1792,
    "monthMinutes": 189,
    "capturedAt": "2026-09-07T11:38:02+09:00",
-   "previousSnapshot": null
+   "previousSnapshot": "2026-09-07"
   },
   "pm": {
-   "weekQuestions": 4,
-   "weekScore": 18.5,
-   "weekMax": 200.0,
-   "distinct": 10,
-   "score": 93.5,
-   "max": 500.0,
-   "accuracy": 18.7,
-   "lastStudyDate": "2026-09-07",
+   "weekQuestions": 2,
+   "weekScore": 22.0,
+   "weekMax": 100.0,
+   "distinct": 11,
+   "score": 102.5,
+   "max": 550.0,
+   "accuracy": 18.6,
+   "lastStudyDate": "2026-09-13",
    "source": "export"
   },
   "am2": {
@@ -35,69 +35,23 @@
    "lastStudyDate": "2026-08-24"
   },
   "anki": {
-   "weekReviews": 24,
-   "weekMinutes": 11,
-   "reviews": 576,
+   "weekReviews": 39,
+   "weekMinutes": 19,
+   "reviews": 615,
    "totalCards": 276,
-   "lastStudyDate": "2026-09-06"
+   "lastStudyDate": "2026-09-09"
   }
  },
- "planActual": [],
- "plannedHours": 0,
- "doneCount": 0,
- "gates": [
-  {
-   "date": "2026-09-13",
-   "label": "採点済み累計10問",
-   "value": "10問",
-   "status": "次のゲート（達成）"
-  }
- ],
- "freshness": [
-  {
-   "name": "科目B 採点（sc_pm_progress_data.js）",
-   "when": "09/07 15:09",
-   "ageDays": 0,
-   "judge": "OK",
-   "note": "最終採点日 2026-09-07"
-  },
-  {
-   "name": "採点アプリ公開用集計JSON（Downloads）",
-   "when": "09/07 15:08",
-   "ageDays": 0,
-   "judge": "OK",
-   "note": "採点した日の最新"
-  },
-  {
-   "name": "科目A-2 過去問道場（sc_am2_progress_data.js）",
-   "when": "09/07 11:19",
-   "ageDays": 0,
-   "judge": "OK",
-   "note": "最終学習日 2026-08-24。更新は4:00のCodex自動化（道場ログイン要）"
-  },
-  {
-   "name": "Focus To-Do（sc_focus_todo_progress_data.js）",
-   "when": "09/07 11:38",
-   "ageDays": 0,
-   "judge": "OK",
-   "note": "更新は4:00のCodex自動化（アプリ表示要）"
-  },
-  {
-   "name": "Anki（sc_anki_progress_data.js）",
-   "when": "09/07 11:22",
-   "ageDays": 0,
-   "judge": "OK",
-   "note": "update_sc_anki_progress.py で更新可"
-  }
- ],
- "nextWeek": [
+ "planActual": [
   {
    "date": "2026-09-07",
    "start": "22:00",
    "end": "23:30",
    "title": "【SC】科目A-2 誤答演習（45分）＋Anki（15分）＋06 音読（30分）",
    "hours": 1.5,
-   "recurring": true
+   "recurring": true,
+   "status": "none",
+   "evidence": "過去問道場の記録なし"
   },
   {
    "date": "2026-09-08",
@@ -105,7 +59,9 @@
    "end": "23:30",
    "title": "【SC】科目B R5秋 問4（委託・リスクアセスメント） 解答（65分・紙なし）",
    "hours": 1.5,
-   "recurring": false
+   "recurring": false,
+   "status": "none",
+   "evidence": "採点記録なし"
   },
   {
    "date": "2026-09-09",
@@ -113,7 +69,9 @@
    "end": "23:00",
    "title": "【SC】科目B R5秋 問4（委託・リスクアセスメント） 採点・講評照合・P分類",
    "hours": 1.0,
-   "recurring": false
+   "recurring": false,
+   "status": "none",
+   "evidence": "採点記録なし"
   },
   {
    "date": "2026-09-10",
@@ -121,7 +79,9 @@
    "end": "23:30",
    "title": "【SC】科目A-2 25問模試（40分）＋答え合わせ（20分）＋Anki（30分）",
    "hours": 1.5,
-   "recurring": true
+   "recurring": true,
+   "status": "none",
+   "evidence": "過去問道場の記録なし"
   },
   {
    "date": "2026-09-12",
@@ -129,13 +89,120 @@
    "end": "12:30",
    "title": "【SC】科目B R7春 問4（ASM・脆弱性管理）解答＋採点",
    "hours": 3.0,
-   "recurring": false
+   "recurring": false,
+   "status": "done",
+   "evidence": "採点 9/50点（18%）"
   },
   {
    "date": "2026-09-13",
    "start": "09:30",
    "end": "12:00",
    "title": "【SC】科目B R7秋 問4（管理・委託）解答＋採点",
+   "hours": 2.5,
+   "recurring": false,
+   "status": "none",
+   "evidence": "採点記録なし"
+  }
+ ],
+ "plannedHours": 11.0,
+ "doneCount": 1,
+ "gates": [
+  {
+   "date": "2026-09-13",
+   "label": "採点済み累計10問",
+   "value": "11問",
+   "status": "達成"
+  },
+  {
+   "date": "2026-09-19",
+   "label": "Web 2問（R5秋問1・R6秋問3）とも 20% 以上",
+   "value": "R5秋問1 5.0% / R6秋問3 6.0%",
+   "status": "次のゲート（未達）"
+  }
+ ],
+ "freshness": [
+  {
+   "name": "科目B 採点（sc_pm_progress_data.js）",
+   "when": "09/14 04:02",
+   "ageDays": 0,
+   "judge": "OK",
+   "note": "最終採点日 2026-09-13"
+  },
+  {
+   "name": "採点アプリ公開用集計JSON（Downloads）",
+   "when": "09/13 22:22",
+   "ageDays": 0,
+   "judge": "OK",
+   "note": "採点した日の最新"
+  },
+  {
+   "name": "科目A-2 過去問道場（sc_am2_progress_data.js）",
+   "when": "09/07 11:19",
+   "ageDays": 7,
+   "judge": "要更新",
+   "note": "最終学習日 2026-08-24。更新は4:00のCodex自動化（道場ログイン要）"
+  },
+  {
+   "name": "Focus To-Do（sc_focus_todo_progress_data.js）",
+   "when": "09/07 11:38",
+   "ageDays": 7,
+   "judge": "要更新",
+   "note": "更新は4:00のCodex自動化（アプリ表示要）"
+  },
+  {
+   "name": "Anki（sc_anki_progress_data.js）",
+   "when": "09/14 05:09",
+   "ageDays": 0,
+   "judge": "OK",
+   "note": "update_sc_anki_progress.py で更新可"
+  }
+ ],
+ "nextWeek": [
+  {
+   "date": "2026-09-14",
+   "start": "22:00",
+   "end": "23:30",
+   "title": "【SC】科目A-2 誤答演習（45分）＋Anki（15分）＋06 音読（30分）",
+   "hours": 1.5,
+   "recurring": true
+  },
+  {
+   "date": "2026-09-15",
+   "start": "22:00",
+   "end": "23:30",
+   "title": "【SC】科目B R5秋 問1 解き直し（XSS） 解答（65分・紙なし）",
+   "hours": 1.5,
+   "recurring": false
+  },
+  {
+   "date": "2026-09-16",
+   "start": "22:00",
+   "end": "23:00",
+   "title": "【SC】科目B R5秋 問1 解き直し（XSS） 採点・講評照合・P分類",
+   "hours": 1.0,
+   "recurring": false
+  },
+  {
+   "date": "2026-09-17",
+   "start": "22:00",
+   "end": "23:30",
+   "title": "【SC】科目A-2 25問模試（40分）＋答え合わせ（20分）＋Anki（30分）",
+   "hours": 1.5,
+   "recurring": true
+  },
+  {
+   "date": "2026-09-19",
+   "start": "09:30",
+   "end": "12:30",
+   "title": "【SC】科目B R6秋 問3 解き直し（Web・アクセスログ）解答＋採点",
+   "hours": 3.0,
+   "recurring": false
+  },
+  {
+   "date": "2026-09-20",
+   "start": "09:30",
+   "end": "12:00",
+   "title": "【SC】科目B R6春 問1（JWT・API認証）採点",
    "hours": 2.5,
    "recurring": false
   }

@@ -10,5 +10,17 @@
   "am2_answered": 249,
   "am2_correct": 135,
   "anki_reviews": 576
+ },
+ {
+  "date": "2026-09-14",
+  "week_start": "2026-09-07",
+  "focus_total_min": 1792,
+  "focus_captured_at": "2026-09-07T11:38:02+09:00",
+  "pm_distinct": 11,
+  "pm_score": 102.5,
+  "pm_max": 550.0,
+  "am2_answered": 249,
+  "am2_correct": 135,
+  "anki_reviews": 615
  }
 ]
