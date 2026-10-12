@@ -498,3 +498,47 @@ footer a { color: #93c5fd; }
 .review-text { white-space: pre-wrap; font-size: 1.02rem; line-height: 1.7; margin: .3rem 0; }
 .review-next li { font-size: 1.02rem; }
 .review-next li + li { margin-top: .35rem; }
+
+/* 午後マップ：出題分野・題名・キーワード */
+.exam-map-note { margin: -.2rem 0 .6rem; font-size: .88rem; }
+.exam-map-filter { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0 0 .75rem; }
+.exam-map-filter:empty { display: none; }
+.exam-map-filter-btn { display: inline-flex; align-items: center; gap: .3rem; padding: .18rem .6rem; border: 1px solid #cbd5e1; border-radius: 999px; background: #fff; color: #334155; font: inherit; font-size: .8rem; font-weight: 700; line-height: 1.4; cursor: pointer; }
+.exam-map-filter-btn .dot { width: .62rem; height: .62rem; border-radius: 50%; background: var(--field-color, #475569); }
+.exam-map-filter-btn .cnt { font-weight: 600; opacity: .75; }
+.exam-map-filter-btn:hover { border-color: #94a3b8; }
+.exam-map-filter-btn.active { border-color: #0f172a; background: #0f172a; color: #fff; }
+.exam-map-filter-btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+.exam-map-grid.pm { grid-template-columns: 1fr; gap: .35rem; }
+.exam-map-check.pm { align-items: flex-start; min-height: 0; padding: .42rem .55rem; }
+.exam-map-check.pm input { flex: none; margin-top: .3rem; }
+.exam-map-check.dim { opacity: .3; }
+.exam-map-text { display: flex; flex-wrap: wrap; align-items: center; gap: .1rem .45rem; min-width: 0; }
+.exam-map-q { font-weight: 800; white-space: nowrap; }
+.exam-map-badge { display: inline-block; padding: .02rem .55rem; border-radius: 999px; background: var(--field-color, #475569); color: #fff; font-size: .74rem; font-weight: 700; line-height: 1.5; white-space: nowrap; }
+.exam-map-est { padding: 0 .3rem; border: 1px dashed #b45309; border-radius: 4px; color: #92400e; font-size: .68rem; font-weight: 700; line-height: 1.4; }
+.exam-map-title { flex-basis: 100%; color: #1f2937; font-size: .84rem; font-weight: 600; line-height: 1.35; }
+.exam-map-kw { flex-basis: 100%; color: #475569; font-size: .76rem; font-weight: 500; line-height: 1.3; }
+.exam-map-check.pm.done .exam-map-title { color: #14532d; }
+.exam-map-check.pm.done .exam-map-kw { color: #166534; }
+.progress-list .exam-map-badge { margin-left: .25rem; vertical-align: middle; }
+.field-web { --field-color: #dc2626; }
+.field-auth { --field-color: #7c3aed; }
+.field-crypto { --field-color: #0891b2; }
+.field-pki { --field-color: #2563eb; }
+.field-mail { --field-color: #ca8a04; }
+.field-malware { --field-color: #ea580c; }
+.field-nwdef { --field-color: #0d9488; }
+.field-dos { --field-color: #db2777; }
+.field-cloud { --field-color: #0284c7; }
+.field-outsourcing { --field-color: #4f46e5; }
+.field-vuln { --field-color: #65a30d; }
+.field-secdev { --field-color: #059669; }
+.field-risk { --field-color: #475569; }
+.field-iot { --field-color: #92400e; }
+.field-nwbasic, .field-db, .field-devmgmt, .field-audit { --field-color: #64748b; }
+@media screen {
+  .exam-map-filter-btn { background: var(--surface); color: #cbd5e1; border-color: var(--border); }
+  .exam-map-filter-btn:hover { border-color: #64748b; }
+  .exam-map-filter-btn.active { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; }
+}

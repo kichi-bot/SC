@@ -200,6 +200,85 @@
     });
   }
 
+  // 午後問題の出題分野・題名（scripts/build_sc_pm_field_data.py が生成）
+  var PM_FIELDS = window.SC_PM_FIELDS || null;
+  var PM_FIELD_BY_KEY = {};
+  var PM_FIELD_EXAMS = {};
+  var pmFieldFilter = null;
+  if (PM_FIELDS) {
+    (PM_FIELDS.fields || []).forEach(function (field) { PM_FIELD_BY_KEY[field.key] = field; });
+    (PM_FIELDS.exams || []).forEach(function (exam) {
+      var byKey = {};
+      (exam.questions || []).forEach(function (question) { byKey[question.key] = question; byKey[question.label] = question; });
+      PM_FIELD_EXAMS[exam.label] = { questions: exam.questions || [], byKey: byKey };
+    });
+  }
+
+  function pmFieldInfo(examLabel, question) {
+    var exam = PM_FIELD_EXAMS[examLabel];
+    return exam ? exam.byKey[question] || null : null;
+  }
+
+  function fieldShort(key) {
+    var field = PM_FIELD_BY_KEY[key];
+    return field ? field.short || field.name : key;
+  }
+
+  function fieldName(key) {
+    var field = PM_FIELD_BY_KEY[key];
+    return field ? field.name : key;
+  }
+
+  function fieldBadge(info) {
+    var badge = el("span", "exam-map-badge field-" + info.primary);
+    badge.textContent = fieldShort(info.primary);
+    var tip = "主分野: " + fieldName(info.primary);
+    if (info.secondary && info.secondary.length) tip += " / 副: " + info.secondary.map(fieldShort).join("・");
+    if (info.estimated) tip += "（題名からの推定）";
+    badge.title = tip;
+    return badge;
+  }
+
+  function pmMatchesFilter(info) {
+    if (!pmFieldFilter) return true;
+    return info.primary === pmFieldFilter || (info.secondary || []).indexOf(pmFieldFilter) !== -1;
+  }
+
+  function renderPmFieldFilter(stats) {
+    var wrap = document.getElementById("pm-field-filter");
+    if (!wrap || !PM_FIELDS) return;
+    wrap.textContent = "";
+    var all = document.createElement("button");
+    all.type = "button";
+    all.className = "exam-map-filter-btn" + (pmFieldFilter ? "" : " active");
+    all.setAttribute("aria-pressed", pmFieldFilter ? "false" : "true");
+    all.textContent = "すべて";
+    all.addEventListener("click", function () { pmFieldFilter = null; renderPastExamMaps(); });
+    wrap.appendChild(all);
+    (PM_FIELDS.fields || []).forEach(function (field) {
+      var stat = stats[field.key];
+      if (!stat) return;
+      var active = pmFieldFilter === field.key;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "exam-map-filter-btn field-" + field.key + (active ? " active" : "");
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+      btn.title = field.name + "：解いた " + stat.done + " / 全 " + stat.total + "問（主分野）";
+      var name = document.createElement("span");
+      name.textContent = fieldShort(field.key);
+      var count = el("span", "cnt");
+      count.textContent = stat.done + "/" + stat.total;
+      btn.appendChild(el("span", "dot"));
+      btn.appendChild(name);
+      btn.appendChild(count);
+      btn.addEventListener("click", function () {
+        pmFieldFilter = active ? null : field.key;
+        renderPastExamMaps();
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
   function pmProgressListItem(item) {
     var li = document.createElement("li");
     var head = el("div", "progress-item-head");
@@ -229,6 +308,11 @@
     var label = document.createElement("span");
     var value = document.createElement("strong");
     label.textContent = item.exam + " " + item.question + "（" + item.attempt + "回目・" + String(item.gradedAt).slice(0, 10) + "）";
+    var info = pmFieldInfo(item.exam, item.question);
+    if (info) {
+      label.appendChild(document.createTextNode(" "));
+      label.appendChild(fieldBadge(info));
+    }
     value.textContent = formatPoints(item.score) + " / " + formatPoints(item.max) + "点（" + item.accuracy + "%）";
     head.appendChild(label);
     head.appendChild(value);
@@ -285,10 +369,13 @@
         return { key: range[0] + "-" + range[1], label: range[0] + "–" + range[1] + "問", total: values.length, done: values.filter(function (value) { return completed.has(value); }).length };
       });
     }
-    return (map.items || Array.from({ length: map.total }, function (_, index) {
+    var fieldExam = PM_FIELD_EXAMS[map.label];
+    var items = fieldExam && fieldExam.questions.length ? fieldExam.questions : (map.items || Array.from({ length: map.total }, function (_, index) {
       return { key: "問" + (index + 1), label: "問" + (index + 1) };
-    })).map(function (item) {
-      return { key: item.key, label: item.label, total: 1, done: completed.has(item.key) ? 1 : 0 };
+    }));
+    return items.map(function (item) {
+      var done = completed.has(item.key) || completed.has(item.label) ? 1 : 0;
+      return { key: item.key, label: item.label, total: 1, done: done, info: fieldExam ? fieldExam.byKey[item.key] || null : null };
     });
   }
 
@@ -300,26 +387,39 @@
       target.appendChild(el("p", "exam-map-empty", "まだ解いた問題が同期されていません。"));
       return;
     }
+    var fieldStats = {};
     maps.forEach(function (map) {
       var row = el("div", "exam-map-row");
       var head = el("div", "exam-map-head");
       var name = document.createElement("strong");
       var status = document.createElement("span");
+      var groups = mapGroups(map, kind);
+      var total = kind === "pm" ? groups.length : map.total;
       name.textContent = map.label;
-      status.textContent = (map.completed || []).length + " / " + map.total + "問 自動記録";
+      status.textContent = (map.completed || []).length + " / " + total + "問 自動記録";
       head.appendChild(name);
       head.appendChild(status);
-      var grid = el("div", "exam-map-grid");
-      mapGroups(map, kind).forEach(function (group) {
+      var grid = el("div", "exam-map-grid" + (kind === "pm" && PM_FIELDS ? " pm" : ""));
+      groups.forEach(function (group) {
         var storageKey = kind + ":" + (map.id || map.label) + ":" + group.key;
         var automatic = group.done === group.total;
         var checked = automatic || Boolean(manual[storageKey]);
-        var label = el("label", "exam-map-check" + (checked ? " done" : ""));
+        var info = group.info || null;
+        var label = el("label", "exam-map-check" + (checked ? " done" : "") + (info ? " pm" : ""));
+        if (info) {
+          if (!pmMatchesFilter(info)) label.classList.add("dim");
+          label.title = info.theme + (info.estimated ? "（分野は題名からの推定）" : "");
+          if (info.primary) {
+            var stat = fieldStats[info.primary] || (fieldStats[info.primary] = { total: 0, done: 0 });
+            stat.total += 1;
+            if (checked) stat.done += 1;
+          }
+        }
         var input = document.createElement("input");
         input.type = "checkbox";
         input.checked = checked;
         input.disabled = automatic;
-        input.setAttribute("aria-label", map.label + " " + group.label + "を解いたとして記録");
+        input.setAttribute("aria-label", map.label + " " + group.label + (info && info.title ? "「" + info.title + "」" : "") + "を解いたとして記録");
         input.addEventListener("change", function () {
           var next = sanitizeManualMap(LS.get(MAP_MANUAL_KEY, {}));
           next[storageKey] = input.checked;
@@ -327,7 +427,31 @@
           renderPastExamMaps();
         });
         var text = document.createElement("span");
-        text.textContent = checked ? "✓ " + group.label : group.label + "（" + group.done + "/" + group.total + "）";
+        if (info) {
+          text.className = "exam-map-text";
+          var q = el("span", "exam-map-q");
+          q.textContent = (checked ? "✓ " : "") + group.label;
+          text.appendChild(q);
+          if (info.primary) text.appendChild(fieldBadge(info));
+          if (info.estimated) {
+            var est = el("span", "exam-map-est");
+            est.textContent = "推定";
+            est.title = "分野は題名からの推定";
+            text.appendChild(est);
+          }
+          if (info.title) {
+            var title = el("span", "exam-map-title");
+            title.textContent = info.title;
+            text.appendChild(title);
+          }
+          if (info.keywords) {
+            var keywords = el("span", "exam-map-kw");
+            keywords.textContent = info.keywords;
+            text.appendChild(keywords);
+          }
+        } else {
+          text.textContent = checked ? "✓ " + group.label : group.label + "（" + group.done + "/" + group.total + "）";
+        }
         label.appendChild(input);
         label.appendChild(text);
         grid.appendChild(label);
@@ -336,6 +460,7 @@
       row.appendChild(grid);
       target.appendChild(row);
     });
+    if (kind === "pm") renderPmFieldFilter(fieldStats);
   }
 
   function renderPastExamMaps() {

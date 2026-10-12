@@ -31,6 +31,7 @@
   <a href="#diff">用語の違い</a>
   <a href="#plan">4週間計画</a>
   <a href="#questions">問題データ</a>
+  <a href="./sc_field_matrix.html">分野マトリクス</a>
 </div></nav>
 
 <!-- 2. 結論サマリー -->
@@ -126,6 +127,8 @@
     </div>
     <div class="card">
       <h3>午後（記述式セルフ採点）</h3>
+      <p class="muted exam-map-note">色札＝主分野、その下が公式の題名と出題キーワード。令和2年秋以前の分野は題名からの推定（「推定」付き）。分野ボタンで該当問だけを強調（数字は主分野の 解いた/全問）。</p>
+      <div id="pm-field-filter" class="exam-map-filter" role="group" aria-label="午後問題を分野で強調"></div>
       <div id="pm-exam-map" class="exam-map-list"></div>
     </div>
   </div>
@@ -1034,6 +1037,7 @@
 <script src="./assets/sc_am2_progress_data.js"></script>
 <script src="./assets/sc_focus_todo_progress_data.js"></script>
 <script src="./assets/sc_pm_progress_data.js"></script>
+<script src="./assets/sc_pm_field_data.js"></script>
 <script src="./assets/sc_anki_progress_data.js"></script>
 <script src="./assets/sc_am2_app.js"></script>
 <script src="./assets/sc_am2_quiz_data.js"></script>

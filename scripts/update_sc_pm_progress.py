@@ -26,6 +26,8 @@ PM_EXAM_IDS = [
     "25_haru", "24_aki", "24_haru", "23_aki", "23_toku", "22_aki", "22_haru", "21_aki", "21_haru",
 ]
 UNIFIED_PM_EXAMS = {"07_aki", "07_haru", "06_aki", "06_haru", "05_aki"}
+# 平成25年春期以前は午後Ⅰが4問（問1〜問4）、午後Ⅱが2問の計6問。
+LEGACY_FOUR_PM1_EXAMS = {"25_haru", "24_aki", "24_haru", "23_aki", "23_toku", "22_aki", "22_haru", "21_aki", "21_haru"}
 NUMBER_PATTERN = re.compile(r"\d+")
 
 
@@ -45,13 +47,13 @@ def exam_label(exam_id: str) -> str:
 
 
 def exam_items(exam_id: str) -> list[dict[str, str]]:
+    """Return the stable map keys (問1, 問2, ...) and display labels for one exam."""
     if exam_id in UNIFIED_PM_EXAMS:
         return [{"key": f"問{number}", "label": f"問{number}"} for number in range(1, 5)]
-    return [
-        {"key": "問1", "label": "午後Ⅰ 問1"}, {"key": "問2", "label": "午後Ⅰ 問2"},
-        {"key": "問3", "label": "午後Ⅰ 問3"}, {"key": "問4", "label": "午後Ⅱ 問1"},
-        {"key": "問5", "label": "午後Ⅱ 問2"},
-    ]
+    pm1_count = 4 if exam_id in LEGACY_FOUR_PM1_EXAMS else 3
+    items = [{"key": f"問{number}", "label": f"午後Ⅰ 問{number}"} for number in range(1, pm1_count + 1)]
+    items += [{"key": f"問{pm1_count + number}", "label": f"午後Ⅱ 問{number}"} for number in range(1, 3)]
+    return items
 
 
 def map_question_key(exam_id: str, question: str) -> str:
