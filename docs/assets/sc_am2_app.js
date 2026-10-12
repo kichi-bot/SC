@@ -389,7 +389,7 @@
     }
     var fieldStats = {};
     maps.forEach(function (map) {
-      var row = el("div", "exam-map-row");
+      var row = el("div", "exam-map-row" + (kind === "pm" && PM_FIELDS ? " pm" : ""));
       var head = el("div", "exam-map-head");
       var name = document.createElement("strong");
       var status = document.createElement("span");
@@ -781,6 +781,16 @@
   }
 
   /* ---------- ナビ・トップへ戻る・最後のセクション ---------- */
+  // 公開サイトに置いていないページ（例: 分野マトリクス）へのナビリンクは隠す。file:// では判定しない。
+  function hideMissingNavLinks() {
+    if (location.protocol !== "http:" && location.protocol !== "https:") return;
+    document.querySelectorAll(".nav a[href$='.html']").forEach(function (link) {
+      fetch(link.getAttribute("href"), { method: "HEAD" }).then(function (response) {
+        if (!response.ok) link.hidden = true;
+      }).catch(function () {});
+    });
+  }
+
   function initNav() {
     var links = document.querySelectorAll(".nav a");
     links.forEach(function (a) {
@@ -813,6 +823,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    hideMissingNavLinks();
     renderFocusProgress();
     renderAnkiProgress();
     renderPmProgress();
