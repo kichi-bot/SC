@@ -43,7 +43,7 @@ DOWNLOADS = Path(os.environ.get("USERPROFILE", str(Path.home()))) / "Downloads"
 JST = dt.timezone(dt.timedelta(hours=9))
 JW = "月火水木金土日"
 WD = {"MO": 0, "TU": 1, "WE": 2, "TH": 3, "FR": 4, "SA": 5, "SU": 6}
-ST_R = ("22:00", "23:30")  # build_schedule.py の月・木固定枠と同じ
+ST_R = ("22:00", "22:50")  # build_schedule.py の月・木固定枠の既定（events.json の st/en が優先）
 STUDY_COLORS = {"9", "10", "5", "11"}
 
 # 10_学習スケジュール §4 のゲート（判定はこのスクリプトで機械的に行う）
@@ -51,7 +51,7 @@ GATES = [
     ("2026-09-13", "採点済み累計10問", "pm_distinct", 10),
     ("2026-09-19", "Web 2問（R5秋問1・R6秋問3）とも 20% 以上", "web2", 20.0),
     ("2026-09-27", "採点済み累計13問", "pm_distinct", 13),
-    ("2026-10-11", "A-2 直近模試 17/25（68%）・採点済み累計16問", "am2_and_pm", (68.0, 16)),
+    ("2026-10-11", "A-2 直近模試 17/25（68%）・採点済み累計13問", "am2_and_pm", (68.0, 13)),
     ("2026-10-18", "A-2 模試 2回連続 17/25 以上", "am2_two", 68.0),
     ("2026-11-01", "通し① R6春 2問で40点", "mock", ("令和6年春期", 40.0)),
     ("2026-11-08", "通し② R7秋 2問で50点（前期本番の判定）", "mock", ("令和7年秋期", 50.0)),
@@ -144,7 +144,8 @@ def planned_sessions(events: dict, day0: dt.date, day1: dt.date) -> list[dict]:
         day = max(day0, first)
         while day <= min(day1, until):
             if day.weekday() in days:
-                out.append(dict(date=day, start=ST_R[0], end=ST_R[1], title=item["title"], hours=hours(*ST_R), recurring=True))
+                st, en = item.get("st", ST_R[0]), item.get("en", ST_R[1])
+                out.append(dict(date=day, start=st, end=en, title=item["title"], hours=hours(st, en), recurring=True))
             day += dt.timedelta(days=1)
     return sorted(out, key=lambda x: (x["date"], x["start"]))
 
