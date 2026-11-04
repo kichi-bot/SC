@@ -1,17 +1,17 @@
 {
- "generatedAt": "2026-10-27T23:21+09:00",
- "today": "2026-10-27",
- "weekStart": "2026-10-19",
- "weekEnd": "2026-10-25",
- "nextStart": "2026-10-26",
- "nextEnd": "2026-11-01",
+ "generatedAt": "2026-11-04T12:31+09:00",
+ "today": "2026-11-04",
+ "weekStart": "2026-10-26",
+ "weekEnd": "2026-11-01",
+ "nextStart": "2026-11-02",
+ "nextEnd": "2026-11-08",
  "summary": {
   "focus": {
-   "weekMinutes": 575,
+   "weekMinutes": 0,
    "totalMinutes": 4201,
-   "monthMinutes": 1638,
-   "capturedAt": "2026-10-27T15:00:02+09:00",
-   "previousSnapshot": "2026-10-19"
+   "monthMinutes": 0,
+   "capturedAt": "2026-11-04T09:00:02+09:00",
+   "previousSnapshot": "2026-10-27"
   },
   "pm": {
    "weekQuestions": 0,
@@ -25,86 +25,86 @@
    "source": "export"
   },
   "am2": {
-   "weekTotal": 172,
-   "weekCorrect": 139,
-   "answered": 421,
-   "correct": 274,
-   "accuracy": 65.1,
-   "recentTotal": 172,
-   "recentAccuracy": 80.8,
-   "lastStudyDate": "2026-10-25"
+   "weekTotal": 370,
+   "weekCorrect": 325,
+   "answered": 791,
+   "correct": 599,
+   "accuracy": 75.7,
+   "recentTotal": 370,
+   "recentAccuracy": 87.8,
+   "lastStudyDate": "2026-10-27"
   },
   "anki": {
-   "weekReviews": 524,
-   "weekMinutes": 279,
-   "reviews": 1930,
+   "weekReviews": 175,
+   "weekMinutes": 78,
+   "reviews": 1937,
    "totalCards": 548,
    "lastStudyDate": "2026-10-27"
   }
  },
  "planActual": [
   {
-   "date": "2026-10-19",
+   "date": "2026-10-26",
    "start": "22:00",
    "end": "22:50",
-   "title": "【SC】科目A-2 誤答演習＋Anki（1ユニット50分）",
-   "hours": 0.8333333333333334,
-   "recurring": true,
-   "status": "none",
-   "evidence": "過去問道場の記録なし"
-  },
-  {
-   "date": "2026-10-20",
-   "start": "22:00",
-   "end": "22:50",
-   "title": "【SC】科目A-2 誤答つぶし＋Anki（1ユニット50分）",
+   "title": "【SC】科目A-2 前日：Anki 総ざらい（新しい問題は解かない）",
    "hours": 0.8333333333333334,
    "recurring": false,
    "status": "none",
    "evidence": "過去問道場の記録なし"
   },
   {
-   "date": "2026-10-21",
+   "date": "2026-10-27",
    "start": "22:00",
    "end": "22:50",
-   "title": "【SC】科目A-2 Anki 総ざらい（1ユニット50分）",
+   "title": "【SC】科目A-2 受験後：出題分野メモ＋休み",
+   "hours": 0.8333333333333334,
+   "recurring": false,
+   "status": "done",
+   "evidence": "過去問道場 370問 87.8%"
+  },
+  {
+   "date": "2026-10-28",
+   "start": "22:00",
+   "end": "22:50",
+   "title": "【SC】科目B Aリスト Anki＋06 音読（1ユニット50分）",
    "hours": 0.8333333333333334,
    "recurring": false,
    "status": "none",
-   "evidence": "過去問道場の記録なし"
+   "evidence": "Anki の記録なし"
   },
   {
-   "date": "2026-10-22",
+   "date": "2026-10-29",
    "start": "22:00",
-   "end": "23:00",
-   "title": "【SC】科目A-2 25問模試（40分）＋答え合わせ（20分）",
-   "hours": 1.0,
+   "end": "22:50",
+   "title": "【SC】科目B 仕組みドリル（Aリスト Anki・06 音読・P分類の見直し）",
+   "hours": 0.8333333333333334,
    "recurring": true,
    "status": "none",
-   "evidence": "過去問道場の記録なし"
+   "evidence": "Anki の記録なし"
   },
   {
-   "date": "2026-10-24",
+   "date": "2026-10-31",
    "start": "14:00",
    "end": "16:30",
-   "title": "【SC】科目A-2 模試×2（40分×2）＋答え合わせ",
+   "title": "【SC】科目B R7春 問1 解き直し（管理・委託）解答＋採点",
    "hours": 2.5,
    "recurring": false,
    "status": "none",
-   "evidence": "過去問道場の記録なし"
+   "evidence": "採点記録なし"
   },
   {
-   "date": "2026-10-25",
-   "start": "14:00",
-   "end": "17:00",
-   "title": "【SC】科目A-2 全振り：10/24 模試の誤答つぶし＋弱点分野 誤答演習（受験2日前）",
-   "hours": 3.0,
+   "date": "2026-11-01",
+   "start": "13:30",
+   "end": "17:30",
+   "title": "【SC】『こう書く！セキスペ 第2版』序章＋第1〜3章（弱点テーマ）→ 科目B R7春 問1 解き直し（管理・委託）解答＋採点",
+   "hours": 4.0,
    "recurring": false,
-   "status": "done",
-   "evidence": "過去問道場 172問 80.8%"
+   "status": "none",
+   "evidence": "採点記録なし"
   }
  ],
- "plannedHours": 9.0,
+ "plannedHours": 9.833333333333334,
  "doneCount": 1,
  "gates": [
   {
@@ -128,17 +128,17 @@
   {
    "date": "2026-10-11",
    "label": "A-2 直近模試 17/25（68%）・採点済み累計13問",
-   "value": "A-2 直近172問 80.8% / 採点済み 15問",
+   "value": "A-2 直近370問 87.8% / 採点済み 15問",
    "status": "達成(推定)"
   },
   {
    "date": "2026-10-18",
    "label": "A-2 模試 2回連続 17/25 以上",
-   "value": "2026-10-25 80.8% / 2026-08-24 72.0%",
+   "value": "2026-10-27 87.8% / 2026-10-25 80.8%",
    "status": "達成(推定)"
   },
   {
-   "date": "2026-11-01",
+   "date": "2026-11-08",
    "label": "通し① R6春 2問で40点",
    "value": "採点記録なし",
    "status": "次のゲート"
@@ -147,35 +147,35 @@
  "freshness": [
   {
    "name": "科目B 採点（sc_pm_progress_data.js）",
-   "when": "10/20 04:02",
-   "ageDays": 7,
-   "judge": "要更新",
+   "when": "11/03 03:56",
+   "ageDays": 1,
+   "judge": "OK",
    "note": "最終採点日 2026-10-18"
   },
   {
    "name": "採点アプリ公開用集計JSON（Downloads）",
    "when": "10/18 18:26",
-   "ageDays": 9,
+   "ageDays": 16,
    "judge": "要更新",
    "note": "採点した日の最新"
   },
   {
    "name": "科目A-2 過去問道場（sc_am2_progress_data.js）",
-   "when": "10/25 15:25",
-   "ageDays": 2,
-   "judge": "OK",
-   "note": "最終学習日 2026-10-25。更新は4:00のCodex自動化（道場ログイン要）"
+   "when": "10/29 01:54",
+   "ageDays": 6,
+   "judge": "注意",
+   "note": "最終学習日 2026-10-27。更新は4:00のCodex自動化（道場ログイン要）"
   },
   {
    "name": "Focus To-Do（sc_focus_todo_progress_data.js）",
-   "when": "10/27 15:00",
+   "when": "11/04 09:00",
    "ageDays": 0,
    "judge": "OK",
    "note": "更新は4:00のCodex自動化（アプリ表示要）"
   },
   {
    "name": "Anki（sc_anki_progress_data.js）",
-   "when": "10/27 23:20",
+   "when": "11/04 12:30",
    "ageDays": 0,
    "judge": "OK",
    "note": "update_sc_anki_progress.py で更新可"
@@ -183,31 +183,7 @@
  ],
  "nextWeek": [
   {
-   "date": "2026-10-26",
-   "start": "22:00",
-   "end": "22:50",
-   "title": "【SC】科目A-2 前日：Anki 総ざらい（新しい問題は解かない）",
-   "hours": 0.8333333333333334,
-   "recurring": false
-  },
-  {
-   "date": "2026-10-27",
-   "start": "22:00",
-   "end": "22:50",
-   "title": "【SC】科目A-2 受験後：出題分野メモ＋休み",
-   "hours": 0.8333333333333334,
-   "recurring": false
-  },
-  {
-   "date": "2026-10-28",
-   "start": "22:00",
-   "end": "22:50",
-   "title": "【SC】科目B Aリスト Anki＋06 音読（1ユニット50分）",
-   "hours": 0.8333333333333334,
-   "recurring": false
-  },
-  {
-   "date": "2026-10-29",
+   "date": "2026-11-02",
    "start": "22:00",
    "end": "22:50",
    "title": "【SC】科目B 仕組みドリル（Aリスト Anki・06 音読・P分類の見直し）",
@@ -215,15 +191,39 @@
    "recurring": true
   },
   {
-   "date": "2026-10-31",
+   "date": "2026-11-03",
+   "start": "22:00",
+   "end": "22:50",
+   "title": "【SC】『こう書く！』付箋テーマの 06 転記＋R7春 問1 の講評照合・P分類（1ユニット50分）",
+   "hours": 0.8333333333333334,
+   "recurring": false
+  },
+  {
+   "date": "2026-11-04",
+   "start": "22:00",
+   "end": "22:50",
+   "title": "【SC】科目B Aリスト Anki＋06 音読（1ユニット50分）",
+   "hours": 0.8333333333333334,
+   "recurring": false
+  },
+  {
+   "date": "2026-11-05",
+   "start": "22:00",
+   "end": "22:50",
+   "title": "【SC】科目B 仕組みドリル（Aリスト Anki・06 音読・P分類の見直し）",
+   "hours": 0.8333333333333334,
+   "recurring": true
+  },
+  {
+   "date": "2026-11-07",
    "start": "14:00",
    "end": "16:30",
-   "title": "【SC】科目B R7春 問1 解き直し（管理・委託）解答＋採点",
+   "title": "【SC】科目B R5秋 問1 2回目（XSS）解答＋採点",
    "hours": 2.5,
    "recurring": false
   },
   {
-   "date": "2026-11-01",
+   "date": "2026-11-08",
    "start": "13:30",
    "end": "17:30",
    "title": "【SC】通し演習① R6春（150分・紙なし）＋自己採点",
